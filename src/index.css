@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+* {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  cursor: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 24%),
+    linear-gradient(180deg, #eff6ff 0%, #f8fbff 45%, #eef4ff 100%);
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 18%),
+    linear-gradient(180deg, #020617 0%, #08111f 45%, #07101d 100%);
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 24%),
+    linear-gradient(180deg, #eff6ff 0%, #f8fbff 45%, #eef4ff 100%);
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+@theme {
+  --color-primary: #1d4ed8;
+  --color-primary-deep: #172554;
+}

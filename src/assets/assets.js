@@ -1,0 +1,191 @@
+import {
+  FiBarChart2,
+  FiCalendar,
+  FiClock,
+  FiDatabase,
+  FiLayers,
+  FiMessageSquare,
+  FiPhoneCall,
+  FiSettings,
+  FiTarget,
+  FiZap,
+} from 'react-icons/fi'
+import logo from './3.png'
+import arrow_icon from './arrow_icon.svg'
+import group_profile from './group_profile.png'
+import bgImage1 from './bgImage1.png'
+import bgImage2 from './bgImage2.png'
+import hero_img from './hero_img.png'
+import ads_icon from './ads_icon.svg'
+import content_icon from './content_icon.svg'
+import marketing_icon from './marketing_icon.svg'
+import social_icon from './social_icon.svg'
+import menu_icon from './menu_icon.svg'
+import close_icon from './close_icon.svg'
+import work_mobile_app from './work_mobile_app.png'
+import work_fitness_app from './work_fitness_app.png'
+import work_dashboard_management from './work_dashboard_management.png'
+import email_icon from './email_icon.svg'
+import person_icon from './person_icon.svg'
+import facebook_icon from './facebook_icon.svg'
+import twitter_icon from './twitter_icon.svg'
+import instagram_icon from './instagram_icon.svg'
+import linkedin_icon from './linkedin_icon.svg'
+import logo_dark from './2.png'
+import menu_icon_dark from './menu_icon_dark.svg'
+import sun_icon from './sun_icon.svg'
+import moon_icon from './moon_icon.svg'
+
+
+export const trustedBrands = [
+  "OpenAI",
+  "Vapi",
+  "Retell AI",
+  "Twilio",
+  "Make.com",
+  "Zapier",
+  "Google Sheets",
+]
+
+export const servicesData = [
+  {
+    title: "Retell AI Voice Agents",
+    description: "Powerful, human-like voice agents powered by Retell AI. Handle inbound calls, qualify leads, and book appointments 24/7 with natural conversations.",
+    benefits: ["Retell AI powered", "Natural voice", "Lead qualification"],
+    icon: FiPhoneCall,
+  },
+  {
+    title: "Outbound Call Campaigns",
+    description: "Launch automated outbound calling campaigns with Retell AI. Reach customers at scale with personalized, natural-sounding voice interactions.",
+    benefits: ["Retell AI technology", "Personalized calls", "Campaign automation"],
+    icon: FiPhoneCall,
+  },
+  {
+    title: "Website AI Chatbots",
+    description: "Turn every website visitor into a qualified lead with smart, brand-aligned chat automation powered by advanced AI technology.",
+    benefits: ["Real-time engagement", "Intent-based routing", "Lead capture"],
+    icon: FiMessageSquare,
+  },
+  {
+    title: "Appointment Booking Systems",
+    description: "Let AI book, confirm, and reschedule appointments while reducing missed opportunities. Seamless integration with your calendar.",
+    benefits: ["Automated scheduling", "Reminder flows", "Reduced admin work"],
+    icon: FiCalendar,
+  },
+  {
+    title: "CRM & Integration Layer",
+    description: "Sync every interaction into your CRM, spreadsheets, and reporting tools without manual work. Keep all your data centralized.",
+    benefits: ["Zero manual entry", "Real-time sync", "Clear reporting"],
+    icon: FiDatabase,
+  },
+  {
+    title: "Voice Agent Customization",
+    description: "Custom-trained voice agents tailored to your exact business needs. Fine-tune conversational flows and response behaviors.",
+    benefits: ["Custom training", "Behavior tuning", "Brand voice"],
+    icon: FiSettings,
+  },
+]
+
+export const caseStudies = [
+  {
+    title: "Furniture Store",
+    industry: "Retail & Home Design",
+    summary: "AI handled showroom inquiries, answered product questions, and booked consultations automatically.",
+    metrics: ["+38% qualified leads", "2 min avg. response", "92% satisfaction"],
+  },
+  {
+    title: "Real Estate Agency",
+    industry: "Property Sales",
+    summary: "AI qualified buyer leads in real time, routed hot prospects, and scheduled viewings without delay.",
+    metrics: ["+52% lead capture", "Under 30 sec response", "89% booking rate"],
+  },
+  {
+    title: "Massage & Therapy Studio",
+    industry: "Wellness & Recovery",
+    summary: "AI managed booking requests, answered service questions, and sent instant reminders to reduce no-shows.",
+    metrics: ["+31% bookings", "1 min response time", "97% reminder delivery"],
+  },
+  {
+    title: "Landscaping Company",
+    industry: "Outdoor Services",
+    summary: "AI captured quote requests, qualified site visits, and followed up with customers 24/7.",
+    metrics: ["+44% quote requests", "Same-day follow-up", "85% lead conversion"],
+  },
+  {
+    title: "Dental Clinic",
+    industry: "Healthcare",
+    summary: "AI answered FAQs, booked visits, and followed up with patients round-the-clock.",
+    metrics: ["+27% appointments", "1 min response time", "4.8/5 satisfaction"],
+  },
+  {
+    title: "Auto Repair Shop",
+    industry: "Automotive Services",
+    summary: "AI handled booking requests, answered common repair questions, and sent service reminders automatically.",
+    metrics: ["+35% service bookings", "Under 2 min reply", "90% reminder completion"],
+  },
+]
+
+export const whyChooseUsData = [
+  {
+    title: "24/7 Availability",
+    description: "Your AI receptionist works around the clock so no lead goes unanswered.",
+    icon: FiClock,
+  },
+  {
+    title: "Human-Like Conversations",
+    description: "Natural voice and chat experiences that feel premium, clear, and trustworthy.",
+    icon: FiMessageSquare,
+  },
+  {
+    title: "Fast Deployment",
+    description: "Launch in days, not months, with a streamlined setup and onboarding process.",
+    icon: FiZap,
+  },
+  {
+    title: "Custom AI Training",
+    description: "We tailor flows, scripts, and automations to your exact business rules.",
+    icon: FiTarget,
+  },
+  {
+    title: "CRM Integration",
+    description: "Connect calls, chats, and leads directly to your CRM and reporting tools.",
+    icon: FiBarChart2,
+  },
+  {
+    title: "Scalable Automation",
+    description: "Built to grow with your team, your channels, and your customer volume.",
+    icon: FiLayers,
+  },
+]
+
+const assets = {
+  logo,
+  arrow_icon,
+  group_profile,
+  bgImage1,
+  bgImage2,
+  hero_img,
+  ads_icon,
+  content_icon,
+  marketing_icon,
+  social_icon,
+  menu_icon,
+  close_icon,
+  work_mobile_app,
+  work_fitness_app,
+  work_dashboard_management,
+  email_icon,
+  person_icon,
+  facebook_icon,
+  twitter_icon,
+  instagram_icon,
+  linkedin_icon,
+  logo_dark,
+  menu_icon_dark,
+  sun_icon,
+  moon_icon
+}
+
+export default assets
+
+export const teamData = whyChooseUsData;
