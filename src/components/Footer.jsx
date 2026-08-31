@@ -76,6 +76,11 @@ const Footer = ({ theme }) => {
               </a>
             </li>
             <li>
+              <a className="hover:text-primary" href="#faq">
+                FAQ
+              </a>
+            </li>
+            <li>
               <a className="hover:text-primary" href="#contact-us">
                 Contact Us
               </a>
@@ -94,6 +99,7 @@ const Footer = ({ theme }) => {
           <p className="mb-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Contact Information</p>
           <p className="text-sm">WhatsApp: +1 (416) 910-4547</p>
           <p className="text-sm">Email: info@faalak.com</p>
+          <p className="text-sm">Location: 50 Burnhamthorpe Rd W, Mississauga, Toronto, Canada</p>
           <a
             href="https://www.linkedin.com/company/faalak/"
             target="_blank"

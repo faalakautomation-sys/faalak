@@ -158,6 +158,41 @@ export const whyChooseUsData = [
   },
 ]
 
+export const faqData = [
+  {
+    question: "What does Faalak AI Automation actually do?",
+    answer: "We build AI voice agents, WhatsApp automation, and website chatbots that answer every call and chat, qualify leads, and book appointments for your business — 24/7, without you hiring extra staff.",
+  },
+  {
+    question: "Will my customers know they're talking to AI?",
+    answer: "Our voice agents are powered by Retell AI and trained on your business's own scripts and tone, so conversations sound natural and human-like. Most callers focus on getting their question answered, not on who's answering.",
+  },
+  {
+    question: "Does the AI actually book appointments, or just answer questions?",
+    answer: "Both. It can answer FAQs and qualify what the caller needs, then book, confirm, or reschedule appointments directly on your calendar — reducing missed opportunities without any manual back-and-forth.",
+  },
+  {
+    question: "Can it connect to my CRM and calendar?",
+    answer: "Yes. Every call, chat, and lead syncs automatically into your CRM, spreadsheets, or reporting tools in real time — no manual data entry required.",
+  },
+  {
+    question: "Do I need to replace my current phone system or website?",
+    answer: "No. The AI voice agent works alongside your existing phone number, and the chatbot embeds directly into your current website — nothing needs to be rebuilt or replaced.",
+  },
+  {
+    question: "How long does it take to get set up?",
+    answer: "Most businesses are live within days, not months. We handle the setup, script training, and integrations so you can start capturing leads quickly.",
+  },
+  {
+    question: "What kind of businesses is this built for?",
+    answer: "We work with service businesses that live or die by fast response — retail, real estate, wellness and therapy studios, home services, healthcare, and automotive, among others. If missed calls cost you leads, this is built for you.",
+  },
+  {
+    question: "Can I try it before committing?",
+    answer: "Absolutely — click \"Watch Demo\" or \"Talk to Maya\" anywhere on this page to speak with our own AI voice agent live, or book a free consultation and we'll walk you through a version built around your business.",
+  },
+];
+
 const assets = {
   logo,
   arrow_icon,

@@ -6,12 +6,32 @@ import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
+// Tab-lifetime storage on purpose: sessionStorage persists across reopening
+// the widget or reloading the page within the SAME tab, but clears the
+// moment the tab/window closes and is never shared with other tabs - unlike
+// localStorage, which would leak one visitor's details into every future
+// visit on that browser.
+const SESSION_KEY = "faalak_voice_widget_details";
+
+function readStoredDetails() {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed?.name && parsed?.phoneNumber) return parsed;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 const RetellVoiceWidget = () => {
   const clientRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(true);
   const [status, setStatus] = useState("idle");
-  const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
+  const [formData, setFormData] = useState(() => readStoredDetails() || { name: "", phoneNumber: "" });
+  const [isReturning, setIsReturning] = useState(() => Boolean(readStoredDetails()));
 
   useEffect(() => {
     const client = new RetellWebClient();
@@ -47,6 +67,34 @@ const RetellVoiceWidget = () => {
     setFormData((previous) => ({ ...previous, [name]: value }));
   };
 
+  const placeCall = async (details) => {
+    setStatus("connecting");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(details),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.accessToken) {
+        throw new Error(data.error || "Unable to create the Retell call");
+      }
+
+      // Remembered only after a real, valid submission - never on page load
+      // with empty fields - and only for this tab's lifetime.
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(details));
+      setIsReturning(true);
+
+      await clientRef.current.startCall({ accessToken: data.accessToken });
+    } catch (error) {
+      console.error("Retell voice call failed:", error);
+      setStatus("error");
+      toast.error(error.message || "Unable to start the voice agent.");
+    }
+  };
+
   const startVoiceAgent = async (event) => {
     event.preventDefault();
 
@@ -55,26 +103,18 @@ const RetellVoiceWidget = () => {
       return;
     }
 
-    setStatus("connecting");
+    await placeCall(formData);
+  };
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
+  const startReturningCall = async () => {
+    await placeCall(formData);
+  };
 
-      if (!response.ok || !data.accessToken) {
-        throw new Error(data.error || "Unable to create the Retell call");
-      }
-
-      await clientRef.current.startCall({ accessToken: data.accessToken });
-    } catch (error) {
-      console.error("Retell voice call failed:", error);
-      setStatus("error");
-      toast.error(error.message || "Unable to start the voice agent.");
-    }
+  const useDifferentDetails = () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    setIsReturning(false);
+    setFormData({ name: "", phoneNumber: "" });
+    setStatus("idle");
   };
 
   const stopVoiceAgent = () => {
@@ -148,7 +188,11 @@ const RetellVoiceWidget = () => {
                   <FiMic className="h-5 w-5" />
                 </div>
               </div>
-              <p className="relative mt-4 text-sm leading-6 text-slate-500">Share your details first, then speak directly with our AI voice assistant.</p>
+              <p className="relative mt-4 text-sm leading-6 text-slate-500">
+                {isReturning && !isCalling
+                  ? "Good to see you again — you're all set to call."
+                  : "Share your details first, then speak directly with our AI voice assistant."}
+              </p>
             </div>
 
             {status === "active" ? (
@@ -160,6 +204,26 @@ const RetellVoiceWidget = () => {
                 <p className="mt-2 text-sm text-slate-500">Maya is listening. You can start speaking.</p>
                 <button type="button" onClick={stopVoiceAgent} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-rose-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-400">
                   <FiPhoneOff className="h-4 w-4" /> End call
+                </button>
+              </div>
+            ) : isReturning ? (
+              <div className="bg-slate-50 px-6 py-6">
+                <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400">Calling as</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">{formData.name}</p>
+                  <p className="text-sm text-slate-500">{formData.phoneNumber}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={startReturningCall}
+                  disabled={isCalling}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#075bd8] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#064fbd] disabled:cursor-wait disabled:opacity-70"
+                >
+                  {status === "connecting" ? "Connecting..." : <><FiMic className="h-4 w-4" /> Start voice call</>}
+                </button>
+                {status === "error" && <p className="mt-3 text-center text-xs text-rose-600">Connection failed. Please try again.</p>}
+                <button type="button" onClick={useDifferentDetails} className="mt-4 block w-full text-center text-xs text-slate-400 transition hover:text-slate-700">
+                  Not you? Use different details
                 </button>
               </div>
             ) : (

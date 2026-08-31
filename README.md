@@ -124,7 +124,7 @@ A: Port 5173 is in use. Vite will automatically use the next available port.
 A: Check theme toggle button in top-right corner
 
 **Q: Chatbot messages not saving?**
-A: Ensure backend is running and Supabase is configured
+A: Ensure backend is running and MongoDB is configured
 
 ## Development Tips
 
@@ -145,10 +145,9 @@ A: Ensure backend is running and Supabase is configured
 For issues:
 1. Check browser console (F12) for error messages
 2. Verify backend is running
-3. Check that Supabase credentials are correct
+3. Check that MongoDB is running and reachable
 4. See main project documentation
 
 ## Related Projects
 
-- **Faalak-Backend** - Express API server
-- **SUPABASE_SETUP.sql** - Database schema
+- **Faalak-Backend** - Express API server (MongoDB via Mongoose)
