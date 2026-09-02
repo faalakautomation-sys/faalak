@@ -46,3 +46,14 @@ html[data-theme="light"] body {
   --color-primary: #1d4ed8;
   --color-primary-deep: #172554;
 }
+
+/* Hides the scrollbar on horizontally-scrollable rows (TrustedBy logo strip)
+   while keeping the element scrollable via touch/drag/trackpad. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

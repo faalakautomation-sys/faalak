@@ -43,7 +43,7 @@ const Footer = ({ theme }) => {
           <img
             src={theme === "dark" ? assets.logo_dark : assets.logo}
             alt="logo"
-            className="h-10 w-auto object-contain sm:h-12"
+            className="h-20 w-auto object-contain sm:h-13"
           />
           <p className="max-w-md">
             Faalak AI Automation helps ambitious businesses automate conversations, capture more leads, and turn every inquiry into a booked call.

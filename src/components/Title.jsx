@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-const Title = ({ title, desc }) => {
+const Title = ({ title, desc, compact = false }) => {
   return (
     <>
       <motion.h2
@@ -8,7 +8,7 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-3xl sm:text-5xl font-medium"
+        className={compact ? "text-2xl sm:text-3xl font-medium" : "text-3xl sm:text-5xl font-medium"}
       >
         {title}
       </motion.h2>
@@ -17,7 +17,11 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
-        className="max-w-lg text-center text-gray-500 dark:text-white/75 mb-6"
+        className={
+          compact
+            ? "max-w-md text-center text-sm text-gray-500 dark:text-white/75 mb-3"
+            : "max-w-lg text-center text-gray-500 dark:text-white/75 mb-6"
+        }
       >
         {desc}
       </motion.p>

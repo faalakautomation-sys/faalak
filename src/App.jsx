@@ -5,8 +5,10 @@ import Hero from "./components/Hero";
 import TrustedBy from "./components/TrustedBy";
 import Services from "./components/Services";
 import OurWork from "./components/OurWork";
-import Teams from "./components/Teams";
+import WhyChooseUs from "./components/WhyChooseUs";
 import FAQ from "./components/FAQ";
+import Testimonials from "./components/Testimonials";
+import OurTeam from "./components/OurTeam";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
@@ -80,8 +82,10 @@ const App = () => {
       <TrustedBy />
       <Services />
       <OurWork />
-      <Teams />
       <FAQ />
+      <WhyChooseUs />
+      <Testimonials />
+      <OurTeam />
       <Footer theme={theme} />
       <RetellVoiceWidget />
 

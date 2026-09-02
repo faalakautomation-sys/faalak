@@ -13,9 +13,8 @@ import {
 import logo from './3.png'
 import arrow_icon from './arrow_icon.svg'
 import group_profile from './group_profile.png'
-import bgImage1 from './bgImage1.png'
 import bgImage2 from './bgImage2.png'
-import hero_img from './hero_img.png'
+import hero_cover from './bg-image.png'
 import ads_icon from './ads_icon.svg'
 import content_icon from './content_icon.svg'
 import marketing_icon from './marketing_icon.svg'
@@ -193,13 +192,51 @@ export const faqData = [
   },
 ];
 
+export const testimonialsData = [
+  {
+    name: "Sarah M.",
+    role: "Owner, Bright Smile Dental",
+    quote:
+      "We used to lose calls every time we were mid-appointment. Now the AI answers instantly, books the slot, and it's already on our calendar before the patient even hangs up.",
+    rating: 5,
+  },
+  {
+    name: "James R.",
+    role: "Founder, Apex Home Services",
+    quote:
+      "Faalak's voice agent sounds so natural our customers don't realize it's AI until we tell them. Missed calls dropped to almost zero in the first month.",
+    rating: 5,
+  },
+  {
+    name: "Priya K.",
+    role: "Manager, Real Estate Group",
+    quote:
+      "Leads get qualified and synced to our CRM automatically now. Our team only talks to people who are actually ready to move forward — huge time saver.",
+    rating: 5,
+  },
+  {
+    name: "Daniel O.",
+    role: "Owner, Wellness & Therapy Studio",
+    quote:
+      "Setup took a few days, not months like we expected. The WhatsApp automation alone has probably paid for itself twice over already.",
+    rating: 4,
+  },
+];
+
+// Placeholder roster - swap in real names, titles, and headshots when ready.
+export const teamData = [
+  { name: "Asiya .J", role: "Founder & CEO" },
+  { name: "Nofil .I", role: "Head of AI Engineering" },
+  { name: "Barrister Bahadur Bukhari", role: "Business Lawyer and Legal Advisor" },
+  { name: "Madiha", role: "Content Creative Designer" },
+];
+
 const assets = {
   logo,
   arrow_icon,
   group_profile,
-  bgImage1,
   bgImage2,
-  hero_img,
+  hero_cover,
   ads_icon,
   content_icon,
   marketing_icon,
@@ -222,5 +259,3 @@ const assets = {
 }
 
 export default assets
-
-export const teamData = whyChooseUsData;
