@@ -86,6 +86,7 @@ const App = () => {
       <Testimonials />
       <OurTeam />
       <FAQ />
+      
       <Footer theme={theme} />
       <RetellVoiceWidget />
 
