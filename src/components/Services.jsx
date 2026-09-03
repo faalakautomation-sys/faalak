@@ -29,10 +29,10 @@ const Services = () => {
       <div className="relative w-full max-w-6xl">
         <div
           ref={ref}
-          className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-2 xl:grid-cols-3"
+          className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-stretch gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-2 xl:grid-cols-3"
         >
           {servicesData.map((service, index) => (
-            <div key={index} className="w-[82%] shrink-0 snap-center sm:w-auto sm:shrink">
+            <div key={index} className="h-full w-[82%] shrink-0 snap-center sm:w-auto sm:shrink">
               <ServiceCard service={service} index={index} />
             </div>
           ))}

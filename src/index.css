@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Space+Grotesk:wght@500..700&display=swap");
 
 @import "tailwindcss";
 
@@ -45,6 +45,9 @@ html[data-theme="light"] body {
 @theme {
   --color-primary: #1d4ed8;
   --color-primary-deep: #172554;
+  /* Distinct display face for the hero brand text - separate from Manrope
+     (the body font) so it stands out as a headline, not just bigger body text. */
+  --font-display: "Space Grotesk", sans-serif;
 }
 
 /* Hides the scrollbar on horizontally-scrollable rows (TrustedBy logo strip)

@@ -82,10 +82,10 @@ const App = () => {
       <TrustedBy />
       <Services />
       <OurWork />
-      <FAQ />
       <WhyChooseUs />
       <Testimonials />
       <OurTeam />
+      <FAQ />
       <Footer theme={theme} />
       <RetellVoiceWidget />
 
