@@ -279,7 +279,7 @@ export const testimonialsData = [
 
 export const teamData = [
   {
-    name: "Mrs. Asiya Jailani",
+    name: "Ms. Asiya Jailani",
     role: "Founder & CEO",
     icon: FaCrown,
     bio: "Sets the vision for Faalak and leads the team building AI voice agents and automation for growing businesses.",

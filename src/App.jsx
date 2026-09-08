@@ -10,6 +10,7 @@ import WorkIndex from "./pages/WorkIndex";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import NotFound from "./pages/NotFound";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
+import LoadingScreen from "./components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
 
   return (
     <div className="relative bg-transparent text-gray-900">
+      <LoadingScreen />
       <Toaster />
       <ScrollToHash />
       <Navbar />
