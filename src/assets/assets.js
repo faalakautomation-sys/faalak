@@ -303,7 +303,7 @@ export const teamData = [
     bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },
   {
-    name: "Mr.John Markie",
+    name: "Mr. John Markie",
     role: "SEO Expert & Marketing Specialist",
     icon: FiTrendingUp,
     bio: "Drives organic growth and campaign strategy so Faalak's automation reaches the businesses that need it most.",
