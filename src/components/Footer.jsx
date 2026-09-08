@@ -1,10 +1,12 @@
 import assets from "../assets/assets";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { subscribeToNewsletter } from "../api/client";
+import { servicesMenu, industriesMenu } from "../data/menuData";
 
-const Footer = ({ theme }) => {
+const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,10 +31,10 @@ const Footer = ({ theme }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="bg-slate-50 dark:bg-gray-900 pt-10 sm:pt-10 mt-20 sm:mt-40 px-4 sm:px-10 lg:px-24 xl:px-40"
+      className="bg-slate-50 dark:bg-gray-900 pt-10 sm:pt-10 px-4 sm:px-10 lg:px-24 xl:px-40"
     >
       {/* footer top */}
-      <div className="flex justify-between lg:items-center max-lg:flex-col gap-10">
+      <div className="flex flex-wrap justify-between gap-10 lg:items-start">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -41,7 +43,7 @@ const Footer = ({ theme }) => {
           className="space-y-5 text-sm text-gray-700 dark:text-gray-400"
         >
           <img
-            src={theme === "dark" ? assets.logo_dark : assets.logo}
+            src={assets.logo}
             alt="logo"
             className="h-20 w-auto object-contain sm:h-13"
           />
@@ -56,36 +58,69 @@ const Footer = ({ theme }) => {
           </ul>
           <ul className="flex flex-wrap gap-8">
             <li>
-              <a className="hover:text-primary" href="#hero">
+              <Link className="hover:text-primary" to="/#hero">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-primary" href="#services">
+              <Link className="hover:text-primary" to="/#services">
                 Services
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-primary" href="#our-work">
+              <Link className="hover:text-primary" to="/#our-work">
                 Case Studies
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-primary" href="#about">
+              <Link className="hover:text-primary" to="/#about">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-primary" href="#faq">
+              <Link className="hover:text-primary" to="/#faq">
                 FAQ
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-primary" href="#contact-us">
+              <Link className="hover:text-primary" to="/#contact-us">
                 Contact Us
-              </a>
+              </Link>
             </li>
           </ul>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 gap-8 text-sm text-gray-600 dark:text-gray-400 sm:grid-cols-2"
+        >
+          <div>
+            <p className="mb-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Services</p>
+            <ul className="space-y-2">
+              {servicesMenu.map((item) => (
+                <li key={item.slug}>
+                  <Link className="hover:text-primary" to={`/services/${item.slug}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="mb-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Industries</p>
+            <ul className="space-y-2">
+              {industriesMenu.map((item) => (
+                <li key={item.slug}>
+                  <Link className="hover:text-primary" to={`/industries/${item.slug}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
 
         <motion.div

@@ -13,8 +13,10 @@ const WhyChooseUs = () => {
       whileInView="visible"
       viewport={{ once: true }}
       id="about"
-      className="flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-800 dark:text-white"
+      className="relative flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-800 dark:text-white"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 rounded-full bg-gradient-to-r from-indigo-500/10 via-violet-400/10 to-blue-400/10 blur-3xl" />
+
       <Title
         title="Why Choose Us"
         desc="We combine human-like conversations, fast deployment, and CRM-ready automation to help your business convert more leads with less manual effort."

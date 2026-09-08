@@ -15,15 +15,19 @@ import {
 } from 'react-icons/fi'
 import { FaBalanceScale, FaCrown } from 'react-icons/fa'
 import logo from './3.png'
+import logo_dark from './2.png'
 import arrow_icon from './arrow_icon.svg'
 import group_profile from './group_profile.png'
 import bgImage2 from './bgImage2.png'
-import hero_cover from './bg-image.png'
+import hero_video from './3D animated.mp4'
+import heroCoverImage from './bg-image.png'
+import liveDemoImage from './teaser-livedemo.png'
 import ads_icon from './ads_icon.svg'
 import content_icon from './content_icon.svg'
 import marketing_icon from './marketing_icon.svg'
 import social_icon from './social_icon.svg'
 import menu_icon from './menu_icon.svg'
+import menu_icon_dark from './menu_icon_dark.svg'
 import close_icon from './close_icon.svg'
 import work_mobile_app from './work_mobile_app.png'
 import work_fitness_app from './work_fitness_app.png'
@@ -34,10 +38,6 @@ import facebook_icon from './facebook_icon.svg'
 import twitter_icon from './twitter_icon.svg'
 import instagram_icon from './instagram_icon.svg'
 import linkedin_icon from './linkedin_icon.svg'
-import logo_dark from './2.png'
-import menu_icon_dark from './menu_icon_dark.svg'
-import sun_icon from './sun_icon.svg'
-import moon_icon from './moon_icon.svg'
 
 
 export const trustedBrands = [
@@ -97,39 +97,57 @@ export const servicesData = [
 
 export const caseStudies = [
   {
+    slug: "furniture-store",
     title: "Furniture Store",
     industry: "Retail & Home Design",
     summary: "AI handled showroom inquiries, answered product questions, and booked consultations automatically.",
+    challenge: "A steady stream of website and phone inquiries about stock, pricing, and custom orders was pulling showroom staff away from customers physically in-store.",
+    solution: "Faalak deployed a voice agent and website chatbot trained on the store's full catalog, so common questions were answered instantly and only genuine consultation requests reached staff.",
     metrics: ["+38% qualified leads", "2 min avg. response", "92% satisfaction"],
   },
   {
+    slug: "real-estate-agency",
     title: "Real Estate Agency",
     industry: "Property Sales",
     summary: "AI qualified buyer leads in real time, routed hot prospects, and scheduled viewings without delay.",
+    challenge: "Listing inquiries were going cold before agents could call back, especially outside office hours when competing agencies were still responding.",
+    solution: "An AI voice agent now answers every inquiry instantly, qualifies budget and timeline, and books viewings directly onto agent calendars around the clock.",
     metrics: ["+52% lead capture", "Under 30 sec response", "89% booking rate"],
   },
   {
+    slug: "massage-therapy-studio",
     title: "Massage & Therapy Studio",
     industry: "Wellness & Recovery",
     summary: "AI managed booking requests, answered service questions, and sent instant reminders to reduce no-shows.",
+    challenge: "Front-desk staff were spending significant time on the phone taking bookings and reminder calls instead of focusing on clients in the studio.",
+    solution: "Faalak's voice and WhatsApp automation now handles bookings, service questions, and automated reminders, freeing staff to focus on in-person care.",
     metrics: ["+31% bookings", "1 min response time", "97% reminder delivery"],
   },
   {
+    slug: "landscaping-company",
     title: "Landscaping Company",
     industry: "Outdoor Services",
     summary: "AI captured quote requests, qualified site visits, and followed up with customers 24/7.",
+    challenge: "Quote requests coming in evenings and weekends often went unanswered until the next business day, losing ground to faster-responding competitors.",
+    solution: "An always-on AI voice agent now captures every quote request immediately, qualifies the job scope, and follows up automatically until a site visit is booked.",
     metrics: ["+44% quote requests", "Same-day follow-up", "85% lead conversion"],
   },
   {
+    slug: "dental-clinic",
     title: "Dental Clinic",
     industry: "Healthcare",
     summary: "AI answered FAQs, booked visits, and followed up with patients round-the-clock.",
+    challenge: "Patients calling outside clinic hours were routed to voicemail, and follow-up on missed appointments was inconsistent.",
+    solution: "Faalak's AI receptionist now answers FAQs, books and confirms visits 24/7, and automatically follows up with patients who miss an appointment.",
     metrics: ["+27% appointments", "1 min response time", "4.8/5 satisfaction"],
   },
   {
+    slug: "auto-repair-shop",
     title: "Auto Repair Shop",
     industry: "Automotive Services",
     summary: "AI handled booking requests, answered common repair questions, and sent service reminders automatically.",
+    challenge: "Technicians were regularly interrupted to answer phone questions about repair status and availability, slowing down work in the bay.",
+    solution: "An AI voice agent now handles booking requests and common repair questions directly, and sends automated service reminders, letting technicians stay focused on the vehicles in front of them.",
     metrics: ["+35% service bookings", "Under 2 min reply", "90% reminder completion"],
   },
 ]
@@ -175,36 +193,52 @@ export const whyChooseUsData = [
 
 export const faqData = [
   {
-    question: "What does Faalak AI Automation actually do?",
-    answer: "We build AI voice agents, WhatsApp automation, and website chatbots that answer every call and chat, qualify leads, and book appointments for your business — 24/7, without you hiring extra staff.",
+    question: "What does Faalak AI Automation do?",
+    answer: "We build AI voice agents, WhatsApp automation, and website chatbots that answer every call and chat, qualify leads, and book appointments for your business, 24/7, without requiring additional staff.",
   },
   {
-    question: "Will my customers know they're talking to AI?",
-    answer: "Our voice agents are powered by Retell AI and trained on your business's own scripts and tone, so conversations sound natural and human-like. Most callers focus on getting their question answered, not on who's answering.",
+    question: "How quickly can I launch an AI voice agent?",
+    answer: "Most clients are live within days. We manage the setup, script training, telephony, and integrations, meaning you do not need an internal engineering team.",
   },
   {
-    question: "Does the AI actually book appointments, or just answer questions?",
-    answer: "Both. It can answer FAQs and qualify what the caller needs, then book, confirm, or reschedule appointments directly on your calendar — reducing missed opportunities without any manual back-and-forth.",
+    question: "Will my customers know they are speaking with AI?",
+    answer: "Our voice agents are powered by Retell AI and trained on your business's own scripts and tone, resulting in natural, humanlike conversations with no robotic press one menus. Most callers focus on getting their question answered, not on who is answering.",
   },
   {
-    question: "Can it connect to my CRM and calendar?",
-    answer: "Yes. Every call, chat, and lead syncs automatically into your CRM, spreadsheets, or reporting tools in real time — no manual data entry required.",
+    question: "Which languages can the agent speak?",
+    answer: "The agent can be configured to converse in multiple languages and accents, allowing you to serve callers in the language they are most comfortable with.",
+  },
+  {
+    question: "Does it integrate with my calendar and CRM?",
+    answer: "Yes. Every call, chat, and lead syncs directly into your calendar, CRM, spreadsheets, or reporting tools in real time, with no manual data entry required.",
   },
   {
     question: "Do I need to replace my current phone system or website?",
-    answer: "No. The AI voice agent works alongside your existing phone number, and the chatbot embeds directly into your current website — nothing needs to be rebuilt or replaced.",
+    answer: "No. The AI voice agent works alongside your existing phone number, and the chatbot embeds directly into your current website. Nothing needs to be rebuilt or replaced.",
   },
   {
-    question: "How long does it take to get set up?",
-    answer: "Most businesses are live within days, not months. We handle the setup, script training, and integrations so you can start capturing leads quickly.",
+    question: "Is my data secure?",
+    answer: "Yes. We take data security and privacy seriously, and our infrastructure can be tailored to meet the requirements of regulated industries such as healthcare, finance, and insurance.",
+  },
+  {
+    question: "What happens if the agent cannot handle a call?",
+    answer: "It hands the caller off to a member of your team at the right moment, or takes a detailed message and follows up. No caller is left without a response.",
+  },
+  {
+    question: "Can it make outbound calls as well?",
+    answer: "Yes. Our agents handle both inbound and outbound calling, including follow up calls, reminders, and lead qualification.",
   },
   {
     question: "What kind of businesses is this built for?",
-    answer: "We work with service businesses that live or die by fast response — retail, real estate, wellness and therapy studios, home services, healthcare, and automotive, among others. If missed calls cost you leads, this is built for you.",
+    answer: "We work with service businesses that depend on a fast response, including retail, real estate, wellness and therapy studios, home services, healthcare, and automotive, among others. If missed calls cost you leads, this is built for you.",
+  },
+  {
+    question: "How is pricing structured?",
+    answer: "Pricing depends on your call volume and use case. Contact us and our team will walk you through a plan suited to your business.",
   },
   {
     question: "Can I try it before committing?",
-    answer: "Absolutely — click \"Watch Demo\" or \"Talk to Maya\" anywhere on this page to speak with our own AI voice agent live, or book a free consultation and we'll walk you through a version built around your business.",
+    answer: "Yes. Select \"Watch Demo\" or \"Talk to Maya\" anywhere on this page to experience our AI voice agent firsthand, or book a free consultation and we will build a version tailored to your business.",
   },
 ];
 
@@ -245,31 +279,31 @@ export const testimonialsData = [
 
 export const teamData = [
   {
-    name: "Asiya .J",
+    name: "Mrs. Asiya Jailani",
     role: "Founder & CEO",
     icon: FaCrown,
     bio: "Sets the vision for Faalak and leads the team building AI voice agents and automation for growing businesses.",
   },
   {
-    name: "Nofil .I",
+    name: "Mr. Nofil Imran",
     role: "Head of AI Engineering",
     icon: FiCpu,
     bio: "Designs and ships the voice agent, chatbot, and automation systems that power every Faalak deployment.",
   },
   {
-    name: "Barrister Bahadur Bukhari",
-    role: "Business Lawyer and Legal Advisor",
+    name: "Barrister Bahadur Ali Bokhari",
+    role: "Legal Advisor",
     icon: FaBalanceScale,
     bio: "Advises on contracts, compliance, and legal structure so Faalak and its clients operate on solid ground.",
   },
   {
-    name: "Madiha",
+    name: "Mr. David William",
     role: "Content Creative Designer",
     icon: FiPenTool,
     bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },
   {
-    name: "Pritam",
+    name: "Mr.John Markie",
     role: "SEO Expert & Marketing Specialist",
     icon: FiTrendingUp,
     bio: "Drives organic growth and campaign strategy so Faalak's automation reaches the businesses that need it most.",
@@ -278,15 +312,19 @@ export const teamData = [
 
 const assets = {
   logo,
+  logo_dark,
   arrow_icon,
   group_profile,
   bgImage2,
-  hero_cover,
+  hero_video,
+  heroCoverImage,
+  liveDemoImage,
   ads_icon,
   content_icon,
   marketing_icon,
   social_icon,
   menu_icon,
+  menu_icon_dark,
   close_icon,
   work_mobile_app,
   work_fitness_app,
@@ -297,10 +335,6 @@ const assets = {
   twitter_icon,
   instagram_icon,
   linkedin_icon,
-  logo_dark,
-  menu_icon_dark,
-  sun_icon,
-  moon_icon
 }
 
 export default assets

@@ -52,8 +52,10 @@ const Testimonials = () => {
       whileInView="visible"
       viewport={{ once: true }}
       id="testimonials"
-      className="flex flex-col items-center gap-7 px-4 pt-20 sm:px-12 lg:px-24 xl:px-40 text-gray-800 dark:text-white"
+      className="relative flex flex-col items-center gap-7 px-4 pt-20 sm:px-12 lg:px-24 xl:px-40 text-gray-800 dark:text-white"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-4 -z-10 h-64 rounded-full bg-gradient-to-r from-cyan-400/10 via-teal-400/10 to-sky-400/10 blur-3xl" />
+
       <Title
         title="What Our Clients Say"
         desc="Real businesses using Faalak AI voice agents and automation to stop losing leads."

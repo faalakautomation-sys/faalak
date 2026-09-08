@@ -1,34 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Routes, Route } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import TrustedBy from "./components/TrustedBy";
-import Services from "./components/Services";
-import OurWork from "./components/OurWork";
-import WhyChooseUs from "./components/WhyChooseUs";
-import FAQ from "./components/FAQ";
-import Testimonials from "./components/Testimonials";
-import OurTeam from "./components/OurTeam";
+import Footer from "./components/Footer";
+import ScrollToHash from "./components/ScrollToHash";
+import Home from "./pages/Home";
+import CategoryDetail from "./pages/CategoryDetail";
+import WorkIndex from "./pages/WorkIndex";
+import CaseStudyDetail from "./pages/CaseStudyDetail";
+import NotFound from "./pages/NotFound";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
 import { Toaster } from "react-hot-toast";
-import Footer from "./components/Footer";
-
 
 const App = () => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "light";
-
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || savedTheme === "light") {
-      return savedTheme;
-    }
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
-
   const dotRef = useRef(null);
   const outlineRef = useRef(null);
 
@@ -36,12 +20,17 @@ const App = () => {
   const mouse = useRef({ x: 0, y: 0 });
   const position = useRef({ x: 0, y: 0 });
 
+  // Light theme only - no toggle, no system-preference detection, no stored
+  // preference. Runs once on mount instead of per-render since it never
+  // changes. The FAQ section stays on its own permanently-dark styling
+  // regardless of this (it never uses `dark:` classes), so it is unaffected
+  // either way.
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.documentElement.style.colorScheme = theme;
+    document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.style.colorScheme = "light";
     document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    localStorage.removeItem("theme");
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -75,19 +64,21 @@ const App = () => {
   }, []);
 
   return (
-    <div className="relative bg-transparent text-gray-900 dark:bg-black dark:text-white">
+    <div className="relative bg-transparent text-gray-900">
       <Toaster />
-      <Navbar theme={theme} setTheme={setTheme} />
-      <Hero />
-      <TrustedBy />
-      <Services />
-      <OurWork />
-      <WhyChooseUs />
-      <Testimonials />
-      <OurTeam />
-      <FAQ />
-      
-      <Footer theme={theme} />
+      <ScrollToHash />
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services/:slug" element={<CategoryDetail kind="service" />} />
+        <Route path="/industries/:slug" element={<CategoryDetail kind="industry" />} />
+        <Route path="/work" element={<WorkIndex />} />
+        <Route path="/work/:slug" element={<CaseStudyDetail />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <Footer />
       <RetellVoiceWidget />
 
       <a
@@ -95,7 +86,7 @@ const App = () => {
         target="_blank"
         rel="noreferrer"
         aria-label="Chat with Faalak on WhatsApp"
-        className="fixed bottom-6 left-6 z-9997 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_12px_35px_rgba(37,211,102,0.35)] ring-4 ring-white/70 transition hover:scale-105 hover:bg-[#20bd5a] dark:ring-slate-950"
+        className="fixed bottom-6 left-6 z-9997 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_12px_35px_rgba(37,211,102,0.35)] ring-4 ring-white/70 transition hover:scale-105 hover:bg-[#20bd5a]"
       >
         <FaWhatsapp className="h-7 w-7" />
       </a>

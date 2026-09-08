@@ -78,8 +78,10 @@ const OurTeam = () => {
       whileInView="visible"
       viewport={{ once: true }}
       id="team"
-      className="flex flex-col items-center gap-7 px-4 pt-20 sm:px-12 lg:px-24 xl:px-40 text-gray-800 dark:text-white"
+      className="relative flex flex-col items-center gap-7 px-4 pt-20 pb-16 sm:px-12 sm:pb-20 lg:px-24 xl:px-40 text-gray-800 dark:text-white"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-4 -z-10 h-64 rounded-full bg-gradient-to-r from-blue-500/10 via-indigo-400/10 to-purple-400/10 blur-3xl" />
+
       <Title
         title="Our Team"
         desc="The people behind Faalak's AI voice agents and automation — building, deploying, and supporting your systems end to end."

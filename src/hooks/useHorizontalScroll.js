@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// Powers every horizontally-scrollable row on the site (TrustedBy logos,
-// Hero's button/badge rows, Services, OurWork, WhyChooseUs, Testimonials,
-// OurTeam). Tracks whether there's more content to either side so the arrow
+// Powers every horizontally-scrollable row on the site (Hero's button/badge
+// rows, Services, OurWork, WhyChooseUs, Testimonials, OurTeam). Tracks whether there's more content to either side so the arrow
 // buttons only show when they'd actually do something, and steps the scroll
 // "little by little" (one card-width-ish increment) per click rather than
 // jumping straight to the end.

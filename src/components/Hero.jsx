@@ -24,199 +24,140 @@ const Hero = () => {
   return (
     <div
       id="hero"
-      className="relative flex flex-col overflow-hidden px-4 py-16 text-gray-700 sm:px-12 sm:py-20 lg:px-24 xl:px-40 dark:text-white"
+      style={{ paddingTop: "calc(var(--navbar-h) + clamp(1rem, 4vw, 3rem))" }}
+      className="relative flex flex-col overflow-hidden px-4 pb-28 sm:px-12 sm:pb-36 lg:px-24 xl:px-40"
     >
-      {/* Creative animated background - layered, slowly drifting gradient blobs
-          behind everything, plus a faint dot grid for depth. */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-gradient-to-br from-[#075bd8]/25 via-[#3b82f6]/15 to-transparent blur-3xl dark:from-[#075bd8]/30"
-        />
-        <motion.div
-          animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-24 top-10 h-[380px] w-[380px] rounded-full bg-gradient-to-br from-[#9b7cff]/25 via-[#ff4b9b]/15 to-transparent blur-3xl"
-        />
-        <motion.div
-          animate={{ x: [0, 25, 0], y: [0, 20, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 left-1/3 h-[320px] w-[320px] rounded-full bg-gradient-to-br from-[#24d5ff]/20 via-[#075bd8]/10 to-transparent blur-3xl"
-        />
-        <div
-          className="absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(100,116,139,0.35) 1px, transparent 1px)",
-            backgroundSize: "26px 26px",
-            maskImage: "radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%)",
-          }}
-        />
-      </div>
+      {/* Full-bleed background video - replaces the old static AI-receptionist
+          photo. muted+playsInline+autoPlay is required for autoplay to be
+          allowed on mobile browsers (iOS Safari in particular refuses
+          autoplay with sound or without playsInline). */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
+      >
+        <source src={assets.hero_video} type="video/mp4" />
+      </video>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-10">
-        {/* Left column: brand text + CTAs.
-            min-w-0 + w-full on the text children matter here: a column flex
-            container with items-center (align-items: center) makes children
-            shrink-wrap to their own unconstrained content width instead of
-            the container width - long text then never gets a width to wrap
-            against and runs off-screen, silently clipped by #hero's own
-            overflow-hidden (looked like "cut off" text, not a scrollbar). */}
-        <div className="flex w-full min-w-0 flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-          <motion.h1
-            initial={{ opacity: 0, y: -14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="font-display w-full max-w-xl text-3xl font-bold leading-[1.1] tracking-tight text-[#075bd8] sm:text-5xl md:text-6xl dark:text-[#5b9dff]"
-          >
-            Faalak AI Agency
-          </motion.h1>
+      {/* Dark scrim over the video so white text stays readable regardless of
+          what's playing underneath it. */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            viewport={{ once: true }}
-            className="font-display w-full max-w-xl text-lg font-bold leading-snug text-gray-800 sm:text-xl md:text-2xl lg:text-3xl dark:text-white"
-          >
-            We build intelligent voice agents and automated chatbots that speak like humans and scale like software.
-          </motion.p>
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-4 text-center text-white sm:mr-auto sm:ml-0 sm:items-start sm:text-left">
+        <motion.h1
+          initial={{ opacity: 0, y: -14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="font-elite w-full max-w-lg text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl"
+        >
+          Faalak AI Agenc<span className="text-blue-400" style={
+            {
+              fontWeight: 700
+            }
+          }>y</span>
+        </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24 }}
-            viewport={{ once: true }}
-            className="w-full max-w-2xl text-sm font-medium text-gray-500 sm:text-base dark:text-white/70"
-          >
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.12 }}
+          viewport={{ once: true }}
+          className="font-display w-full max-w-xl text-base font-bold leading-snug text-white sm:text-lg md:text-xl lg:text-2xl"
+        >
+          We build intelligent voice agents and automated chatbots that speak like humans and scale like software.
+        </motion.p>
+
+        {/* The signature tagline - flat (no tilt), boxed in a simple rounded
+            rectangle so it reads as a defined badge/callout rather than
+            free-floating text. */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.24, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="w-full max-w-md rounded-2xl border border-white/30 bg-white/5 px-4 py-3 backdrop-blur-sm"
+        >
+          <p className="font-display text-base font-semibold leading-snug tracking-tight text-white-400 sm:text-lg">
             &ldquo;Never Miss A Call, Never Miss A Lead.&rdquo;
-          </motion.p>
+          </p>
+        </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.36 }}
+          viewport={{ once: true }}
+          className="mt-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 p-1 pr-3 backdrop-blur-sm"
+        >
+          <img className="w-16" src={assets.group_profile} alt="group-profile" />
+          <p className="text-[11px] font-medium">Trusted by 10k+ people</p>
+        </motion.div>
+
+        <div className="relative w-full sm:w-auto">
           <motion.div
+            ref={buttonsScroll.ref}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.36 }}
+            transition={{ duration: 0.5, delay: 0.48 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-300 p-1.5 pr-4 dark:border-gray-700"
+            className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
           >
-            <img className="w-20" src={assets.group_profile} alt="group-profile" />
-            <p className="text-xs font-medium">Trusted by 10k+ people</p>
+            <button
+              type="button"
+              onClick={handleConsultationClick}
+              className="shrink-0 snap-center whitespace-nowrap rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:scale-105"
+            >
+              Book Free Consultation
+            </button>
+            <button
+              type="button"
+              onClick={handleWatchDemoClick}
+              className="shrink-0 snap-center whitespace-nowrap rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition hover:scale-105 hover:bg-white/20"
+            >
+              Watch Demo
+            </button>
           </motion.div>
-
-          <div className="relative w-full sm:w-auto">
-            <motion.div
-              ref={buttonsScroll.ref}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.48 }}
-              viewport={{ once: true }}
-              className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 lg:justify-start"
-            >
-              <button
-                type="button"
-                onClick={handleConsultationClick}
-                className="shrink-0 snap-center whitespace-nowrap rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:scale-105"
-              >
-                Book Free Consultation
-              </button>
-              <button
-                type="button"
-                onClick={handleWatchDemoClick}
-                className="shrink-0 snap-center whitespace-nowrap rounded-full border border-gray-300 bg-white/80 px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition hover:scale-105 dark:border-gray-700 dark:bg-gray-900/80 dark:text-gray-100"
-              >
-                Watch Demo
-              </button>
-            </motion.div>
-            <ScrollArrows
-              canScrollLeft={buttonsScroll.canScrollLeft}
-              canScrollRight={buttonsScroll.canScrollRight}
-              onLeft={() => buttonsScroll.scrollByStep(-1)}
-              onRight={() => buttonsScroll.scrollByStep(1)}
-            />
-          </div>
-
-          <div className="relative w-full sm:w-auto">
-            <motion.div
-              ref={badgesScroll.ref}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 pb-1 text-sm sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 lg:justify-start"
-            >
-              {[
-                "Continuous workflows.",
-                "Flawless communication.",
-                "Never miss a call. Never lose a lead.",
-              ].map((badge) => (
-                <span
-                  key={badge}
-                  className="shrink-0 snap-center whitespace-nowrap rounded-full border border-gray-200 bg-white/80 px-4 py-2 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-900/80 dark:text-gray-100"
-                >
-                  {badge}
-                </span>
-              ))}
-            </motion.div>
-            <ScrollArrows
-              canScrollLeft={badgesScroll.canScrollLeft}
-              canScrollRight={badgesScroll.canScrollRight}
-              onLeft={() => badgesScroll.scrollByStep(-1)}
-              onRight={() => badgesScroll.scrollByStep(1)}
-            />
-          </div>
+          <ScrollArrows
+            canScrollLeft={buttonsScroll.canScrollLeft}
+            canScrollRight={buttonsScroll.canScrollRight}
+            onLeft={() => buttonsScroll.scrollByStep(-1)}
+            onRight={() => buttonsScroll.scrollByStep(1)}
+          />
         </div>
 
-        {/* Right column: hero cover image */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="relative mx-auto w-full min-w-0 max-w-xl lg:mx-0"
-        >
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-[#075bd8]/25 via-[#9b7cff]/20 to-[#ff4b9b]/15 blur-2xl sm:-inset-8" />
-
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/60 shadow-[0_30px_70px_-20px_rgba(7,91,216,0.35)] sm:rounded-3xl dark:border-white/10">
-            <img
-              src={assets.hero_cover}
-              alt="Faalak AI receptionist answering calls at a futuristic front desk"
-              className="h-full w-full object-cover"
-              loading="eager"
-            />
-          </div>
-
-          {/* Floating call UI, glassmorphic - reinforces "AI attending calls" */}
+        <div className="relative w-full sm:w-auto">
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: [0, -8, 0] }}
-            transition={{ opacity: { duration: 0.6, delay: 1 }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
-            className="absolute left-2 top-3 flex items-center gap-2 rounded-2xl border border-white/40 bg-white/80 px-3 py-2 text-[11px] font-semibold text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.14)] backdrop-blur-md sm:left-5 sm:top-5 sm:px-4 sm:py-2.5 sm:text-xs dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-100"
+            ref={badgesScroll.ref}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            viewport={{ once: true }}
+            className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-2 overflow-x-auto px-4 pb-1 text-xs sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
-            </span>
-            Incoming call...
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: [0, 8, 0] }}
-            transition={{ opacity: { duration: 0.6, delay: 1.2 }, y: { duration: 5, repeat: Infinity, ease: "easeInOut" } }}
-            className="absolute bottom-3 right-2 flex items-end gap-[3px] rounded-2xl border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_14px_34px_rgba(15,23,42,0.14)] backdrop-blur-md sm:bottom-5 sm:right-5 sm:px-4 sm:py-3 dark:border-white/10 dark:bg-slate-900/70"
-          >
-            {[6, 14, 9, 18, 7, 12].map((h, i) => (
-              <motion.span
-                key={i}
-                animate={{ height: [h, h * 1.8, h] }}
-                transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut", delay: i * 0.08 }}
-                style={{ height: h }}
-                className="w-[3px] rounded-full bg-gradient-to-t from-[#075bd8] to-[#24d5ff]"
-              />
+            {[
+              "Continuous workflows.",
+              "Flawless communication.",
+              "Never miss a call. Never lose a lead.",
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="shrink-0 snap-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-white shadow-sm backdrop-blur-sm"
+              >
+                {badge}
+              </span>
             ))}
           </motion.div>
-        </motion.div>
+          <ScrollArrows
+            canScrollLeft={badgesScroll.canScrollLeft}
+            canScrollRight={badgesScroll.canScrollRight}
+            onLeft={() => badgesScroll.scrollByStep(-1)}
+            onRight={() => badgesScroll.scrollByStep(1)}
+          />
+        </div>
       </div>
     </div>
   );

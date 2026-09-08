@@ -14,8 +14,10 @@ const OurWork = () => {
       viewport={{ once: true }}
       transition={{ staggerChildren: 0.2 }}
       id="our-work"
-      className="flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-700 dark:text-white"
+      className="relative flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-700 dark:text-white"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 rounded-full bg-gradient-to-r from-blue-400/10 via-sky-400/10 to-cyan-300/10 blur-3xl" />
+
       <Title
         title="Case Studies"
         desc="See how Faalak AI Automation helps service businesses capture more leads, answer faster, and turn conversations into booked calls."

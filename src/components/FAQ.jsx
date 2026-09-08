@@ -2,37 +2,34 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { FiPlus } from "react-icons/fi";
 import { faqData } from "../assets/assets";
-import Title from "./Title";
 
 const FAQItem = ({ item, index, isOpen, onToggle }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      transition={{ duration: 0.5, delay: (index % 2) * 0.1 }}
       viewport={{ once: true }}
-      className={`overflow-hidden rounded-xl border bg-white/90 shadow-[0_12px_28px_-22px_rgba(30,64,175,0.18)] transition-colors duration-300 dark:bg-gray-900/90 ${
+      className={`overflow-hidden rounded-2xl border backdrop-blur-sm transition-colors duration-300 ${
         isOpen
-          ? "border-blue-300 dark:border-blue-700"
-          : "border-gray-200 dark:border-gray-700"
+          ? "border-primary/60 bg-white/10"
+          : "border-white/10 bg-white/5 hover:border-white/25"
       }`}
     >
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left"
+        className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
       >
-        <span className="text-sm font-semibold text-gray-900 sm:text-[15px] dark:text-white">
+        <span className="text-sm font-semibold text-white sm:text-[15px]">
           {item.question}
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 135 : 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-            isOpen
-              ? "bg-primary text-white"
-              : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
+            isOpen ? "bg-primary text-white" : "bg-white/10 text-white/70"
           }`}
         >
           <FiPlus className="h-3.5 w-3.5" />
@@ -49,7 +46,7 @@ const FAQItem = ({ item, index, isOpen, onToggle }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="px-4 pb-4 text-xs leading-5 text-gray-600 sm:text-sm dark:text-gray-300">
+            <p className="px-5 pb-5 text-xs leading-5 text-white/70 sm:text-sm">
               {item.answer}
             </p>
           </motion.div>
@@ -67,34 +64,45 @@ const FAQ = () => {
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      transition={{ staggerChildren: 0.2 }}
-      id="faq"
-      className="relative flex flex-col items-center gap-4 px-4 sm:px-12 lg:px-24 xl:px-40 pt-16 text-gray-700 dark:text-white"
-    >
-      <div className="absolute inset-x-0 top-6 -z-10 h-48 rounded-full bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-sky-500/10 blur-3xl" />
+    <div id="faq" className="relative overflow-hidden bg-primary-deep px-4 py-16 sm:px-12 sm:py-24 lg:px-24 xl:px-40">
+      {/* Layered radial glows over the dark gradient base - gives the panel
+          depth instead of a flat single color, and keeps it visually tied
+          to the primary blue used across the rest of the site. */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#0b1a4d] via-primary-deep to-[#050b24]" />
+      <div className="pointer-events-none absolute -top-32 left-1/4 z-0 h-96 w-96 rounded-full bg-primary/30 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 right-1/4 z-0 h-96 w-96 rounded-full bg-orange-500/15 blur-3xl" />
 
-      <Title
-        compact
-        title="Frequently Asked Questions"
-        desc="Everything you need to know before putting an AI voice agent and chatbot to work for your business."
-      />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.2 }}
+        className="relative mx-auto flex max-w-5xl flex-col items-center gap-4"
+      >
+        <span className="text-xs font-bold uppercase tracking-[0.25em] text-orange-400">
+          Frequently Asked Questions
+        </span>
+        <h2 className="font-elite max-w-2xl text-center text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+          Answers before you even have to ask.
+        </h2>
+        <p className="mb-6 max-w-xl text-center text-sm text-white/70 sm:text-base">
+          Everything you need to know before putting an AI voice agent and chatbot to
+          work for your business.
+        </p>
 
-      <div className="flex w-full max-w-2xl flex-col gap-2.5">
-        {faqData.map((item, index) => (
-          <FAQItem
-            key={item.question}
-            item={item}
-            index={index}
-            isOpen={openIndex === index}
-            onToggle={() => toggle(index)}
-          />
-        ))}
-      </div>
-    </motion.div>
+        <div className="grid w-full grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
+          {faqData.map((item, index) => (
+            <FAQItem
+              key={item.question}
+              item={item}
+              index={index}
+              isOpen={openIndex === index}
+              onToggle={() => toggle(index)}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
