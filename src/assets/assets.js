@@ -291,8 +291,8 @@ export const teamData = [
     bio: "Designs and ships the voice agent, chatbot, and automation systems that power every Faalak deployment.",
   },
   {
-    name: "Barrister Bahadur Ali Bokhari",
-    role: "Legal Advisor",
+    name: "Mr. Bahadur Ali Bokhari",
+    role: "Barrister & Legal Advisor",
     icon: FaBalanceScale,
     bio: "Advises on contracts, compliance, and legal structure so Faalak and its clients operate on solid ground.",
   },
