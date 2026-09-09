@@ -346,7 +346,7 @@ const LiveDemo = () => {
 
         {/* Right column - talk to Maya live, right now, in the browser */}
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-2xl shadow-blue-900/10 dark:border-white/10 dark:shadow-black/40">
+          <div className="h-105 overflow-hidden rounded-2xl border border-gray-200 shadow-2xl shadow-blue-900/10 sm:h-120 dark:border-white/10 dark:shadow-black/40">
             <img
               src={assets.liveDemoImage}
               alt="Faalak AI voice agent"
@@ -355,100 +355,102 @@ const LiveDemo = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="absolute -bottom-8 left-1/2 w-[90%] -translate-x-1/2 rounded-2xl border border-gray-100 bg-white p-4 text-left shadow-xl shadow-blue-900/10 sm:-right-6 sm:left-auto sm:bottom-6 sm:w-80 sm:translate-x-0 dark:border-white/10 dark:bg-primary-deep/95 dark:shadow-black/40"
+            className="absolute inset-0 flex items-center justify-center p-4 sm:p-6"
           >
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-                <FiMic className="h-4 w-4 text-primary" />
-                {callStatus === "active" && (
-                  <span className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
-                )}
-              </span>
-              <div>
-                <p className="text-xs font-semibold text-gray-900 dark:text-white">
-                  Talk to Maya &middot; live voice agent
-                </p>
-                {callStatus === "idle" && (
-                  <p className="text-[11px] text-gray-400 dark:text-white/50">Ready when you are</p>
-                )}
-                {callStatus === "connecting" && (
-                  <p className="flex items-center gap-1 text-[11px] text-amber-500">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500" />
-                    Connecting...
-                  </p>
-                )}
-                {callStatus === "active" && (
-                  <p className="flex items-center gap-1 text-[11px] text-emerald-500">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    On a call &middot; {formatTimer(callSeconds)}
-                  </p>
-                )}
-                {callStatus === "error" && (
-                  <p className="text-[11px] font-medium text-rose-500">Connection failed</p>
-                )}
-              </div>
-            </div>
-
-            {callStatus === "active" ? (
-              <div className="mt-4 text-center">
-                <p className="text-xs text-gray-500 dark:text-white/60">
-                  Maya is listening - start speaking.
-                </p>
-                <button
-                  type="button"
-                  onClick={endMayaCall}
-                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-rose-400"
-                >
-                  <FiPhoneOff className="h-3.5 w-3.5" /> End call
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={startMayaCall} className="mt-4 space-y-2.5">
-                <label className="relative block">
-                  <FiUser className="pointer-events-none absolute left-3.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400 dark:text-white/40" />
-                  <input
-                    type="text"
-                    name="name"
-                    value={callForm.name}
-                    onChange={handleCallFormChange}
-                    placeholder="Your name"
-                    autoComplete="name"
-                    disabled={isCalling}
-                    className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-9 pr-3 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
-                  />
-                </label>
-                <label className="relative block">
-                  <FiPhone className="pointer-events-none absolute left-3.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400 dark:text-white/40" />
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    value={callForm.phoneNumber}
-                    onChange={handleCallFormChange}
-                    placeholder="Phone number"
-                    autoComplete="tel"
-                    disabled={isCalling}
-                    className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-9 pr-3 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
-                  />
-                </label>
-                <button
-                  type="submit"
-                  disabled={isCalling}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-white transition hover:scale-[1.02] disabled:cursor-wait disabled:opacity-70"
-                >
-                  {callStatus === "connecting" ? (
-                    "Connecting..."
-                  ) : (
-                    <>
-                      <FiPhoneCall className="h-3.5 w-3.5" /> Start call with Maya
-                    </>
+            <div className="w-full max-w-sm rounded-3xl border border-gray-100 bg-white p-6 text-left shadow-2xl shadow-blue-900/20 sm:max-w-md sm:p-8 dark:border-white/10 dark:bg-primary-deep/95 dark:shadow-black/40">
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  <FiMic className="h-5 w-5 text-primary" />
+                  {callStatus === "active" && (
+                    <span className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
                   )}
-                </button>
-              </form>
-            )}
+                </span>
+                <div>
+                  <p className="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
+                    Talk to Maya &middot; live voice agent
+                  </p>
+                  {callStatus === "idle" && (
+                    <p className="text-xs text-gray-400 dark:text-white/50">Ready when you are</p>
+                  )}
+                  {callStatus === "connecting" && (
+                    <p className="flex items-center gap-1.5 text-xs text-amber-500">
+                      <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
+                      Connecting...
+                    </p>
+                  )}
+                  {callStatus === "active" && (
+                    <p className="flex items-center gap-1.5 text-xs text-emerald-500">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                      On a call &middot; {formatTimer(callSeconds)}
+                    </p>
+                  )}
+                  {callStatus === "error" && (
+                    <p className="text-xs font-medium text-rose-500">Connection failed</p>
+                  )}
+                </div>
+              </div>
+
+              {callStatus === "active" ? (
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-gray-500 dark:text-white/60">
+                    Maya is listening - start speaking.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={endMayaCall}
+                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-400"
+                  >
+                    <FiPhoneOff className="h-4 w-4" /> End call
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={startMayaCall} className="mt-6 space-y-3.5">
+                  <label className="relative block">
+                    <FiUser className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-white/40" />
+                    <input
+                      type="text"
+                      name="name"
+                      value={callForm.name}
+                      onChange={handleCallFormChange}
+                      placeholder="Your name"
+                      autoComplete="name"
+                      disabled={isCalling}
+                      className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
+                    />
+                  </label>
+                  <label className="relative block">
+                    <FiPhone className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-white/40" />
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      value={callForm.phoneNumber}
+                      onChange={handleCallFormChange}
+                      placeholder="Phone number"
+                      autoComplete="tel"
+                      disabled={isCalling}
+                      className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    disabled={isCalling}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:scale-[1.02] disabled:cursor-wait disabled:opacity-70"
+                  >
+                    {callStatus === "connecting" ? (
+                      "Connecting..."
+                    ) : (
+                      <>
+                        <FiPhoneCall className="h-4 w-4" /> Start call with Maya
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
           </motion.div>
         </div>
       </motion.div>

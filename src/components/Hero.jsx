@@ -54,11 +54,7 @@ const Hero = () => {
           viewport={{ once: true }}
           className="font-elite w-full max-w-lg text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl"
         >
-          Faalak AI Agenc<span className="text-blue-400" style={
-            {
-              fontWeight: 700
-            }
-          }>y</span>
+          Faalak AI Agency
         </motion.h1>
 
         <motion.p
@@ -82,7 +78,7 @@ const Hero = () => {
           className="w-full max-w-md rounded-2xl border border-white/30 bg-white/5 px-4 py-3 backdrop-blur-sm"
         >
           <p className="font-display text-base font-semibold leading-snug tracking-tight text-white-400 sm:text-lg">
-            &ldquo;Never Miss A Call, Never Miss A Lead.&rdquo;
+            &ldquo;Never miss a call. Never miss a lead.&rdquo;
           </p>
         </motion.div>
 
@@ -141,7 +137,7 @@ const Hero = () => {
             {[
               "Continuous workflows.",
               "Flawless communication.",
-              "Never miss a call. Never lose a lead.",
+              "Human like voice agents.",
             ].map((badge) => (
               <span
                 key={badge}

@@ -191,56 +191,70 @@ export const whyChooseUsData = [
   },
 ]
 
+
 export const faqData = [
   {
     question: "What does Faalak AI Automation do?",
-    answer: "We build AI voice agents, WhatsApp automation, and website chatbots that answer every call and chat, qualify leads, and book appointments for your business, 24/7, without requiring additional staff.",
+    answer:
+      "We build AI Voice Agents, WhatsApp Automation, and Website Chatbots that answer calls and messages, qualify leads, and book appointments 24/7 without additional staff.",
   },
   {
-    question: "How quickly can I launch an AI voice agent?",
-    answer: "Most clients are live within days. We manage the setup, script training, telephony, and integrations, meaning you do not need an internal engineering team.",
+    question: "How quickly can I launch an AI Voice Agent?",
+    answer:
+      "Most clients go live within days. Faalak handles the setup, training, telephony, and integrations so you do not need an internal engineering team.",
   },
   {
     question: "Will my customers know they are speaking with AI?",
-    answer: "Our voice agents are powered by Retell AI and trained on your business's own scripts and tone, resulting in natural, humanlike conversations with no robotic press one menus. Most callers focus on getting their question answered, not on who is answering.",
+    answer:
+      "Faalak's enterprise-grade AI system is designed for natural and humanlike conversations. It follows your business scripts and tone without robotic menus.",
   },
   {
     question: "Which languages can the agent speak?",
-    answer: "The agent can be configured to converse in multiple languages and accents, allowing you to serve callers in the language they are most comfortable with.",
+    answer:
+      "Our AI agents can speak multiple languages and accents. This helps you serve customers in the language they prefer.",
   },
   {
     question: "Does it integrate with my calendar and CRM?",
-    answer: "Yes. Every call, chat, and lead syncs directly into your calendar, CRM, spreadsheets, or reporting tools in real time, with no manual data entry required.",
+    answer:
+      "Yes. Calls, chats, and leads can sync with your calendar, CRM, spreadsheets, and reporting tools in real time.",
   },
   {
     question: "Do I need to replace my current phone system or website?",
-    answer: "No. The AI voice agent works alongside your existing phone number, and the chatbot embeds directly into your current website. Nothing needs to be rebuilt or replaced.",
+    answer:
+      "No. Faalak works alongside your existing phone system. Our chatbots can also be added directly to your current website.",
   },
   {
     question: "Is my data secure?",
-    answer: "Yes. We take data security and privacy seriously, and our infrastructure can be tailored to meet the requirements of regulated industries such as healthcare, finance, and insurance.",
+    answer:
+      "Yes. Faalak takes data security and privacy seriously. Our enterprise-grade infrastructure can be tailored to meet the needs of regulated industries.",
   },
   {
     question: "What happens if the agent cannot handle a call?",
-    answer: "It hands the caller off to a member of your team at the right moment, or takes a detailed message and follows up. No caller is left without a response.",
+    answer:
+      "The agent can transfer the caller to your team or take a detailed message for follow-up. No caller is left without a response.",
   },
   {
     question: "Can it make outbound calls as well?",
-    answer: "Yes. Our agents handle both inbound and outbound calling, including follow up calls, reminders, and lead qualification.",
+    answer:
+      "Yes. Faalak AI agents can handle inbound and outbound calls including follow-ups, reminders, and lead qualification.",
   },
   {
     question: "What kind of businesses is this built for?",
-    answer: "We work with service businesses that depend on a fast response, including retail, real estate, wellness and therapy studios, home services, healthcare, and automotive, among others. If missed calls cost you leads, this is built for you.",
+    answer:
+      "We work with businesses that rely on fast customer response including retail, real estate, wellness, healthcare, home services, and automotive. If missed calls cost you leads, Faalak can help.",
   },
   {
     question: "How is pricing structured?",
-    answer: "Pricing depends on your call volume and use case. Contact us and our team will walk you through a plan suited to your business.",
+    answer:
+      "Pricing depends on your call volume and use case. Contact our team for a plan tailored to your business.",
   },
   {
     question: "Can I try it before committing?",
-    answer: "Yes. Select \"Watch Demo\" or \"Talk to Maya\" anywhere on this page to experience our AI voice agent firsthand, or book a free consultation and we will build a version tailored to your business.",
+    answer:
+      "Yes. Select \"Watch Demo\" or \"Talk to Maya\" to experience Faalak's AI Voice Agent. You can also book a free consultation for a solution tailored to your business.",
   },
 ];
+
 
 export const testimonialsData = [
   {

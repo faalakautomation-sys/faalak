@@ -83,6 +83,11 @@ const Footer = () => {
               </Link>
             </li>
             <li>
+              <Link className="hover:text-primary" to="/data-security">
+                Data Security
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-primary" to="/#contact-us">
                 Contact Us
               </Link>
@@ -177,6 +182,9 @@ const Footer = () => {
       >
         <p>Copyright 2026 © Faalak AI Automation - All Rights Reserved.</p>
         <div className="flex items-center justify-between gap-4">
+          <Link to="/data-security" className="text-sm hover:text-primary">
+            Data Privacy &amp; Security
+          </Link>
           <img src={assets.twitter_icon} alt="twitter" />
           <a
             href="https://www.linkedin.com/company/faalak-ai-automation/"
