@@ -196,12 +196,12 @@ export const faqData = [
   {
     question: "What does Faalak AI Automation do?",
     answer:
-      "We build AI Voice Agents, WhatsApp Automation, and Website Chatbots that answer calls and messages, qualify leads, and book appointments 24/7 without additional staff.",
+      "We build AI Voice Agents, WhatsApp Automation and Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
   },
   {
     question: "How quickly can I launch an AI Voice Agent?",
     answer:
-      "Most clients go live within days. Faalak handles the setup, training, telephony, and integrations so you do not need an internal engineering team.",
+      "Most clients go live within days. Faalak handles the setup, training, telephony and integrations so you do not need an internal engineering team.",
   },
   {
     question: "Will my customers know they are speaking with AI?",
