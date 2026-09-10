@@ -2,40 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
 import { RetellWebClient } from "retell-client-js-sdk";
-import {
-  FiBriefcase,
-  FiCheck,
-  FiCoffee,
-  FiDollarSign,
-  FiGrid,
-  FiHome,
-  FiKey,
-  FiMail,
-  FiMic,
-  FiPhone,
-  FiPhoneCall,
-  FiPhoneOff,
-  FiShoppingBag,
-  FiShoppingCart,
-  FiUser,
-} from "react-icons/fi";
+import { FiCheck, FiMail, FiMic, FiPhone, FiPhoneCall, FiPhoneOff, FiUser } from "react-icons/fi";
 import assets from "../assets/assets";
+import { industriesMenu as industries } from "../data/menuData";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
-
-// Same eight industries the navbar's "Industries" mega-menu already lists -
-// keeps this section's pills matching the rest of the site instead of
-// inventing a second, different industry list.
-const industries = [
-  { slug: "real-estate", name: "Real Estate", icon: FiHome },
-  { slug: "ecommerce-brands", name: "Ecommerce Brands", icon: FiShoppingBag },
-  { slug: "fintech-brands", name: "Fintech Brands", icon: FiDollarSign },
-  { slug: "medium-to-big-business", name: "Medium to Big Business", icon: FiBriefcase },
-  { slug: "store", name: "Store", icon: FiShoppingCart },
-  { slug: "mortgage", name: "Mortgage", icon: FiKey },
-  { slug: "hospitality", name: "Hospitality", icon: FiCoffee },
-  { slug: "showrooms", name: "Showrooms", icon: FiGrid },
-];
 
 const formatTimer = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60)

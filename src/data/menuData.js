@@ -1,4 +1,5 @@
 import {
+  FiActivity,
   FiBriefcase,
   FiCoffee,
   FiDollarSign,
@@ -12,9 +13,12 @@ import {
   FiShoppingBag,
   FiShoppingCart,
   FiTarget,
+  FiTool,
   FiTrendingUp,
+  FiWind,
   FiZap,
 } from "react-icons/fi";
+import { FaCar, FaHardHat, FaLeaf, FaSpa, FaTooth } from "react-icons/fa";
 import { caseStudies } from "../assets/assets";
 import servicesTeaserImage from "../assets/teaser-services.jpg";
 import industriesTeaserImage from "../assets/teaser-industries.jpg";
@@ -320,6 +324,142 @@ export const industriesMenu = [
       "Follows up automatically with visitors who didn't convert",
     ],
   },
+  {
+    slug: "physiotherapy",
+    name: "Physiotherapists",
+    icon: FiActivity,
+    tagline: "Keep the schedule full and answer patient questions without leaving the treatment table.",
+    metaDescription:
+      "AI voice and chat automation for physiotherapy clinics - books and confirms appointments, answers common patient questions, and reduces no-shows around the clock.",
+    description:
+      "Physiotherapy patients often call between sessions with scheduling changes or simple questions your front desk shouldn't have to drop treatment to answer. Our AI books, confirms, and reschedules appointments, answers common questions about sessions and pricing, and sends automated reminders that cut down on no-shows.",
+    highlights: [
+      "Books, confirms, and reschedules appointments automatically",
+      "Answers common questions about treatments, pricing, and preparation",
+      "Sends automated reminders to reduce no-shows",
+      "Frees front-desk staff to focus on patients in the clinic",
+      "Works around your existing phone number and booking system",
+    ],
+  },
+  {
+    slug: "dental",
+    name: "Dental Practices",
+    icon: FaTooth,
+    tagline: "Answer every patient call and keep the chair schedule full, day or night.",
+    metaDescription:
+      "AI voice automation for dental practices - answers patient calls, books and confirms appointments, and follows up on missed visits without adding front-desk staff.",
+    description:
+      "A missed call is often a missed patient. Our AI answers every call instantly, books and confirms appointments directly on your calendar, and automatically follows up with patients who miss a visit, so your front desk stays focused on the people in your waiting room.",
+    highlights: [
+      "Answers every patient call, including after hours",
+      "Books and confirms appointments directly on your calendar",
+      "Follows up automatically on missed and rescheduled visits",
+      "Answers common questions about services and insurance",
+      "Reduces front-desk workload without adding headcount",
+    ],
+  },
+  {
+    slug: "massage-and-spa",
+    name: "Massage & Spa",
+    icon: FaSpa,
+    tagline: "Handle bookings and treatment questions without stepping away from a client.",
+    metaDescription:
+      "AI automation for massage and spa businesses - handles bookings, answers treatment and pricing questions, and sends reminders that reduce no-shows.",
+    description:
+      "Therapists and estheticians shouldn't have to leave a client mid-treatment to answer the phone. Our AI handles booking requests, answers common questions about treatments and pricing, and sends automated reminders, so your team stays focused on the client in the room.",
+    highlights: [
+      "Handles booking requests without interrupting treatments",
+      "Answers common questions about services and pricing",
+      "Sends automated appointment reminders",
+      "Reduces no-shows and last-minute cancellations",
+      "Syncs with your existing booking system",
+    ],
+  },
+  {
+    slug: "hvac",
+    name: "HVAC",
+    icon: FiWind,
+    tagline: "Capture every service call, especially the emergency ones after hours.",
+    metaDescription:
+      "AI voice automation for HVAC companies - captures service requests, qualifies job urgency, and books technician visits around the clock, including after-hours emergencies.",
+    description:
+      "HVAC emergencies don't wait for business hours, and neither do your competitors. Our AI answers every call, qualifies urgency and job details, and books technician visits directly onto your schedule, so an after-hours breakdown becomes a booked job instead of a voicemail.",
+    highlights: [
+      "Answers emergency and routine service calls 24/7",
+      "Qualifies job urgency and details before dispatch",
+      "Books technician visits directly onto your schedule",
+      "Follows up automatically on quote requests",
+      "Works with your existing dispatch and scheduling tools",
+    ],
+  },
+  {
+    slug: "roofing",
+    name: "Roofing",
+    icon: FaHardHat,
+    tagline: "Turn every storm-damage call into a booked estimate, not a missed opportunity.",
+    metaDescription:
+      "AI automation for roofing companies - captures leads from storm-damage and quote calls, qualifies the job, and books estimates automatically.",
+    description:
+      "Roofing leads spike after storms and go cold fast if nobody answers. Our AI captures every call and web inquiry, qualifies the scope of the job, and books estimate appointments directly onto your calendar, so your crews spend time on roofs, not on the phone.",
+    highlights: [
+      "Captures every storm-damage and quote-request call",
+      "Qualifies job scope before an estimate is booked",
+      "Books estimate appointments directly onto your calendar",
+      "Follows up automatically on quotes that go quiet",
+      "Available around the clock during storm season",
+    ],
+  },
+  {
+    slug: "plumbing",
+    name: "Plumbing",
+    icon: FiTool,
+    tagline: "Never miss an emergency call again, day or night.",
+    metaDescription:
+      "AI voice automation for plumbing companies - answers emergency and routine service calls, qualifies the job, and books technician visits 24/7.",
+    description:
+      "A burst pipe doesn't wait for morning, and the first plumber to answer usually gets the job. Our AI answers every call instantly, qualifies the issue, and books technician visits directly onto your schedule, so emergency calls turn into booked jobs instead of missed opportunities.",
+    highlights: [
+      "Answers emergency and routine calls around the clock",
+      "Qualifies the issue before a technician is dispatched",
+      "Books service visits directly onto your schedule",
+      "Sends automated appointment reminders",
+      "Works with your existing dispatch and scheduling tools",
+    ],
+  },
+  {
+    slug: "landscaping",
+    name: "Landscaping",
+    icon: FaLeaf,
+    tagline: "Capture quote requests and keep crews booked through the season.",
+    metaDescription:
+      "AI automation for landscaping companies - captures quote requests, qualifies the job, and books site visits automatically, even outside business hours.",
+    description:
+      "Quote requests coming in evenings and weekends often go unanswered until the next business day, losing ground to faster-responding competitors. Our AI captures every request immediately, qualifies the job scope, and follows up automatically until a site visit is booked.",
+    highlights: [
+      "Captures quote requests immediately, day or night",
+      "Qualifies job scope before a site visit is booked",
+      "Books site visits directly onto your calendar",
+      "Follows up automatically on quotes that go quiet",
+      "Keeps crews booked throughout the season",
+    ],
+  },
+  {
+    slug: "auto-dealership",
+    name: "Auto Dealership",
+    icon: FaCar,
+    tagline: "Qualify buyer interest and book test drives before a lead goes cold.",
+    metaDescription:
+      "AI voice and chat automation for auto dealerships - qualifies buyer interest, answers vehicle questions, and books test drives directly onto sales calendars.",
+    description:
+      "Car buyers move fast, and the dealership that responds first usually wins the sale. Our AI answers vehicle and financing questions instantly, qualifies buyer interest, and books test drives directly onto your sales team's calendar, so every lead gets a fast response.",
+    highlights: [
+      "Answers vehicle and financing questions instantly",
+      "Qualifies buyer interest and budget in real time",
+      "Books test drives directly onto sales calendars",
+      "Follows up automatically on leads that go quiet",
+      "Routes serious buyers straight to the right salesperson",
+    ],
+  },
 ];
 
 export function findMenuItem(list, slug) {
@@ -339,7 +479,9 @@ export const servicesGroups = [
 export const industriesGroups = [
   { title: "Commerce & Finance", slugs: ["ecommerce-brands", "fintech-brands", "mortgage"] },
   { title: "Property & Hospitality", slugs: ["real-estate", "hospitality", "showrooms"] },
-  { title: "Business & Retail", slugs: ["medium-to-big-business", "retail-stores"] },
+  { title: "Business & Retail", slugs: ["medium-to-big-business", "retail-stores", "auto-dealership"] },
+  { title: "Health & Wellness", slugs: ["physiotherapy", "dental", "massage-and-spa"] },
+  { title: "Home & Trade Services", slugs: ["hvac", "roofing", "plumbing", "landscaping"] },
 ];
 
 export const servicesTeaser = {

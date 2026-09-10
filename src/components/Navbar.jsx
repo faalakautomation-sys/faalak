@@ -150,7 +150,7 @@ const Navbar = () => {
         />
 
         <MegaMenu
-          label="Our Work"
+          label="Our Projects"
           groups={resolvedWorkGroups}
           teaser={workTeaser}
           basePath="/work"

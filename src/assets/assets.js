@@ -196,7 +196,7 @@ export const faqData = [
   {
     question: "What does Faalak AI Automation do?",
     answer:
-      "We build AI Voice Agents, WhatsApp Automation and Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
+      "We build AI Voice Agents. WhatsApp Automation. Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
   },
   {
     question: "How quickly can I launch an AI Voice Agent?",
@@ -216,7 +216,7 @@ export const faqData = [
   {
     question: "Does it integrate with my calendar and CRM?",
     answer:
-      "Yes. Calls, chats, and leads can sync with your calendar, CRM, spreadsheets, and reporting tools in real time.",
+      "Yes, Calls, Chats and Leads can sync with your calendar. CRM, spreadsheets and reporting tools in real time.",
   },
   {
     question: "Do I need to replace my current phone system or website?",
@@ -226,7 +226,7 @@ export const faqData = [
   {
     question: "Is my data secure?",
     answer:
-      "Yes. Faalak takes data security and privacy seriously. Our enterprise-grade infrastructure can be tailored to meet the needs of regulated industries.",
+      "Yes, absolutely. By hosting on your own VPS, you gain a massive competitive advantage. You can confidently promise your clients that their data never enters public Al pools or shared corporate data silos.",
   },
   {
     question: "What happens if the agent cannot handle a call?",
@@ -236,12 +236,12 @@ export const faqData = [
   {
     question: "Can it make outbound calls as well?",
     answer:
-      "Yes. Faalak AI agents can handle inbound and outbound calls including follow-ups, reminders, and lead qualification.",
+      "Yes. Faalak AI agents can handle inbound and outbound calls including follow-ups, reminders and lead qualification.",
   },
   {
     question: "What kind of businesses is this built for?",
     answer:
-      "We work with businesses that rely on fast customer response including retail, real estate, wellness, healthcare, home services, and automotive. If missed calls cost you leads, Faalak can help.",
+      "We work with businesses that rely on fast customer response including Retail, Real Estate, Wellness, Healthcare, Home Services and Automotive. If missed calls cost you leads, Faalak can help.",
   },
   {
     question: "How is pricing structured?",
