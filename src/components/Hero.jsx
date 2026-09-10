@@ -78,7 +78,7 @@ const Hero = () => {
           className="w-full max-w-md rounded-2xl border border-white/30 bg-white/5 px-4 py-3 backdrop-blur-sm"
         >
           <p className="font-display text-base font-semibold leading-snug tracking-tight text-white-400 sm:text-lg">
-            &ldquo;Never miss a call. Never miss a lead.&rdquo;
+            &ldquo;Never miss a call. Never miss a lead&rdquo;
           </p>
         </motion.div>
 

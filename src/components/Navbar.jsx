@@ -198,6 +198,19 @@ const Navbar = () => {
             className={`transition-transform duration-300 group-hover:translate-x-1 ${transparent ? "invert" : ""}`}
           />
         </motion.button>
+
+        {/* Canada flag badge - hover reveals a "where we're based" tooltip. */}
+        <div className="group relative max-sm:hidden">
+          <img
+            src={assets.flag}
+            alt="Canada"
+            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-max origin-top-right scale-95 rounded-xl border border-gray-100 bg-white px-4 py-2.5 text-right opacity-0 shadow-xl shadow-blue-900/10 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 dark:border-white/10 dark:bg-primary-deep dark:shadow-black/40">
+            <p className="text-sm font-bold text-gray-900 dark:text-white">Toronto based</p>
+            <p className="text-xs text-gray-500 dark:text-white/60">Proudly serving Toronto businesses</p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

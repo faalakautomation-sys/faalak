@@ -18,7 +18,7 @@ import {
   FiWind,
   FiZap,
 } from "react-icons/fi";
-import { FaCar, FaHardHat, FaLeaf, FaSpa, FaTooth } from "react-icons/fa";
+import { FaCar, FaCouch, FaHardHat, FaLeaf, FaSpa, FaTooth } from "react-icons/fa";
 import { caseStudies } from "../assets/assets";
 import servicesTeaserImage from "../assets/teaser-services.jpg";
 import industriesTeaserImage from "../assets/teaser-industries.jpg";
@@ -460,6 +460,23 @@ export const industriesMenu = [
       "Routes serious buyers straight to the right salesperson",
     ],
   },
+  {
+    slug: "furniture-store",
+    name: "Furniture Store",
+    icon: FaCouch,
+    tagline: "Answer stock, delivery, and custom-order questions without pulling staff off the showroom floor.",
+    metaDescription:
+      "AI voice and chat automation for furniture stores - answers stock, pricing, delivery, and custom-order questions instantly, and books showroom consultations 24/7.",
+    description:
+      "Furniture buyers ask a lot before they commit - what's in stock, lead times on custom pieces, delivery windows, financing options. Our AI answers all of it instantly across phone and chat, and books showroom consultations directly onto your calendar, so your team spends its time with customers who are ready to buy.",
+    highlights: [
+      "Answers stock, pricing, and delivery-window questions instantly",
+      "Handles custom-order and lead-time enquiries around the clock",
+      "Books showroom consultations directly onto your calendar",
+      "Keeps floor staff focused on in-person customers",
+      "Follows up automatically with visitors who didn't buy",
+    ],
+  },
 ];
 
 export function findMenuItem(list, slug) {
@@ -477,11 +494,11 @@ export const servicesGroups = [
 ];
 
 export const industriesGroups = [
-  { title: "Commerce & Finance", slugs: ["ecommerce-brands", "fintech-brands", "mortgage"] },
   { title: "Property & Hospitality", slugs: ["real-estate", "hospitality", "showrooms"] },
-  { title: "Business & Retail", slugs: ["medium-to-big-business", "retail-stores", "auto-dealership"] },
+  { title: "Business & Retail", slugs: ["medium-to-big-business", "retail-stores", "auto-dealership", "furniture-store"] },
   { title: "Health & Wellness", slugs: ["physiotherapy", "dental", "massage-and-spa"] },
   { title: "Home & Trade Services", slugs: ["hvac", "roofing", "plumbing", "landscaping"] },
+  { title: "Commerce & Finance", slugs: ["ecommerce-brands", "fintech-brands", "mortgage"] },
 ];
 
 export const servicesTeaser = {

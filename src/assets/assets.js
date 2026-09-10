@@ -38,6 +38,7 @@ import facebook_icon from './facebook_icon.svg'
 import twitter_icon from './twitter_icon.svg'
 import instagram_icon from './instagram_icon.svg'
 import linkedin_icon from './linkedin_icon.svg'
+import flag from './flag.png'
 
 
 export const trustedBrands = [
@@ -349,6 +350,7 @@ const assets = {
   twitter_icon,
   instagram_icon,
   linkedin_icon,
+  flag,
 }
 
 export default assets
