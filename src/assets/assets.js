@@ -227,7 +227,7 @@ export const faqData = [
   {
     question: "Is my data secure?",
     answer:
-      "Yes, absolutely. By hosting on our own VPS. We promise oour clients that their data never enters public Al pools or shared corporate data silos.",
+      "Yes, absolutely. By hosting on our own VPS. We promise our clients that their data never enters public Al pools or shared corporate data silos.",
   },
   {
     question: "What happens if the agent cannot handle a call?",
