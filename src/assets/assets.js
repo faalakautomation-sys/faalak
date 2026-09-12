@@ -313,7 +313,7 @@ export const teamData = [
   },
   {
     name: "Mr. David William",
-    role: "Content Creative Designer",
+    role: "Developer & SaaS Designer",
     icon: FiPenTool,
     bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },

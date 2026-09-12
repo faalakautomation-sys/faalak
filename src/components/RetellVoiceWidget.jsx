@@ -52,9 +52,23 @@ const RetellVoiceWidget = () => {
   useEffect(() => {
     const client = new RetellWebClient();
     clientRef.current = client;
-    const openWidget = () => {
+
+    // Lets other parts of the site (e.g. LiveDemo's "Call me now" form) open
+    // this widget pre-filled and already dialing, instead of just popping it
+    // open empty and making the visitor retype what they just entered.
+    // event.detail: { name, phoneNumber, autoStart }.
+    const openWidget = (event) => {
+      const detail = event.detail || {};
       setShowGreeting(false);
       setIsOpen(true);
+
+      if (detail.name || detail.phoneNumber) {
+        const prefilled = { name: detail.name || "", phoneNumber: detail.phoneNumber || "" };
+        setFormData(prefilled);
+        if (detail.autoStart) {
+          startVoiceAgent(prefilled);
+        }
+      }
     };
 
     const handleCallStarted = () => setStatus("active");
@@ -88,10 +102,12 @@ const RetellVoiceWidget = () => {
     setFormData((previous) => ({ ...previous, [name]: value }));
   };
 
-  const startVoiceAgent = async (event) => {
-    event.preventDefault();
-
-    if (!formData.name.trim() || !formData.phoneNumber.trim()) {
+  // Takes the name/phone to call as a plain object rather than reading
+  // `formData` off closure - lets it be called either from the form's own
+  // submit (with the latest typed state) or straight from the
+  // open-retell-widget event's detail, before that state has even been set.
+  const startVoiceAgent = async (data) => {
+    if (!data.name?.trim() || !data.phoneNumber?.trim()) {
       toast.error("Please enter your name and phone number.");
       return;
     }
@@ -102,20 +118,25 @@ const RetellVoiceWidget = () => {
       const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ name: data.name.trim(), phoneNumber: data.phoneNumber.trim() }),
       });
-      const data = await response.json();
+      const result = await response.json();
 
-      if (!response.ok || !data.accessToken) {
-        throw new Error(data.error || "Unable to create the Retell call");
+      if (!response.ok || !result.accessToken) {
+        throw new Error(result.error || "Unable to create the Retell call");
       }
 
-      await clientRef.current.startCall({ accessToken: data.accessToken });
+      await clientRef.current.startCall({ accessToken: result.accessToken });
     } catch (error) {
       console.error("Retell voice call failed:", error);
       setStatus("error");
       toast.error(error.message || "Unable to start the voice agent.");
     }
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    startVoiceAgent(formData);
   };
 
   const stopVoiceAgent = () => {
@@ -212,7 +233,7 @@ const RetellVoiceWidget = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={startVoiceAgent} className="bg-slate-50 px-6 py-6">
+              <form onSubmit={handleFormSubmit} className="bg-slate-50 px-6 py-6">
                 <div className="space-y-4">
                   <label className="block">
                     <span className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-slate-500">Your name</span>

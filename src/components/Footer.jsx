@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import toast from "react-hot-toast";
 import { FiArrowRight } from "react-icons/fi";
 import assets from "../assets/assets";
-import { subscribeToNewsletter } from "../api/client";
 import { servicesMenu, industriesMenu } from "../data/menuData";
 
 // Permanently dark, like the FAQ section - a deliberate visual anchor at the
@@ -12,24 +9,6 @@ import { servicesMenu, industriesMenu } from "../data/menuData";
 // (white/blue-shaded, matching the rest of the site) so it reads as a card
 // sitting on top of the dark footer rather than blending into it.
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleNewsletterSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      await subscribeToNewsletter(email);
-      setEmail("");
-      toast.success("You are subscribed to Faalak updates.");
-    } catch (error) {
-      toast.error(error.message || "Unable to subscribe. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const handleBookDemo = () => {
     const message = encodeURIComponent(
       "Hi, I'd like to book a demo with Faalak AI Automation."
@@ -76,27 +55,25 @@ const Footer = () => {
             The voice that never tires. AI-powered voice agents and automation for inbound &amp; outbound calls.
           </p>
 
-          <form onSubmit={handleNewsletterSubmit} className="mt-5 flex gap-2">
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-              placeholder="Enter your email"
-              aria-label="Email address for updates"
-              disabled={isSubmitting}
-              className="w-full min-w-0 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white outline-none placeholder:text-white/40 focus:border-primary"
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="shrink-0 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:scale-105 disabled:cursor-wait disabled:opacity-70"
-            >
-              {isSubmitting ? "..." : "Subscribe"}
-            </button>
-          </form>
-
           <div className="mt-5 flex items-center gap-3">
+            <a
+              href="https://www.facebook.com/faalakai/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Faalak AI Automation Facebook"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+            >
+              <img src={assets.facebook_icon} alt="" className="h-4 w-4 brightness-0 invert" />
+            </a>
+            <a
+              href="https://www.instagram.com/faalak.automation/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Faalak AI Automation Instagram"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+            >
+              <img src={assets.instagram_icon} alt="" className="h-4 w-4 brightness-0 invert" />
+            </a>
             <a
               href="https://www.linkedin.com/company/faalak-ai-automation/"
               target="_blank"
@@ -104,11 +81,8 @@ const Footer = () => {
               aria-label="Faalak AI Automation LinkedIn"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
             >
-              <img src={assets.linkedin_icon} alt="" className="h-4 w-4 invert" />
+              <img src={assets.linkedin_icon} alt="" className="h-4 w-4 brightness-0 invert" />
             </a>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-              <img src={assets.twitter_icon} alt="Twitter" className="h-4 w-4 invert" />
-            </span>
           </div>
         </div>
 

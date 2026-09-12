@@ -64,7 +64,22 @@ const LiveDemo = () => {
       }
 
       setStatus("success");
-      toast.success("You're booked! Our AI voice agent will call you shortly.");
+      toast.success("Connecting you to our AI voice agent now...");
+
+      // Immediately open the floating "Talk to Maya" widget, pre-filled with
+      // what they just typed, and have it start dialing right away - so
+      // "Call me now" actually starts a live call instead of only booking a
+      // callback for later.
+      window.dispatchEvent(
+        new CustomEvent("open-retell-widget", {
+          detail: {
+            name: formData.name.trim(),
+            phoneNumber: formData.phoneNumber.trim(),
+            autoStart: true,
+          },
+        })
+      );
+
       setFormData({ name: "", email: "", phoneNumber: "" });
       setAgreed(false);
     } catch (error) {
