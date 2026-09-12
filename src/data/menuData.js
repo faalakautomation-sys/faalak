@@ -2,15 +2,12 @@ import {
   FiActivity,
   FiBriefcase,
   FiCoffee,
-  FiDollarSign,
   FiGrid,
   FiHome,
-  FiKey,
   FiMessageSquare,
   FiMic,
   FiPhoneCall,
   FiServer,
-  FiShoppingBag,
   FiShoppingCart,
   FiTarget,
   FiTool,
@@ -30,12 +27,9 @@ import aiAutomationImage from "../assets/category/cat-ai-automation.jpg";
 import leadGenerationImage from "../assets/category/cat-lead-generation.jpeg";
 import aiDigitalAdsImage from "../assets/category/cat-ai-digital-ads.jpg";
 import aiEnterpriseInfrastructureImage from "../assets/category/cat-ai-enterprise-infrastructure.png";
-import ecommerceBrandsImage from "../assets/category/cat-ecommerce-brands.jpg";
-import fintechBrandsImage from "../assets/category/cat-fintech-brands.jpg";
 import mediumToBigBusinessImage from "../assets/category/cat-medium-to-big-business.png";
 import realEstateImage from "../assets/category/cat-real-estate.jpg";
 import storeImage from "../assets/category/cat-store.webp";
-import mortgageImage from "../assets/category/cat-mortgage.jpeg";
 import hospitalityImage from "../assets/category/cat-hospitality.jpg";
 import showroomsImage from "../assets/category/cat-showrooms.jpg";
 
@@ -181,42 +175,6 @@ export const servicesMenu = [
 
 export const industriesMenu = [
   {
-    slug: "ecommerce-brands",
-    name: "Ecommerce Brands",
-    icon: FiShoppingBag,
-    image: ecommerceBrandsImage,
-    tagline: "Answer order questions and recover carts before they're lost.",
-    metaDescription:
-      "AI voice and chat automation for ecommerce brands - instant order support, cart recovery conversations, and 24/7 customer service that scales with sales spikes.",
-    description:
-      "Ecommerce support doesn't stop at 5pm and neither do your customers. Our AI handles order status, shipping questions, and returns instantly, and reaches out proactively on abandoned carts - all while syncing with your store platform.",
-    highlights: [
-      "Instant answers on order status, shipping, and returns",
-      "Proactive cart-recovery conversations via chat or WhatsApp",
-      "Scales automatically during sales spikes and launches",
-      "Syncs with your existing store and CRM platform",
-      "Frees your team to focus on escalations, not repetitive questions",
-    ],
-  },
-  {
-    slug: "fintech-brands",
-    name: "Fintech Brands",
-    icon: FiDollarSign,
-    image: fintechBrandsImage,
-    tagline: "Fast, compliant support for a customer base that expects both.",
-    metaDescription:
-      "AI automation for fintech brands - fast, accurate support for account and product questions, with conversations logged for compliance and review.",
-    description:
-      "Fintech customers expect speed and accuracy in equal measure. Our AI answers account and product questions using your approved scripts, escalates anything sensitive to a human immediately, and keeps a full record of every conversation.",
-    highlights: [
-      "Answers built strictly from your approved scripts and disclosures",
-      "Immediate escalation for anything sensitive or account-specific",
-      "Full conversation logging for compliance and review",
-      "24/7 coverage for a customer base that doesn't keep office hours",
-      "Reduces wait times without touching your core banking systems",
-    ],
-  },
-  {
     slug: "medium-to-big-business",
     name: "Medium to Big Business",
     icon: FiBriefcase,
@@ -268,24 +226,6 @@ export const industriesMenu = [
       "Forwards only the calls that truly need a person",
       "Handles multiple simultaneous calls without a queue",
       "Works with your existing store phone number",
-    ],
-  },
-  {
-    slug: "mortgage",
-    name: "Mortgage",
-    icon: FiKey,
-    image: mortgageImage,
-    tagline: "Qualify borrower inquiries before they reach your loan officers.",
-    metaDescription:
-      "AI voice automation for mortgage brokers and lenders - qualifies borrower inquiries, answers common questions, and routes ready applicants to loan officers.",
-    description:
-      "Mortgage inquiries come in around the clock, often outside office hours. Our AI answers common borrower questions, captures the details your team needs, and routes qualified applicants straight to a loan officer.",
-    highlights: [
-      "Captures borrower details before the first human call",
-      "Answers common rate, term, and process questions",
-      "Routes qualified applicants directly to loan officers",
-      "Available outside standard office hours",
-      "Every inquiry logged and synced to your CRM",
     ],
   },
   {
@@ -498,7 +438,6 @@ export const industriesGroups = [
   { title: "Business & Retail", slugs: ["medium-to-big-business", "retail-stores", "auto-dealership", "furniture-store"] },
   { title: "Health & Wellness", slugs: ["physiotherapy", "dental", "massage-and-spa"] },
   { title: "Home & Trade Services", slugs: ["hvac", "roofing", "plumbing", "landscaping"] },
-  { title: "Commerce & Finance", slugs: ["ecommerce-brands", "fintech-brands", "mortgage"] },
 ];
 
 export const servicesTeaser = {

@@ -1,20 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
-import { RetellWebClient } from "retell-client-js-sdk";
-import { FiCheck, FiMail, FiMic, FiPhone, FiPhoneCall, FiPhoneOff, FiUser } from "react-icons/fi";
+import { FiCheck, FiMail, FiPhone, FiUser, FiZap } from "react-icons/fi";
 import assets from "../assets/assets";
-import { industriesMenu as industries } from "../data/menuData";
+import { industriesMenu } from "../data/menuData";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
-const formatTimer = (totalSeconds) => {
-  const minutes = Math.floor(totalSeconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const seconds = (totalSeconds % 60).toString().padStart(2, "0");
-  return `${minutes}:${seconds}`;
-};
+// Only a curated handful of industries here, not the full menu - keeps the
+// pill row short and scannable instead of forcing visitors to scroll through
+// all sixteen before they can even fill out the form.
+const DEMO_INDUSTRY_SLUGS = ["massage-and-spa", "furniture-store", "hvac", "real-estate", "landscaping"];
+const industries = DEMO_INDUSTRY_SLUGS.map((slug) =>
+  industriesMenu.find((item) => item.slug === slug)
+).filter(Boolean);
 
 const LiveDemo = () => {
   // --- Left column: books a real OUTBOUND call - the visitor leaves their
@@ -74,98 +73,6 @@ const LiveDemo = () => {
       toast.error(error.message || "Something went wrong. Please try again.");
     }
   };
-
-  // --- Right column: a real INBOUND demo - the visitor talks to Maya, our
-  // Retell voice agent, right in the browser. Same RetellWebClient flow as
-  // RetellVoiceWidget.jsx (the floating bottom-right widget), just embedded
-  // inline here instead of behind a launcher button. ---
-  const clientRef = useRef(null);
-  const [callStatus, setCallStatus] = useState("idle"); // idle | connecting | active | error
-  const [callForm, setCallForm] = useState({ name: "", phoneNumber: "" });
-  const [callSeconds, setCallSeconds] = useState(0);
-  const tickRef = useRef(null);
-
-  useEffect(() => {
-    const client = new RetellWebClient();
-    clientRef.current = client;
-
-    const handleCallStarted = () => {
-      setCallStatus("active");
-      setCallSeconds(0);
-      tickRef.current = setInterval(() => setCallSeconds((previous) => previous + 1), 1000);
-    };
-    const handleCallEnded = () => {
-      setCallStatus("idle");
-      if (tickRef.current) {
-        clearInterval(tickRef.current);
-        tickRef.current = null;
-      }
-      // Ask again next time, even for a second call in the same page visit.
-      setCallForm({ name: "", phoneNumber: "" });
-    };
-    const handleCallError = () => {
-      setCallStatus("error");
-      if (tickRef.current) {
-        clearInterval(tickRef.current);
-        tickRef.current = null;
-      }
-      toast.error("Maya could not connect. Please try again.");
-    };
-
-    client.on("call_started", handleCallStarted);
-    client.on("call_ended", handleCallEnded);
-    client.on("error", handleCallError);
-
-    return () => {
-      client.stopCall();
-      client.removeListener("call_started", handleCallStarted);
-      client.removeListener("call_ended", handleCallEnded);
-      client.removeListener("error", handleCallError);
-      if (tickRef.current) clearInterval(tickRef.current);
-    };
-  }, []);
-
-  const handleCallFormChange = (event) => {
-    const { name, value } = event.target;
-    setCallForm((previous) => ({ ...previous, [name]: value }));
-  };
-
-  const startMayaCall = async (event) => {
-    event.preventDefault();
-
-    if (!callForm.name.trim() || !callForm.phoneNumber.trim()) {
-      toast.error("Please enter your name and phone number.");
-      return;
-    }
-
-    setCallStatus("connecting");
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(callForm),
-      });
-      const data = await response.json();
-
-      if (!response.ok || !data.accessToken) {
-        throw new Error(data.error || "Unable to start the voice agent");
-      }
-
-      await clientRef.current.startCall({ accessToken: data.accessToken });
-    } catch (error) {
-      console.error("Maya web call failed:", error);
-      setCallStatus("error");
-      toast.error(error.message || "Unable to start the voice agent.");
-    }
-  };
-
-  const endMayaCall = () => {
-    clientRef.current?.stopCall();
-    setCallStatus("idle");
-  };
-
-  const isCalling = callStatus === "active" || callStatus === "connecting";
 
   return (
     <div
@@ -315,115 +222,27 @@ const LiveDemo = () => {
           </form>
         </div>
 
-        {/* Right column - talk to Maya live, right now, in the browser */}
-        <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="h-105 overflow-hidden rounded-2xl border border-gray-200 shadow-2xl shadow-blue-900/10 sm:h-120 dark:border-white/10 dark:shadow-black/40">
-            <img
-              src={assets.liveDemoImage}
-              alt="Faalak AI voice agent"
-              className="h-full w-full object-cover"
-            />
-          </div>
+        {/* Right column - just the photo, no overlay card. */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="relative mx-auto h-105 w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 shadow-2xl shadow-blue-900/10 sm:h-120 lg:max-w-none dark:border-white/10 dark:shadow-black/40"
+        >
+          <img
+            src={assets.liveDemoImage}
+            alt="Customer on a phone call with Faalak's AI voice agent"
+            className="h-full w-full object-cover"
+          />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="absolute inset-0 flex items-center justify-center p-4 sm:p-6"
-          >
-            <div className="w-full max-w-sm rounded-3xl border border-gray-100 bg-white p-6 text-left shadow-2xl shadow-blue-900/20 sm:max-w-md sm:p-8 dark:border-white/10 dark:bg-primary-deep/95 dark:shadow-black/40">
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <FiMic className="h-5 w-5 text-primary" />
-                  {callStatus === "active" && (
-                    <span className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
-                  )}
-                </span>
-                <div>
-                  <p className="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
-                    Talk to Maya &middot; live voice agent
-                  </p>
-                  {callStatus === "idle" && (
-                    <p className="text-xs text-gray-400 dark:text-white/50">Ready when you are</p>
-                  )}
-                  {callStatus === "connecting" && (
-                    <p className="flex items-center gap-1.5 text-xs text-amber-500">
-                      <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
-                      Connecting...
-                    </p>
-                  )}
-                  {callStatus === "active" && (
-                    <p className="flex items-center gap-1.5 text-xs text-emerald-500">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                      On a call &middot; {formatTimer(callSeconds)}
-                    </p>
-                  )}
-                  {callStatus === "error" && (
-                    <p className="text-xs font-medium text-rose-500">Connection failed</p>
-                  )}
-                </div>
-              </div>
-
-              {callStatus === "active" ? (
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-gray-500 dark:text-white/60">
-                    Maya is listening - start speaking.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={endMayaCall}
-                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-400"
-                  >
-                    <FiPhoneOff className="h-4 w-4" /> End call
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={startMayaCall} className="mt-6 space-y-3.5">
-                  <label className="relative block">
-                    <FiUser className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-white/40" />
-                    <input
-                      type="text"
-                      name="name"
-                      value={callForm.name}
-                      onChange={handleCallFormChange}
-                      placeholder="Your name"
-                      autoComplete="name"
-                      disabled={isCalling}
-                      className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
-                    />
-                  </label>
-                  <label className="relative block">
-                    <FiPhone className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-white/40" />
-                    <input
-                      type="tel"
-                      name="phoneNumber"
-                      value={callForm.phoneNumber}
-                      onChange={handleCallFormChange}
-                      placeholder="Phone number"
-                      autoComplete="tel"
-                      disabled={isCalling}
-                      className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40"
-                    />
-                  </label>
-                  <button
-                    type="submit"
-                    disabled={isCalling}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:scale-[1.02] disabled:cursor-wait disabled:opacity-70"
-                  >
-                    {callStatus === "connecting" ? (
-                      "Connecting..."
-                    ) : (
-                      <>
-                        <FiPhoneCall className="h-4 w-4" /> Start call with Maya
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-          </motion.div>
-        </div>
+          {/* Latency badge - Maya's real response speed, shown right on the
+              photo so it reads as a live product stat, not marketing copy. */}
+          <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-gray-900 shadow-lg backdrop-blur-sm dark:bg-primary-deep/90 dark:text-white">
+            <FiZap className="h-3.5 w-3.5 text-primary" />
+            300ms latency
+          </span>
+        </motion.div>
       </motion.div>
     </div>
   );

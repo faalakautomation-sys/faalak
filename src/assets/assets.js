@@ -21,7 +21,7 @@ import group_profile from './group_profile.png'
 import bgImage2 from './bgImage2.png'
 import hero_video from './3D animated.mp4'
 import heroCoverImage from './bg-image.png'
-import liveDemoImage from './teaser-livedemo.png'
+import liveDemoImage from './bg-lady-image.jpg'
 import ads_icon from './ads_icon.svg'
 import content_icon from './content_icon.svg'
 import marketing_icon from './marketing_icon.svg'
@@ -227,7 +227,7 @@ export const faqData = [
   {
     question: "Is my data secure?",
     answer:
-      "Yes, absolutely. By hosting on your own VPS, you gain a massive competitive advantage. We promise your clients that their data never enters public Al pools or shared corporate data silos.",
+      "Yes, absolutely. By hosting on our own VPS. We promise oour clients that their data never enters public Al pools or shared corporate data silos.",
   },
   {
     question: "What happens if the agent cannot handle a call?",

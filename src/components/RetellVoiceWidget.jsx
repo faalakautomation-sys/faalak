@@ -6,12 +6,48 @@ import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
+// Matches Tailwind's bottom-6 (1.5rem) - the button's normal resting gap
+// above the viewport edge before the footer ever enters the picture.
+const BASE_DOCK_OFFSET = 24;
+// Extra breathing room once it's resting above the footer row, so it isn't
+// touching the Data Privacy & Security / social icons line.
+const FOOTER_CLEARANCE = 16;
+// Vertical gap between the launcher button and the greeting bubble/panel
+// above it (Tailwind's bottom-24 vs bottom-6, i.e. 96px - 24px).
+const PANEL_OFFSET_ABOVE_BUTTON = 72;
+
 const RetellVoiceWidget = () => {
   const clientRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(true);
   const [status, setStatus] = useState("idle");
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
+  const [dockOffset, setDockOffset] = useState(BASE_DOCK_OFFSET);
+
+  // Keeps the widget from ever floating on top of the footer's bottom row -
+  // as that row scrolls up into view, this pushes the button (and whatever's
+  // open above it) up by exactly how much of the row is now on-screen, so it
+  // comes to rest just above "Data Privacy & Security / Twitter / LinkedIn"
+  // instead of covering it.
+  useEffect(() => {
+    const updateDockOffset = () => {
+      const footerRow = document.getElementById("footer-bottom-row");
+      if (!footerRow) {
+        setDockOffset(BASE_DOCK_OFFSET);
+        return;
+      }
+      const overlap = window.innerHeight - footerRow.getBoundingClientRect().top;
+      setDockOffset(overlap > BASE_DOCK_OFFSET ? overlap + FOOTER_CLEARANCE : BASE_DOCK_OFFSET);
+    };
+
+    updateDockOffset();
+    window.addEventListener("scroll", updateDockOffset, { passive: true });
+    window.addEventListener("resize", updateDockOffset);
+    return () => {
+      window.removeEventListener("scroll", updateDockOffset);
+      window.removeEventListener("resize", updateDockOffset);
+    };
+  }, []);
 
   useEffect(() => {
     const client = new RetellWebClient();
@@ -108,7 +144,8 @@ const RetellVoiceWidget = () => {
           setIsOpen((previous) => !previous);
         }}
         aria-label="Open Retell voice agent"
-        className="fixed bottom-6 right-6 z-9997 flex h-14 items-center gap-3 rounded-full bg-[#075bd8] px-5 text-white shadow-[0_12px_28px_rgba(7,91,216,0.28)] transition hover:-translate-y-0.5 hover:bg-[#064fbd]"
+        style={{ bottom: dockOffset }}
+        className="fixed right-6 z-9997 flex h-14 items-center gap-3 rounded-full bg-[#075bd8] px-5 text-white shadow-[0_12px_28px_rgba(7,91,216,0.28)] transition hover:-translate-y-0.5 hover:bg-[#064fbd]"
         whileTap={{ scale: 0.95 }}
       >
         <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#ff4b9b] via-[#9b7cff] to-[#24d5ff] shadow-inner">
@@ -124,7 +161,8 @@ const RetellVoiceWidget = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className="fixed bottom-24 right-6 z-9996 w-[320px] max-w-[calc(100vw-32px)] rounded-lg bg-white px-4 py-4 text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.16)] ring-1 ring-slate-200"
+            style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
+            className="fixed right-6 z-9996 w-[320px] max-w-[calc(100vw-32px)] rounded-lg bg-white px-4 py-4 text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.16)] ring-1 ring-slate-200"
           >
             <div className="flex items-center justify-between gap-4">
               <p className="text-sm font-semibold tracking-tight">Hi! Want to talk to our AI assistant?</p>
@@ -143,7 +181,8 @@ const RetellVoiceWidget = () => {
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22 }}
             aria-label="Retell voice agent"
-            className="fixed bottom-24 right-6 z-9996 w-[min(380px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-[0_20px_55px_rgba(15,23,42,0.18)]"
+            style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
+            className="fixed right-6 z-9996 w-[min(380px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-[0_20px_55px_rgba(15,23,42,0.18)]"
           >
             <div className="relative overflow-hidden border-b border-slate-100 px-6 pb-6 pt-6">
               <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />

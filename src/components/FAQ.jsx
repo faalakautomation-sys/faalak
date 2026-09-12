@@ -80,10 +80,10 @@ const FAQ = () => {
         className="relative mx-auto flex max-w-5xl flex-col items-center gap-4"
       >
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-orange-400">
-          Frequently Asked Questions
+          Answers before you even have to ask.
         </span>
         <h2 className="font-elite max-w-2xl text-center text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-          Answers before you even have to ask.
+          Frequently Asked Questions
         </h2>
         <p className="mb-6 max-w-xl text-center text-sm text-white/70 sm:text-base">
           Everything you need to know before putting an AI voice agent and chatbot to
