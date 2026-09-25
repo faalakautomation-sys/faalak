@@ -15,7 +15,7 @@ const Services = () => {
       viewport={{ once: true }}
       transition={{ staggerChildren: 0.2 }}
       id="services"
-      className="relative flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-700 dark:text-white"
+      className="relative flex flex-col items-center gap-7 px-4 pt-8 sm:px-12 lg:px-24 xl:px-40 text-gray-700 dark:text-white"
     >
       <div className="absolute inset-x-0 top-0 -z-10 h-64 rounded-full bg-gradient-to-r from-sky-500/10 via-blue-400/10 to-cyan-400/10 blur-3xl" />
 

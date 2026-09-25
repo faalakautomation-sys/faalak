@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import { FiCheck, FiCopy, FiPhoneCall, FiPhoneForwarded, FiX } from "react-icons/fi";
 
 const agents = [
-  { name: "Physio Therapist", number: "+12893676052", displayNumber: "1 289 367 6052" },
-  { name: "Faalak", number: "+12896709108", displayNumber: "1 289 670 9108" },
-  { name: "Cannabis", number: "+12897685945", displayNumber: "1 289 768 5945" },
-  { name: "Restaurant", number: "+12893675561", displayNumber: "1 289 367 5561" },
+  { name: "Physio Therapist", number: "+12893676052", displayNumber: "+1 289 367 6052" },
+  { name: "Faalak", number: "+12896709108", displayNumber: "+1 289 670 9108" },
+  { name: "Cannabis", number: "+12897685945", displayNumber: "+1 289 768 5945" },
+  { name: "Restaurant", number: "+12893675561", displayNumber: "+1 289 367 5561" },
 ];
 
 const DirectAgentCalls = () => {
@@ -25,7 +25,7 @@ const DirectAgentCalls = () => {
   };
 
   return (
-  <section className="relative px-4 pb-16 pt-2 sm:px-12 sm:pb-24 lg:px-24 xl:px-40" aria-labelledby="direct-agent-calls-heading">
+  <section className="relative px-4 pb-8 pt-2 sm:px-12 sm:pb-12 lg:px-24 xl:px-40" aria-labelledby="direct-agent-calls-heading">
     <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-r from-cyan-500/10 via-blue-400/10 to-orange-400/10 blur-3xl" />
     <div className="mx-auto max-w-6xl">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -60,6 +60,8 @@ const DirectAgentCalls = () => {
               <h3 className="font-display text-xl font-bold text-gray-900">{agent.name}</h3>
               <p className="mt-2 text-sm tracking-wide text-gray-500">{agent.displayNumber}</p>
             </div>
+
+            <p className="text-xs font-medium text-gray-500 mt-2">Dial from your phone</p>
             <a
               href={`tel:${agent.number}`}
               onClick={(event) => {
@@ -69,6 +71,7 @@ const DirectAgentCalls = () => {
               className="relative z-10 mt-6 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700"
               aria-label={`Call the ${agent.name} live demo at ${agent.displayNumber}`}
             >
+            
               <FiPhoneCall className="h-4 w-4" />
               Call Now
             </a>
@@ -97,7 +100,7 @@ const DirectAgentCalls = () => {
               </button>
             </div>
             <a href={`tel:${selectedAgent.number}`} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-white transition hover:bg-blue-700">
-              <FiPhoneForwarded className="h-4 w-4" /> Open phone app
+              <FiPhoneForwarded className="h-4 w-4" /> Dial From Your Phone
             </a>
           </div>
         </div>
