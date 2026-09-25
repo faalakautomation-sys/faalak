@@ -12,6 +12,7 @@ import {
   FiTarget,
   FiTool,
   FiTrendingUp,
+  FiUserCheck,
   FiWind,
   FiZap,
 } from "react-icons/fi";
@@ -38,6 +39,25 @@ import showroomsImage from "../assets/category/cat-showrooms.jpg";
 // truth so the menu and the pages it links to never drift apart.
 
 export const servicesMenu = [
+  {
+    slug: "owner-operated-voice-agents",
+    name: "Owner-Operated Voice Agents",
+    icon: FiUserCheck,
+    image: voiceAgentsImage,
+    tagline: "Let your number keep booking leads while you are busy doing the work.",
+    metaDescription:
+      "Owner-operated voice agents answer your business calls, qualify leads, and book appointments through your own number while you work.",
+    description:
+      "Keep your business number and let an AI voice agent answer when you are with a customer, on a job, or away from the phone. It handles the first conversation, captures the right details, and books qualified leads so opportunities keep moving without pulling you away from the work that pays you.",
+    highlights: [
+      "Use your existing business number",
+      "Answer calls while you are working or unavailable",
+      "Capture caller details and qualify each opportunity",
+      "Book appointments without back-and-forth calls",
+      "Send qualified leads to you for fast follow-up",
+    ],
+    whoFor: "Owners, tradespeople, clinics, studios, and independent professionals who cannot answer every call themselves.",
+  },
   {
     slug: "ai-receptionist",
     name: "AI Receptionist",
@@ -428,7 +448,7 @@ export function findMenuItem(list, slug) {
 // into the flat arrays above instead of duplicating data, so a menu item's
 // content only ever lives in one place.
 export const servicesGroups = [
-  { title: "Voice AI", slugs: ["ai-receptionist", "voice-agents"] },
+  { title: "Voice AI", slugs: ["ai-receptionist", "voice-agents", "owner-operated-voice-agents"] },
   { title: "Automation", slugs: ["chatbot-automation", "ai-automation", "lead-generation"] },
   { title: "Growth & Scale", slugs: ["ai-digital-ads", "ai-enterprise-infrastructure"] },
 ];

@@ -8,6 +8,7 @@ import {
   FiMessageSquare,
   FiPenTool,
   FiPhoneCall,
+  FiUserCheck,
   FiSettings,
   FiTarget,
   FiTrendingUp,
@@ -58,6 +59,13 @@ export const servicesData = [
     benefits: ["Retell AI powered", "Natural voice", "Lead qualification"],
     detail: "Handles overflow and after-hours calls so a real team member only steps in once a lead is qualified and ready to talk.",
     icon: FiPhoneCall,
+  },
+  {
+    title: "Owner-Operated Voice Agents",
+    description: "Keep your own number while an AI voice agent answers calls, qualifies prospects, and books leads whenever you are busy or unavailable.",
+    benefits: ["Use your number", "Books leads", "Works while you work"],
+    detail: "Your agent covers calls during appointments, jobs, and busy hours, then sends qualified lead details to you so you can follow up when it suits you.",
+    icon: FiUserCheck,
   },
   {
     title: "Outbound Call Campaigns",
