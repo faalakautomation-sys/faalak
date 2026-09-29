@@ -159,6 +159,10 @@ const Navbar = () => {
           light={transparent}
         />
 
+        <NavLink to="/#gallery" onClick={closeSidebar} light={transparent}>
+          Gallery
+        </NavLink>
+
         <NavLink to="/data-security" onClick={closeSidebar} light={transparent}>
           Security
         </NavLink>

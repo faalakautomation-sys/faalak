@@ -25,7 +25,7 @@ const DirectAgentCalls = () => {
   };
 
   return (
-  <section className="relative px-4 pb-8 pt-2 sm:px-12 sm:pb-12 lg:px-24 xl:px-40" aria-labelledby="direct-agent-calls-heading">
+  <section id="gallery" className="relative scroll-mt-24 px-4 pb-8 pt-2 sm:px-12 sm:pb-12 lg:px-24 xl:px-40" aria-labelledby="direct-agent-calls-heading">
     <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-r from-cyan-500/10 via-blue-400/10 to-orange-400/10 blur-3xl" />
     <div className="mx-auto max-w-6xl">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -35,7 +35,7 @@ const DirectAgentCalls = () => {
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Try an agent</span>
           </div>
           <h2 id="direct-agent-calls-heading" className="font-elite mt-4 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
-            Call a live demo directly.
+            Voice Agents Gallery.
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-gray-500 sm:text-base">
             Choose an industry and call the agent from your phone to hear a real conversation flow.
