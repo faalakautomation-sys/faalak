@@ -21,7 +21,7 @@ import { caseStudies } from "../assets/assets";
 import servicesTeaserImage from "../assets/teaser-services.jpg";
 import industriesTeaserImage from "../assets/teaser-industries.jpg";
 import workTeaserImage from "../assets/teaser-work.jpeg";
-import aiReceptionistImage from "../assets/category/cat-ai-receptionist.jpeg";
+import aiReceptionistImage from "../assets/category/cat-ai-receptionist.png";
 import voiceAgentsImage from "../assets/category/cat-voice-agents.jpg";
 import chatbotAutomationImage from "../assets/category/cat-chatbot-automation.jpg";
 import aiAutomationImage from "../assets/category/cat-ai-automation.jpg";
