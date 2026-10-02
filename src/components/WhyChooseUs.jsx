@@ -18,8 +18,8 @@ const WhyChooseUs = () => {
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 rounded-full bg-gradient-to-r from-indigo-500/10 via-violet-400/10 to-blue-400/10 blur-3xl" />
 
       <Title
-        title="Why Choose Us"
-        desc="We combine human-like conversations, fast deployment, and CRM-ready automation to help your business convert more leads with less manual effort."
+        title="Why Businesses Trust Faalak"
+        desc="We are a Canada-based AI automation company. We build voice agents that answer support calls, capture leads, qualify them, and send you instant WhatsApp alerts, so your team only talks to customers who are ready to buy."
       />
 
       <div className="relative w-full max-w-6xl">

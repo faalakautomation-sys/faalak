@@ -21,7 +21,7 @@ import DataCenterVisual from "./DataCenterVisual";
 // mobile sidebar instead of trying to float a full-width panel there.
 const CLOSE_DELAY = 180;
 
-const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light = false }) => {
+const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light = false, drawerMode = false }) => {
   const [open, setOpen] = useState(false);
   const [panelTop, setPanelTop] = useState(0);
   const rootRef = useRef(null);
@@ -66,16 +66,18 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
   return (
     <div
       ref={rootRef}
-      className="w-full sm:w-auto"
-      onMouseEnter={openNow}
-      onMouseLeave={closeSoon}
+      className={drawerMode ? "w-full" : "w-full 2xl:w-auto"}
+      onMouseEnter={drawerMode ? undefined : openNow}
+      onMouseLeave={drawerMode ? undefined : closeSoon}
     >
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
-        className={`group relative flex w-full items-center justify-between gap-1 py-1 transition-colors duration-300 sm:w-auto sm:justify-start ${
-          light ? "text-white hover:text-white/80" : "hover:text-primary"
+        className={`group relative flex items-center gap-1 transition-colors duration-300 ${
+          drawerMode
+            ? "w-full justify-between rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-primary"
+            : `w-full justify-between py-1 2xl:w-auto 2xl:justify-start ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
         }`}
       >
         {label}
@@ -83,9 +85,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
           className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
         />
         <span
-          className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 sm:block ${
-            light ? "bg-white" : "bg-primary"
-          }`}
+          className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 2xl:block ${light ? "bg-white" : "bg-primary"}`}
         />
       </button>
 
@@ -96,12 +96,14 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            style={{ top: panelTop }}
-            className="z-30 mt-2 w-full overflow-hidden rounded-2xl border border-gray-200 bg-white text-gray-700 shadow-2xl sm:fixed sm:inset-x-0 sm:mt-0 sm:rounded-none sm:border-x-0 sm:border-b dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+            style={drawerMode ? undefined : { top: panelTop }}
+            className={drawerMode
+              ? "relative mt-1 w-full overflow-hidden rounded-xl border border-slate-100 bg-slate-50 text-slate-700"
+              : "z-30 mt-2 w-full overflow-hidden rounded-2xl border border-gray-200 bg-white text-gray-700 shadow-2xl 2xl:fixed 2xl:inset-x-0 2xl:mt-0 2xl:rounded-none 2xl:border-x-0 2xl:border-b dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"}
           >
-            <div className="mx-auto grid max-w-6xl gap-8 p-6 sm:grid-cols-[220px_1fr] sm:gap-10 sm:p-10">
+            <div className={drawerMode ? "grid gap-5 p-4" : "mx-auto grid max-w-6xl gap-8 p-6 2xl:grid-cols-[220px_1fr] 2xl:gap-10 2xl:p-10"}>
               {/* Teaser column */}
-              <div className="hidden border-gray-100 pr-2 sm:block sm:border-r dark:border-gray-800">
+              <div className={`${drawerMode ? "hidden" : "hidden border-gray-100 pr-2 2xl:block 2xl:border-r dark:border-gray-800"}`}>
                 <div className="h-36 w-full overflow-hidden rounded-2xl shadow-[0_14px_30px_-14px_rgba(0,0,0,0.4)]">
                   {teaser.image ? (
                     <img
@@ -128,7 +130,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
               </div>
 
               {/* Grouped link columns */}
-              <div className="grid gap-8 sm:grid-cols-3">
+              <div className={drawerMode ? "grid gap-5" : "grid gap-8 sm:grid-cols-3"}>
                 {groups.map((group) => (
                   <div key={group.title}>
                     <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">{group.title}</h3>

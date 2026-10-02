@@ -6,11 +6,13 @@ import {
   FiDatabase,
   FiLayers,
   FiMessageSquare,
+  FiMapPin,
   FiPenTool,
   FiPhoneCall,
   FiUserCheck,
   FiSettings,
   FiTarget,
+  FiBell,
   FiTrendingUp,
   FiZap,
 } from 'react-icons/fi'
@@ -154,41 +156,41 @@ export const caseStudies = [
   },
 ]
 
-export const whyChooseUsData = [
+ export const whyChooseUsData = [
   {
-    title: "24/7 Availability",
-    description: "Your AI receptionist works around the clock so no lead goes unanswered.",
-    detail: "Nights, weekends, and holidays included — the same coverage a full call center shift would give you, without the shift schedule.",
+    title: "24/7 Customer Support",
+    description: "Your voice agent answers every call day and night, so no customer or lead goes unanswered.",
+    detail: "Nights, weekends, and holidays included. You get full call center coverage without hiring extra shifts.",
     icon: FiClock,
   },
   {
-    title: "Human-Like Conversations",
-    description: "Natural voice and chat experiences that feel premium, clear, and trustworthy.",
-    detail: "Built on Retell AI's natural voice models and trained on your own scripts, so callers stay focused on getting help, not spotting a bot.",
-    icon: FiMessageSquare,
-  },
-  {
-    title: "Fast Deployment",
-    description: "Launch in days, not months, with a streamlined setup and onboarding process.",
-    detail: "We handle script writing, integrations, and testing, so your team's only real task is a short review call before go-live.",
-    icon: FiZap,
-  },
-  {
-    title: "Custom AI Training",
-    description: "We tailor flows, scripts, and automations to your exact business rules.",
-    detail: "Every flow is written around how your business actually operates, not a generic template forced to fit.",
+    title: "Qualified Leads",
+    description: "Our agents ask the right questions and pass you only serious, ready-to-buy leads.",
+    detail: "Every caller is screened on your criteria, so your team skips the time wasters and talks only to people who are ready to buy.",
     icon: FiTarget,
   },
   {
-    title: "CRM Integration",
-    description: "Connect calls, chats, and leads directly to your CRM and reporting tools.",
-    detail: "No exported spreadsheets or manual copy-paste — every lead lands in your CRM the moment the conversation ends.",
-    icon: FiBarChart2,
+    title: "Instant WhatsApp Notifications",
+    description: "Get a WhatsApp alert the moment a lead is captured, so you can follow up while they are still interested.",
+    detail: "Name, number, and a short summary of the conversation land on your phone within seconds of the call ending.",
+    icon: FiBell,
   },
   {
-    title: "Scalable Automation",
+    title: "Human-Like Conversations",
+    description: "Natural voice experiences that sound clear, friendly, and trustworthy.",
+    detail: "Trained on your own scripts and business rules, so callers focus on getting help, not on spotting a bot.",
+    icon: FiMessageSquare,
+  },
+  {
+    title: "Canada-Based Team",
+    description: "We are a Canada-based company, so you get reliable support, clear communication, and service you can trust.",
+    detail: "Work with a team that understands Canadian businesses and is easy to reach whenever you need help.",
+    icon: FiMapPin,
+  },
+  {
+    title: "Scalable AI",
     description: "Built to grow with your team, your channels, and your customer volume.",
-    detail: "Handles a quiet Tuesday and a 10x traffic spike the same way — no re-provisioning or extra hires required.",
+    detail: "Handles a quiet Tuesday and a 10x traffic spike the same way, with no extra hires required.",
     icon: FiLayers,
   },
 ]

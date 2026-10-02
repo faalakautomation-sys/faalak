@@ -64,8 +64,10 @@ const Hero = () => {
           viewport={{ once: true }}
           className="font-display w-full max-w-xl text-base font-bold leading-snug text-white sm:text-lg md:text-xl lg:text-2xl"
         >
-          We give your business a smart helper that talks to customers day and night, so you earn more revenue $$$.
-        </motion.p>
+          
+          Customer Support AI Voice Agents that work 24/7, Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads.
+          
+                  </motion.p>
 
         {/* The signature tagline - flat (no tilt), boxed in a simple rounded
             rectangle so it reads as a defined badge/callout rather than

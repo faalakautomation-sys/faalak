@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import assets from "../assets/assets";
 import { motion } from "motion/react";
+import { FiMenu, FiX } from "react-icons/fi";
 import MegaMenu from "./MegaMenu";
 import {
   servicesMenu,
@@ -20,38 +21,37 @@ const resolvedServiceGroups = resolveGroups(servicesGroups, servicesMenu);
 const resolvedIndustryGroups = resolveGroups(industriesGroups, industriesMenu);
 const resolvedWorkGroups = resolveGroups(workGroups, workMenu);
 
-// How far you can scroll before the transparent-over-hero navbar switches to
-// its solid form - small enough that it reacts almost immediately once you
-// start scrolling, not a full section-height later.
 const SCROLL_THRESHOLD = 40;
 
-// Shared animated underline used on every plain nav link, so the hover
-// treatment matches the MegaMenu triggers exactly instead of two different
-// hover styles living side by side. `light` swaps it to white for when the
-// navbar itself is transparent over the hero video.
-const NavLink = ({ to, onClick, light, children }) => (
+const NavLink = ({ to, onClick, light, drawer = false, children }) => (
   <Link
     to={to}
     onClick={onClick}
-    className={`group relative py-1 transition-colors duration-300 ${
-      light ? "text-white hover:text-white/80" : "hover:text-primary"
+    className={`group relative transition-colors duration-300 ${
+      drawer
+        ? "w-full rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-primary"
+        : `py-1 ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
     }`}
   >
     {children}
-    <span
-      className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 sm:block ${
-        light ? "bg-white" : "bg-primary"
-      }`}
-    />
+    {!drawer && (
+      <span
+        className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 2xl:block ${
+          light ? "bg-white" : "bg-primary"
+        }`}
+      />
+    )}
   </Link>
 );
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [compactNav, setCompactNav] = useState(() => window.innerWidth < 1536);
   const [scrolled, setScrolled] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const navRef = useRef(null);
   const location = useLocation();
+  const drawerOpen = sidebarOpen && compactNav;
 
   // Transparent-over-video only makes sense on the homepage, right where the
   // hero video is actually behind it - everywhere else (and once you've
@@ -91,13 +91,36 @@ const Navbar = () => {
     setScrolled(window.scrollY > SCROLL_THRESHOLD);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const updateNavLayout = () => {
+      const isCompact = window.innerWidth < 1536;
+      setCompactNav(isCompact);
+      if (!isCompact) closeSidebar();
+    };
+    window.addEventListener("resize", updateNavLayout);
+    return () => window.removeEventListener("resize", updateNavLayout);
+  }, []);
+
+  useEffect(() => {
+    if (!sidebarOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") closeSidebar();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [sidebarOpen]);
+
   return (
     <motion.div
       ref={navRef}
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`flex justify-between items-center px-4 sm:px-12 lg:px-24 xl:px-40 py-4 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
+      className={`flex justify-between items-center px-4 sm:px-8 xl:px-10 2xl:px-24 py-4 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
         transparent ? "border-white/15 bg-transparent" : "border-gray-200/70 backdrop-blur-xl bg-white/50"
       }`}
     >
@@ -111,21 +134,31 @@ const Navbar = () => {
         />
       </Link>
 
-      <div
-        className={`${transparent ? "text-white" : "text-gray-700"} sm:text-sm ${
-          !sidebarOpen
-            ? "max-sm:w-0 overflow-hidden"
-            : "max-sm:w-72 max-sm:pl-10 max-sm:pr-6"
-        } max-sm:fixed top-0 bottom-0 right-0 max-sm:min-h-screen max-sm:h-full max-sm:flex-col max-sm:overflow-y-auto max-sm:bg-primary max-sm:text-white max-sm:pt-20 flex sm:items-center gap-5 transition-all`}
-      >
-        <img
-          src={assets.close_icon}
-          alt="close"
-          className="w-5 absolute right-4 top-4 sm:hidden"
+      {drawerOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation menu"
           onClick={closeSidebar}
+          className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[2px] 2xl:hidden"
         />
+      )}
 
-        <NavLink to="/" onClick={closeSidebar} light={transparent}>
+      <div
+        className={`flex items-center gap-4 2xl:text-sm max-2xl:fixed max-2xl:inset-y-0 max-2xl:right-0 max-2xl:z-50 max-2xl:flex max-2xl:flex-col max-2xl:items-stretch max-2xl:gap-1 max-2xl:w-[min(24rem,88vw)] max-2xl:overflow-y-auto max-2xl:border-l max-2xl:border-slate-200 max-2xl:bg-white max-2xl:px-5 max-2xl:pb-7 max-2xl:pt-6 max-2xl:text-slate-800 max-2xl:shadow-2xl max-2xl:transition-transform max-2xl:duration-300 2xl:static 2xl:flex-row 2xl:items-center 2xl:gap-4 ${
+          drawerOpen ? "max-2xl:translate-x-0" : "max-2xl:translate-x-full max-2xl:pointer-events-none"
+        }`}
+      >
+        <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 2xl:hidden">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI</p>
+            <p className="mt-1 text-xs text-slate-500">Explore the site</p>
+          </div>
+          <button type="button" onClick={closeSidebar} className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation">
+            <FiX className="h-5 w-5" />
+          </button>
+        </div>
+
+        <NavLink to="/" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Home
         </NavLink>
 
@@ -136,7 +169,8 @@ const Navbar = () => {
           basePath="/services"
           navRef={navRef}
           onNavigate={closeSidebar}
-          light={transparent}
+          light={transparent && !drawerOpen}
+          drawerMode={compactNav}
         />
 
         <MegaMenu
@@ -146,7 +180,8 @@ const Navbar = () => {
           basePath="/industries"
           navRef={navRef}
           onNavigate={closeSidebar}
-          light={transparent}
+          light={transparent && !drawerOpen}
+          drawerMode={compactNav}
         />
 
         <MegaMenu
@@ -156,31 +191,46 @@ const Navbar = () => {
           basePath="/work"
           navRef={navRef}
           onNavigate={closeSidebar}
-          light={transparent}
+          light={transparent && !drawerOpen}
+          drawerMode={compactNav}
         />
 
-        <NavLink to="/#gallery" onClick={closeSidebar} light={transparent}>
+        <NavLink to="/#gallery" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Gallery
         </NavLink>
 
-        <NavLink to="/data-security" onClick={closeSidebar} light={transparent}>
+        <NavLink to="/data-security" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Security
         </NavLink>
-        <NavLink to="/#faq" onClick={closeSidebar} light={transparent}>
+        <NavLink to="/#faq" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           FAQ
         </NavLink>
-        <NavLink to="/#contact-us" onClick={closeSidebar} light={transparent}>
+        <NavLink to="/#contact-us" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Contact Us
         </NavLink>
+
+        <button
+          type="button"
+          onClick={() => {
+            closeSidebar();
+            window.dispatchEvent(new Event("open-retell-widget"));
+          }}
+          className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/15 transition hover:bg-blue-700 2xl:hidden"
+        >
+          Book Consultation
+        </button>
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4">
-        <img
-          src={transparent ? assets.menu_icon_dark : assets.menu_icon}
-          alt="menu"
-          onClick={() => setSidebarOpen(true)}
-          className="w-8 sm:hidden"
-        />
+        <button
+          type="button"
+          onClick={() => setSidebarOpen((open) => !open)}
+          aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={sidebarOpen}
+          className={`rounded-full p-2 transition-colors 2xl:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-gray-100"}`}
+        >
+          {sidebarOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
+        </button>
 
         <motion.button
           type="button"
@@ -188,7 +238,7 @@ const Navbar = () => {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.25 }}
-          className={`group text-sm max-sm:hidden flex items-center gap-2 px-6 py-2 rounded-full cursor-pointer transition-colors duration-300 ${
+          className={`group hidden 2xl:flex items-center gap-2 rounded-full px-5 py-2 text-sm cursor-pointer transition-colors duration-300 ${
             transparent
               ? "border border-white/60 text-white hover:bg-white/10"
               : "bg-primary text-white"
@@ -204,7 +254,7 @@ const Navbar = () => {
         </motion.button>
 
         {/* Canada flag badge - hover reveals a "where we're based" tooltip. */}
-        <div className="group relative max-sm:hidden">
+        <div className="group relative hidden 2xl:block">
           <img
             src={assets.flag}
             alt="Canada"
