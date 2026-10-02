@@ -54,21 +54,21 @@ export const trustedBrands = [
 
 export const servicesData = [
   {
-    title: "Retell AI Voice Agents",
+    title: "Voice Agents",
     description: "Powerful, human-like voice agents powered by Retell AI. Handle inbound calls, qualify leads, and book appointments 24/7 with natural conversations.",
     benefits: ["Retell AI powered", "Natural voice", "Lead qualification"],
     detail: "Handles overflow and after-hours calls so a real team member only steps in once a lead is qualified and ready to talk.",
     icon: FiPhoneCall,
   },
   {
-    title: "Owner-Operated Voice Agents",
+    title: "Owner-Operate Agents",
     description: "Keep your own number while an AI voice agent answers calls, qualifies prospects, and books leads whenever you are busy or unavailable.",
     benefits: ["Use your number", "Books leads", "Works while you work"],
     detail: "Your agent covers calls during appointments, jobs, and busy hours, then sends qualified lead details to you so you can follow up when it suits you.",
     icon: FiUserCheck,
   },
   {
-    title: "Outbound Call Campaigns",
+    title: "Outbound Calls",
     description: "Launch automated outbound calling campaigns with Retell AI. Reach customers at scale with personalized, natural-sounding voice interactions.",
     benefits: ["Retell AI technology", "Personalized calls", "Campaign automation"],
     detail: "Runs follow-up and re-engagement campaigns automatically, so cold leads get a consistent second touch without manual dialing.",
@@ -82,26 +82,19 @@ export const servicesData = [
     icon: FiMessageSquare,
   },
   {
-    title: "Appointment Booking Systems",
+    title: "Appointment Booking",
     description: "Let AI book, confirm, and reschedule appointments while reducing missed opportunities. Seamless integration with your calendar.",
     benefits: ["Automated scheduling", "Reminder flows", "Reduced admin work"],
     detail: "Syncs directly with your existing calendar, so double-bookings and manual back-and-forth over available slots disappear.",
     icon: FiCalendar,
   },
   {
-    title: "CRM & Integration Layer",
+    title: "CRM & Data Handling",
     description: "Sync every interaction into your CRM, spreadsheets, and reporting tools without manual work. Keep all your data centralized.",
     benefits: ["Zero manual entry", "Real-time sync", "Clear reporting"],
     detail: "Works with the CRM and spreadsheet tools you already use, so there's nothing new for your team to learn.",
     icon: FiDatabase,
-  },
-  {
-    title: "Voice Agent Customization",
-    description: "Custom-trained voice agents tailored to your exact business needs. Fine-tune conversational flows and response behaviors.",
-    benefits: ["Custom training", "Behavior tuning", "Brand voice"],
-    detail: "We fine-tune tone, scripts, and edge-case handling with you until the agent sounds like part of your team, not a generic bot.",
-    icon: FiSettings,
-  },
+  }
 ]
 
 export const caseStudies = [

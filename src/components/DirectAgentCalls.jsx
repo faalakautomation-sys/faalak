@@ -4,7 +4,7 @@ import { FiCheck, FiCopy, FiPhoneCall, FiPhoneForwarded, FiX } from "react-icons
 
 const agents = [
   { name: "Physio Therapist", number: "+12893676052", displayNumber: "+1 289 367 6052" },
-  { name: "Faalak", number: "+12896709108", displayNumber: "+1 289 670 9108" },
+  { name: "HVAC", number: "+12898166716", displayNumber: "+1 289 816 6716" },
   { name: "Cannabis", number: "+12897685945", displayNumber: "+1 289 768 5945" },
   { name: "Restaurant", number: "+12893675561", displayNumber: "+1 289 367 5561" },
 ];

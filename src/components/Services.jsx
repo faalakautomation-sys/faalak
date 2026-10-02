@@ -20,9 +20,9 @@ const Services = () => {
       <div className="absolute inset-x-0 top-0 -z-10 h-64 rounded-full bg-gradient-to-r from-sky-500/10 via-blue-400/10 to-cyan-400/10 blur-3xl" />
 
       <Title
-        title={"AI Automation Services Built to Convert"}
+        title={"Customer Support Voice Agents"}
         desc={
-          "Launch premium voice, chat, and workflow automations that capture leads, book appointments, and keep your pipeline moving 24/7."
+          "Customer support voice, chat, and workflow automations that capture leads, book appointments and keep your pipeline moving 24/7."
         }
       />
 
