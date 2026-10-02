@@ -65,7 +65,7 @@ const Hero = () => {
           className="font-display w-full max-w-xl text-base font-bold leading-snug text-white sm:text-lg md:text-xl lg:text-2xl"
         >
           
-          Customer Support AI Voice Agents that work 24/7, Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads.
+          Customer Support AI Voice Agents that work 24/7 Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads
           
                   </motion.p>
 

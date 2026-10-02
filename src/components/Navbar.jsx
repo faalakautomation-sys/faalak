@@ -30,7 +30,7 @@ const NavLink = ({ to, onClick, light, drawer = false, children }) => (
     className={`group relative transition-colors duration-300 ${
       drawer
         ? "w-full rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-primary"
-        : `py-1 ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
+        : `whitespace-nowrap py-1 text-[10px] md:text-[10px] lg:text-xs 2xl:text-sm ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
     }`}
   >
     {children}
@@ -46,7 +46,7 @@ const NavLink = ({ to, onClick, light, drawer = false, children }) => (
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [compactNav, setCompactNav] = useState(() => window.innerWidth < 1536);
+  const [compactNav, setCompactNav] = useState(() => !window.matchMedia("(min-width: 768px)").matches);
   const [scrolled, setScrolled] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const navRef = useRef(null);
@@ -92,13 +92,15 @@ const Navbar = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const updateNavLayout = () => {
-      const isCompact = window.innerWidth < 1536;
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const updateNavLayout = (event) => {
+      const isCompact = !event.matches;
       setCompactNav(isCompact);
       if (!isCompact) closeSidebar();
     };
-    window.addEventListener("resize", updateNavLayout);
-    return () => window.removeEventListener("resize", updateNavLayout);
+    setCompactNav(!mediaQuery.matches);
+    mediaQuery.addEventListener("change", updateNavLayout);
+    return () => mediaQuery.removeEventListener("change", updateNavLayout);
   }, []);
 
   useEffect(() => {
@@ -120,17 +122,17 @@ const Navbar = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`flex justify-between items-center px-4 sm:px-8 xl:px-10 2xl:px-24 py-4 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
+      className={`flex justify-between items-center gap-2 px-2 sm:px-3 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-0 md:px-4 lg:px-6 2xl:px-12 py-3 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
         transparent ? "border-white/15 bg-transparent" : "border-gray-200/70 backdrop-blur-xl bg-white/50"
       }`}
     >
-      <Link to="/" onClick={closeSidebar}>
+      <Link to="/" onClick={closeSidebar} className="md:justify-self-start">
         <motion.img
           whileHover={{ scale: 1.04 }}
           transition={{ duration: 0.25 }}
           src={transparent ? assets.logo_dark : assets.logo}
           alt="logo"
-          className="w-32 sm:w-40 object-contain"
+          className="w-24 sm:w-28 lg:w-32 2xl:w-40 object-contain"
         />
       </Link>
 
@@ -139,16 +141,16 @@ const Navbar = () => {
           type="button"
           aria-label="Close navigation menu"
           onClick={closeSidebar}
-          className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[2px] 2xl:hidden"
+          className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[2px] md:hidden"
         />
       )}
 
       <div
-        className={`flex items-center gap-4 2xl:text-sm max-2xl:fixed max-2xl:inset-y-0 max-2xl:right-0 max-2xl:z-50 max-2xl:flex max-2xl:flex-col max-2xl:items-stretch max-2xl:gap-1 max-2xl:w-[min(24rem,88vw)] max-2xl:overflow-y-auto max-2xl:border-l max-2xl:border-slate-200 max-2xl:bg-white max-2xl:px-5 max-2xl:pb-7 max-2xl:pt-6 max-2xl:text-slate-800 max-2xl:shadow-2xl max-2xl:transition-transform max-2xl:duration-300 2xl:static 2xl:flex-row 2xl:items-center 2xl:gap-4 ${
-          drawerOpen ? "max-2xl:translate-x-0" : "max-2xl:translate-x-full max-2xl:pointer-events-none"
+        className={`flex min-w-0 items-center gap-0 md:justify-self-center md:gap-2 lg:gap-3 max-md:fixed max-md:inset-y-0 max-md:right-0 max-md:z-50 max-md:flex-col max-md:items-stretch max-md:gap-1 max-md:w-[min(24rem,88vw)] max-md:overflow-y-auto max-md:border-l max-md:border-slate-200 max-md:bg-white max-md:px-5 max-md:pb-7 max-md:pt-6 max-md:text-slate-800 max-md:shadow-2xl max-md:transition-transform max-md:duration-300 md:static md:flex-row md:items-center 2xl:gap-4 ${
+          drawerOpen ? "max-md:translate-x-0" : "max-md:translate-x-full max-md:pointer-events-none"
         }`}
       >
-        <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 2xl:hidden">
+        <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 md:hidden">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI</p>
             <p className="mt-1 text-xs text-slate-500">Explore the site</p>
@@ -213,56 +215,25 @@ const Navbar = () => {
           Contact Us
         </NavLink>
 
-        <button
-          type="button"
-          onClick={() => {
-            closeSidebar();
-            window.dispatchEvent(new Event("open-retell-widget"));
-          }}
-          className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/15 transition hover:bg-blue-700 2xl:hidden"
-        >
-          Book Consultation
-        </button>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 md:justify-self-end">
         <button
           type="button"
           onClick={() => setSidebarOpen((open) => !open)}
           aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
           aria-expanded={sidebarOpen}
-          className={`rounded-full p-2 transition-colors 2xl:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-gray-100"}`}
+          className={`rounded-full p-2 transition-colors md:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-gray-100"}`}
         >
           {sidebarOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
         </button>
 
-        <motion.button
-          type="button"
-          onClick={() => window.dispatchEvent(new Event("open-retell-widget"))}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.25 }}
-          className={`group hidden 2xl:flex items-center gap-2 rounded-full px-5 py-2 text-sm cursor-pointer transition-colors duration-300 ${
-            transparent
-              ? "border border-white/60 text-white hover:bg-white/10"
-              : "bg-primary text-white"
-          }`}
-        >
-          Book Consultation
-          <img
-            src={assets.arrow_icon}
-            width={14}
-            alt="arrow"
-            className={`transition-transform duration-300 group-hover:translate-x-1 ${transparent ? "invert" : ""}`}
-          />
-        </motion.button>
-
         {/* Canada flag badge - hover reveals a "where we're based" tooltip. */}
-        <div className="group relative hidden 2xl:block">
+        <div className="group relative flex items-center">
           <img
             src={assets.flag}
             alt="Canada"
-            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+            className="h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-110 sm:h-8 2xl:h-9"
           />
           <div className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-max origin-top-right scale-95 rounded-xl border border-gray-100 bg-white px-4 py-2.5 text-right opacity-0 shadow-xl shadow-blue-900/10 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 dark:border-white/10 dark:bg-primary-deep dark:shadow-black/40">
             <p className="text-sm font-bold text-gray-900 dark:text-white">Toronto based</p>

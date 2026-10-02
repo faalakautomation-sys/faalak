@@ -66,7 +66,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
   return (
     <div
       ref={rootRef}
-      className={drawerMode ? "w-full" : "w-full 2xl:w-auto"}
+      className={drawerMode ? "w-full" : "w-full md:w-auto"}
       onMouseEnter={drawerMode ? undefined : openNow}
       onMouseLeave={drawerMode ? undefined : closeSoon}
     >
@@ -77,7 +77,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
         className={`group relative flex items-center gap-1 transition-colors duration-300 ${
           drawerMode
             ? "w-full justify-between rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-primary"
-            : `w-full justify-between py-1 2xl:w-auto 2xl:justify-start ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
+            : `w-full justify-between whitespace-nowrap py-1 md:w-auto md:justify-start md:text-[11px] lg:text-xs 2xl:text-sm ${light ? "text-white hover:text-white/80" : "hover:text-primary"}`
         }`}
       >
         {label}
@@ -85,7 +85,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
           className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
         />
         <span
-          className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 2xl:block ${light ? "bg-white" : "bg-primary"}`}
+          className={`pointer-events-none absolute -bottom-0.5 left-0 hidden h-[1.5px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 md:block ${light ? "bg-white" : "bg-primary"}`}
         />
       </button>
 
@@ -99,11 +99,11 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
             style={drawerMode ? undefined : { top: panelTop }}
             className={drawerMode
               ? "relative mt-1 w-full overflow-hidden rounded-xl border border-slate-100 bg-slate-50 text-slate-700"
-              : "z-30 mt-2 w-full overflow-hidden rounded-2xl border border-gray-200 bg-white text-gray-700 shadow-2xl 2xl:fixed 2xl:inset-x-0 2xl:mt-0 2xl:rounded-none 2xl:border-x-0 2xl:border-b dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"}
+              : "z-30 mt-2 w-full overflow-hidden rounded-2xl border border-gray-200 bg-white text-gray-700 shadow-2xl md:fixed md:inset-x-0 md:mt-0 md:rounded-none md:border-x-0 md:border-b dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"}
           >
-            <div className={drawerMode ? "grid gap-5 p-4" : "mx-auto grid max-w-6xl gap-8 p-6 2xl:grid-cols-[220px_1fr] 2xl:gap-10 2xl:p-10"}>
+            <div className={drawerMode ? "grid gap-5 p-4" : "mx-auto grid max-w-6xl gap-8 p-6 md:grid-cols-[180px_1fr] md:gap-6 lg:grid-cols-[220px_1fr] lg:gap-10 lg:p-10"}>
               {/* Teaser column */}
-              <div className={`${drawerMode ? "hidden" : "hidden border-gray-100 pr-2 2xl:block 2xl:border-r dark:border-gray-800"}`}>
+              <div className={`${drawerMode ? "hidden" : "hidden border-gray-100 pr-2 md:block md:border-r dark:border-gray-800"}`}>
                 <div className="h-36 w-full overflow-hidden rounded-2xl shadow-[0_14px_30px_-14px_rgba(0,0,0,0.4)]">
                   {teaser.image ? (
                     <img
@@ -130,7 +130,7 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
               </div>
 
               {/* Grouped link columns */}
-              <div className={drawerMode ? "grid gap-5" : "grid gap-8 sm:grid-cols-3"}>
+              <div className={drawerMode ? "grid gap-5" : "grid gap-8 md:grid-cols-3"}>
                 {groups.map((group) => (
                   <div key={group.title}>
                     <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">{group.title}</h3>
