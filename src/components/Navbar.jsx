@@ -152,6 +152,10 @@ const Navbar = () => {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI</p>
             <p className="mt-1 text-xs text-slate-500">Explore the site</p>
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-50 py-1.5 pl-2 pr-3 ring-1 ring-slate-200/80">
+              <img src={assets.flag} alt="Canada flag" className="h-5 w-auto object-contain" />
+              <span className="text-xs font-semibold text-slate-700">Toronto, Canada</span>
+            </div>
           </div>
           <button type="button" onClick={closeSidebar} className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation">
             <FiX className="h-5 w-5" />
