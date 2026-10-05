@@ -27,6 +27,7 @@ const App = () => {
   // changes. The FAQ section stays on its own permanently-dark styling
   // regardless of this (it never uses `dark:` classes), so it is unaffected
   // either way.
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "light");
     document.documentElement.style.colorScheme = "light";

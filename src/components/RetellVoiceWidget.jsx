@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { RetellWebClient } from "retell-client-js-sdk";
-import { FiMic, FiPhone, FiPhoneOff, FiUser, FiX } from "react-icons/fi";
+import { FiMessageCircle, FiMic, FiPhone, FiPhoneOff, FiSend, FiUser, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+  ...(API_BASE_URL.includes("ngrok") ? { "ngrok-skip-browser-warning": "true" } : {}),
+};
 
 // Matches Tailwind's bottom-6 (1.5rem) - the button's normal resting gap
 // above the viewport edge before the footer ever enters the picture.
@@ -21,7 +25,17 @@ const RetellVoiceWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(true);
   const [status, setStatus] = useState("idle");
+  const [mode, setMode] = useState("voice");
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
+  const [chatSessionId, setChatSessionId] = useState("");
+  const [isStartingChat, setIsStartingChat] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { sender: "bot", message: "Hi, I’m Maya. What can I help you with?" },
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const [isSendingChat, setIsSendingChat] = useState(false);
+  const chatEndRef = useRef(null);
+  const chatSessionPromiseRef = useRef(null);
   const [dockOffset, setDockOffset] = useState(BASE_DOCK_OFFSET);
 
   // Keeps the widget from ever floating on top of the footer's bottom row -
@@ -61,6 +75,7 @@ const RetellVoiceWidget = () => {
       const detail = event.detail || {};
       setShowGreeting(false);
       setIsOpen(true);
+      setMode("voice");
 
       if (detail.name || detail.phoneNumber) {
         const prefilled = { name: detail.name || "", phoneNumber: detail.phoneNumber || "" };
@@ -97,6 +112,10 @@ const RetellVoiceWidget = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (mode === "chat") chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [chatMessages, mode]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((previous) => ({ ...previous, [name]: value }));
@@ -117,7 +136,7 @@ const RetellVoiceWidget = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: API_HEADERS,
         body: JSON.stringify({ name: data.name.trim(), phoneNumber: data.phoneNumber.trim() }),
       });
       const result = await response.json();
@@ -137,6 +156,75 @@ const RetellVoiceWidget = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     startVoiceAgent(formData);
+  };
+
+  const ensureChatSession = () => {
+    if (chatSessionId) return Promise.resolve(chatSessionId);
+    if (chatSessionPromiseRef.current) return chatSessionPromiseRef.current;
+
+    setIsStartingChat(true);
+    chatSessionPromiseRef.current = fetch(`${API_BASE_URL}/retell/chat/session`, {
+      method: "POST",
+      headers: API_HEADERS,
+      body: JSON.stringify({ name: formData.name.trim() || undefined }),
+    })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.chatId) {
+          throw new Error(result.error || "Unable to start a chat session");
+        }
+        setChatSessionId(result.chatId);
+        return result.chatId;
+      })
+      .catch((error) => {
+        chatSessionPromiseRef.current = null;
+        throw error;
+      })
+      .finally(() => setIsStartingChat(false));
+
+    return chatSessionPromiseRef.current;
+  };
+
+  const handleChatModeSelect = () => {
+    setMode("chat");
+    ensureChatSession().catch((error) => {
+      toast.error(error.message || "Unable to prepare chat right now.");
+    });
+  };
+
+  const handleChatSubmit = async (event) => {
+    event.preventDefault();
+    const message = chatInput.trim();
+    if (!message || isSendingChat) return;
+
+    setChatInput("");
+    setChatMessages((previous) => [...previous, { sender: "user", message }]);
+    setIsSendingChat(true);
+
+    try {
+      const activeChatId = await ensureChatSession();
+
+      const response = await fetch(`${API_BASE_URL}/retell/chat/message`, {
+        method: "POST",
+        headers: API_HEADERS,
+        body: JSON.stringify({ chatId: activeChatId, message }),
+      });
+      const result = await response.json();
+      if (!response.ok || result.success === false) {
+        throw new Error(result.error || "Unable to send your message");
+      }
+      const replies = (result.replies || []).filter((reply) => typeof reply === "string" && reply.trim());
+      if (!replies.length) throw new Error("Maya did not return a text reply");
+      setChatMessages((previous) => [...previous, ...replies.map((reply) => ({ sender: "bot", message: reply }))]);
+    } catch (error) {
+      setChatMessages((previous) => [...previous, {
+        sender: "bot",
+        message: "I couldn’t send that message right now. Please try again or switch to a voice call.",
+      }]);
+      toast.error(error.message || "Chat is temporarily unavailable.");
+    } finally {
+      setIsSendingChat(false);
+    }
   };
 
   const stopVoiceAgent = () => {
@@ -164,7 +252,7 @@ const RetellVoiceWidget = () => {
           setShowGreeting(false);
           setIsOpen((previous) => !previous);
         }}
-        aria-label="Open Retell voice agent"
+        aria-label="Open Maya chat and voice assistant"
         style={{ bottom: dockOffset }}
         className="fixed right-6 z-9997 flex h-14 items-center gap-3 rounded-full bg-[#075bd8] px-5 text-white shadow-[0_12px_28px_rgba(7,91,216,0.28)] transition hover:-translate-y-0.5 hover:bg-[#064fbd]"
         whileTap={{ scale: 0.95 }}
@@ -201,11 +289,11 @@ const RetellVoiceWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            aria-label="Retell voice agent"
+            aria-label="Maya chat and voice assistant"
             style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
-            className="fixed right-6 z-9996 w-[min(380px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-[0_20px_55px_rgba(15,23,42,0.18)]"
+            className="fixed right-6 z-9996 flex max-h-[calc(100dvh-120px)] w-[min(380px,calc(100vw-32px))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-[0_20px_55px_rgba(15,23,42,0.18)]"
           >
-            <div className="relative overflow-hidden border-b border-slate-100 px-6 pb-6 pt-6">
+            <div className="relative shrink-0 overflow-hidden border-b border-slate-100 px-6 pb-5 pt-6">
               <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />
               <div className="relative flex items-start justify-between">
                 <div>
@@ -216,12 +304,69 @@ const RetellVoiceWidget = () => {
                   <FiMic className="h-5 w-5" />
                 </div>
               </div>
-              <p className="relative mt-4 text-sm leading-6 text-slate-500">
-                Share your details first, then speak directly with our AI voice assistant.
+              <p className="relative mt-3 text-sm leading-6 text-slate-500">
+                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
               </p>
+              <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "chat"}
+                  disabled={isCalling}
+                  onClick={handleChatModeSelect}
+                  className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${mode === "chat" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                >
+                  <FiMessageCircle className="h-4 w-4" /> Chat
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "voice"}
+                  disabled={isCalling}
+                  onClick={() => setMode("voice")}
+                  className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${mode === "voice" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                >
+                  <FiMic className="h-4 w-4" /> Voice
+                </button>
+              </div>
             </div>
 
-            {status === "active" ? (
+            {mode === "chat" ? (
+              <div className="flex min-h-0 flex-1 flex-col bg-slate-50">
+                <div className="min-h-44 flex-1 space-y-3 overflow-y-auto px-5 py-5" aria-live="polite" aria-label="Chat messages">
+                  {chatMessages.map((item, index) => (
+                    <div key={`${chatSessionId}-${index}`} className={`flex ${item.sender === "user" ? "justify-end" : "justify-start"}`}>
+                      <p className={`max-w-[85%] whitespace-pre-wrap break-words rounded-2xl px-4 py-3 text-sm leading-5 ${item.sender === "user" ? "rounded-br-md bg-primary text-white" : "rounded-bl-md border border-slate-200 bg-white text-slate-700"}`}>
+                        {item.message}
+                      </p>
+                    </div>
+                  ))}
+                  {(isStartingChat || isSendingChat) && <p className="text-xs text-slate-400">{isStartingChat ? "Connecting to Maya..." : "Maya is replying..."}</p>}
+                  <div ref={chatEndRef} />
+                </div>
+                <form onSubmit={handleChatSubmit} className="flex shrink-0 items-end gap-2 border-t border-slate-200 bg-white p-4">
+                  <label className="sr-only" htmlFor="maya-chat-message">Message Maya</label>
+                  <textarea
+                    id="maya-chat-message"
+                    value={chatInput}
+                    onChange={(event) => setChatInput(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" && !event.shiftKey) {
+                        event.preventDefault();
+                        event.currentTarget.form?.requestSubmit();
+                      }
+                    }}
+                    rows={1}
+                    maxLength={2000}
+                    placeholder="Write a message..."
+                    className="max-h-24 min-h-11 flex-1 resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
+                  />
+                  <button type="submit" disabled={!chatInput.trim() || isSendingChat} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50" aria-label="Send message">
+                    <FiSend className="h-4 w-4" />
+                  </button>
+                </form>
+              </div>
+            ) : status === "active" ? (
               <div className="bg-slate-50 px-6 py-7 text-center">
                 <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 ring-8 ring-blue-50">
                   <FiMic className="h-8 w-8 animate-pulse text-[#075bd8]" />
@@ -258,7 +403,7 @@ const RetellVoiceWidget = () => {
               </form>
             )}
 
-            {!isCalling && <button type="button" onClick={closeWidget} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900" aria-label="Close voice agent"><FiX className="h-5 w-5" /></button>}
+            {!isCalling && <button type="button" onClick={closeWidget} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900" aria-label="Close Maya assistant"><FiX className="h-5 w-5" /></button>}
           </motion.section>
         )}
       </AnimatePresence>
