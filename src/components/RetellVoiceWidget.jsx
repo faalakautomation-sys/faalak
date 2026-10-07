@@ -29,6 +29,7 @@ const RetellVoiceWidget = () => {
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
   const [chatSessionId, setChatSessionId] = useState("");
   const [isStartingChat, setIsStartingChat] = useState(false);
+  const [isEndingChat, setIsEndingChat] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     { sender: "bot", message: "Hi, I’m Maya. What can I help you with?" },
   ]);
@@ -166,7 +167,10 @@ const RetellVoiceWidget = () => {
     chatSessionPromiseRef.current = fetch(`${API_BASE_URL}/retell/chat/session`, {
       method: "POST",
       headers: API_HEADERS,
-      body: JSON.stringify({ name: formData.name.trim() || undefined }),
+      body: JSON.stringify({
+        name: formData.name.trim() || undefined,
+        phoneNumber: formData.phoneNumber.trim() || undefined,
+      }),
     })
       .then(async (response) => {
         const result = await response.json();
@@ -186,16 +190,68 @@ const RetellVoiceWidget = () => {
   };
 
   const handleChatModeSelect = () => {
+    if (isEndingChat) return;
     setMode("chat");
     ensureChatSession().catch((error) => {
       toast.error(error.message || "Unable to prepare chat right now.");
     });
   };
 
+  const resetChatSession = () => {
+    setChatSessionId("");
+    chatSessionPromiseRef.current = null;
+    setChatMessages([{ sender: "bot", message: "Hi, I’m Maya. What can I help you with?" }]);
+    setChatInput("");
+  };
+
+  const finishChatSession = async () => {
+    let activeChatId = chatSessionId;
+    if (!activeChatId && chatSessionPromiseRef.current) {
+      try {
+        activeChatId = await chatSessionPromiseRef.current;
+      } catch {
+        return;
+      }
+    }
+    if (!activeChatId) return;
+
+    const response = await fetch(`${API_BASE_URL}/retell/chat/end`, {
+      method: "POST",
+      headers: API_HEADERS,
+      body: JSON.stringify({
+        chatId: activeChatId,
+        name: formData.name.trim() || undefined,
+        phoneNumber: formData.phoneNumber.trim() || undefined,
+      }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (result.conversationEnded) {
+      resetChatSession();
+    }
+    if (!response.ok || !result.notificationQueued) {
+      throw new Error(result.error || "The chat could not be saved and notified.");
+    }
+  };
+
+  const handleVoiceModeSelect = async () => {
+    if (mode === "chat") {
+      setIsEndingChat(true);
+      try {
+        await finishChatSession();
+      } catch (error) {
+        toast.error(error.message || "Unable to finish the chat right now.");
+        return;
+      } finally {
+        setIsEndingChat(false);
+      }
+    }
+    setMode("voice");
+  };
+
   const handleChatSubmit = async (event) => {
     event.preventDefault();
     const message = chatInput.trim();
-    if (!message || isSendingChat) return;
+    if (!message || isSendingChat || isEndingChat) return;
 
     setChatInput("");
     setChatMessages((previous) => [...previous, { sender: "user", message }]);
@@ -207,7 +263,12 @@ const RetellVoiceWidget = () => {
       const response = await fetch(`${API_BASE_URL}/retell/chat/message`, {
         method: "POST",
         headers: API_HEADERS,
-        body: JSON.stringify({ chatId: activeChatId, message }),
+        body: JSON.stringify({
+          chatId: activeChatId,
+          message,
+          name: formData.name.trim() || undefined,
+          phoneNumber: formData.phoneNumber.trim() || undefined,
+        }),
       });
       const result = await response.json();
       if (!response.ok || result.success === false) {
@@ -232,14 +293,21 @@ const RetellVoiceWidget = () => {
     setStatus("idle");
   };
 
-  const closeWidget = () => {
-    if (status === "active" || status === "connecting") return;
-    setIsOpen(false);
-    setStatus("idle");
-    setShowGreeting(false);
-    // Every session starts fresh - the visitor is asked for their name and
-    // phone number again the next time they open the widget or place a call.
-    setFormData({ name: "", phoneNumber: "" });
+  const closeWidget = async () => {
+    if (status === "active" || status === "connecting" || isSendingChat || isEndingChat) return;
+    setIsEndingChat(true);
+    try {
+      await finishChatSession();
+      setIsOpen(false);
+      setMode("voice");
+      setStatus("idle");
+      setShowGreeting(false);
+      setFormData({ name: "", phoneNumber: "" });
+    } catch (error) {
+      toast.error(error.message || "Unable to finish the chat right now.");
+    } finally {
+      setIsEndingChat(false);
+    }
   };
 
   const isCalling = status === "active" || status === "connecting";
@@ -249,8 +317,16 @@ const RetellVoiceWidget = () => {
       <motion.button
         type="button"
         onClick={() => {
-          setShowGreeting(false);
-          setIsOpen((previous) => !previous);
+          if (isOpen) {
+            if (isCalling) {
+              setIsOpen(false);
+            } else {
+              closeWidget();
+            }
+          } else {
+            setShowGreeting(false);
+            setIsOpen(true);
+          }
         }}
         aria-label="Open Maya chat and voice assistant"
         style={{ bottom: dockOffset }}
@@ -312,7 +388,7 @@ const RetellVoiceWidget = () => {
                   type="button"
                   role="tab"
                   aria-selected={mode === "chat"}
-                  disabled={isCalling}
+                  disabled={isCalling || isEndingChat || isSendingChat}
                   onClick={handleChatModeSelect}
                   className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${mode === "chat" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
                 >
@@ -322,8 +398,8 @@ const RetellVoiceWidget = () => {
                   type="button"
                   role="tab"
                   aria-selected={mode === "voice"}
-                  disabled={isCalling}
-                  onClick={() => setMode("voice")}
+                  disabled={isCalling || isEndingChat || isSendingChat}
+                  onClick={handleVoiceModeSelect}
                   className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${mode === "voice" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
                 >
                   <FiMic className="h-4 w-4" /> Voice
@@ -333,6 +409,44 @@ const RetellVoiceWidget = () => {
 
             {mode === "chat" ? (
               <div className="flex min-h-0 flex-1 flex-col bg-slate-50">
+                <div className="grid shrink-0 grid-cols-2 gap-2 border-b border-slate-200 bg-white px-4 py-3">
+                  <label>
+                    <span className="sr-only">Your name (optional)</span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      disabled={isEndingChat}
+                      maxLength={100}
+                      autoComplete="name"
+                      placeholder="Name (optional)"
+                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
+                    />
+                  </label>
+                  <label>
+                    <span className="sr-only">Phone number (optional)</span>
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleInputChange}
+                      disabled={isEndingChat}
+                      maxLength={40}
+                      autoComplete="tel"
+                      placeholder="Phone (optional)"
+                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={closeWidget}
+                    disabled={isSendingChat || isEndingChat}
+                    className="col-span-2 justify-self-end text-xs font-semibold text-slate-500 transition hover:text-rose-600 disabled:cursor-wait disabled:opacity-50"
+                  >
+                    {isEndingChat ? "Ending chat..." : "End chat"}
+                  </button>
+                </div>
                 <div className="min-h-44 flex-1 space-y-3 overflow-y-auto px-5 py-5" aria-live="polite" aria-label="Chat messages">
                   {chatMessages.map((item, index) => (
                     <div key={`${chatSessionId}-${index}`} className={`flex ${item.sender === "user" ? "justify-end" : "justify-start"}`}>
@@ -359,9 +473,10 @@ const RetellVoiceWidget = () => {
                     rows={1}
                     maxLength={2000}
                     placeholder="Write a message..."
+                    disabled={isEndingChat}
                     className="max-h-24 min-h-11 flex-1 resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
                   />
-                  <button type="submit" disabled={!chatInput.trim() || isSendingChat} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50" aria-label="Send message">
+                  <button type="submit" disabled={!chatInput.trim() || isSendingChat || isEndingChat} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50" aria-label="Send message">
                     <FiSend className="h-4 w-4" />
                   </button>
                 </form>
@@ -403,7 +518,7 @@ const RetellVoiceWidget = () => {
               </form>
             )}
 
-            {!isCalling && <button type="button" onClick={closeWidget} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900" aria-label="Close Maya assistant"><FiX className="h-5 w-5" /></button>}
+            {!isCalling && <button type="button" onClick={closeWidget} disabled={isSendingChat || isEndingChat} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900 disabled:cursor-wait disabled:opacity-50" aria-label="End chat and close Maya assistant"><FiX className="h-5 w-5" /></button>}
           </motion.section>
         )}
       </AnimatePresence>
