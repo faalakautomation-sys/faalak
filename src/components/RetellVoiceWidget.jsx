@@ -228,8 +228,8 @@ const RetellVoiceWidget = () => {
     if (result.conversationEnded) {
       resetChatSession();
     }
-    if (!response.ok || !result.notificationQueued) {
-      throw new Error(result.error || "The chat could not be saved and notified.");
+    if (!response.ok) {
+      throw new Error(result.error || "The chat could not be saved.");
     }
   };
 
