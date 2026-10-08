@@ -152,7 +152,7 @@ const Navbar = () => {
       >
         <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 md:hidden">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI/SI</p>
             <p className="mt-1 text-xs text-slate-500">Explore the site</p>
             <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-50 py-1.5 pl-2 pr-3 ring-1 ring-slate-200/80">
               <img src={assets.flag} alt="Canada flag" className="h-5 w-auto object-contain" />
@@ -200,6 +200,10 @@ const Navbar = () => {
           light={transparent && !drawerOpen}
           drawerMode={compactNav}
         />
+
+        <NavLink to="/blog/superintelligence" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Blog
+        </NavLink>
 
         <NavLink to="/#gallery" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Gallery

@@ -20,7 +20,7 @@ const OurWork = () => {
 
       <Title
         title="Case Studies"
-        desc="See how Faalak AI Automation helps service businesses capture more leads, answer faster, and turn conversations into booked calls."
+        desc="See how Faalak AI/SI Automation helps service businesses capture more leads, answer faster, and turn conversations into booked calls."
       />
 
       <div className="relative w-full max-w-6xl">

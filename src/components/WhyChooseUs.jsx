@@ -19,7 +19,7 @@ const WhyChooseUs = () => {
 
       <Title
         title="Why Businesses Trust Faalak"
-        desc="We are a Canada-based AI automation company. We build voice agents that answer support calls, capture leads, qualify them, and send you instant WhatsApp alerts, so your team only talks to customers who are ready to buy."
+        desc="We are a Canada-based AI/SI automation company. We build voice agents that answer support calls, capture leads, qualify them, and send you instant WhatsApp alerts, so your team only talks to customers who are ready to buy."
       />
 
       <div className="relative w-full max-w-6xl">

@@ -9,6 +9,7 @@ import CategoryDetail from "./pages/CategoryDetail";
 import WorkIndex from "./pages/WorkIndex";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import DataSecurity from "./pages/DataSecurity";
+import SuperintelligenceArticle from "./pages/SuperintelligenceArticle";
 import NotFound from "./pages/NotFound";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
 import LoadingScreen from "./components/LoadingScreen";
@@ -80,6 +81,7 @@ const App = () => {
         <Route path="/work" element={<WorkIndex />} />
         <Route path="/work/:slug" element={<CaseStudyDetail />} />
         <Route path="/data-security" element={<DataSecurity />} />
+        <Route path="/blog/superintelligence" element={<SuperintelligenceArticle />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

@@ -10,10 +10,10 @@ const WorkIndex = () => (
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
     <Helmet>
-      <title>Case Studies | Faalak AI Automation</title>
+      <title>Case Studies | Faalak AI/SI Automation</title>
       <meta
         name="description"
-        content="See how Faalak's AI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster."
+        content="See how Faalak's AI/SI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster."
       />
       <link rel="canonical" href="https://faalak.com/work" />
     </Helmet>
@@ -29,7 +29,7 @@ const WorkIndex = () => (
         Case studies
       </h1>
       <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-400">
-        Real businesses using Faalak AI automation to stop losing leads and start answering every call and chat.
+        Real businesses using Faalak AI/SI automation to stop losing leads and start answering every call and chat.
       </p>
     </motion.div>
 

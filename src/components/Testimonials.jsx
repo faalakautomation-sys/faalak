@@ -58,7 +58,7 @@ const Testimonials = () => {
 
       <Title
         title="What Our Clients Say"
-        desc="Real businesses using Faalak AI voice agents and automation to stop losing leads."
+        desc="Real businesses using Faalak AI/SI voice agents and automation to stop losing leads."
       />
 
       <div className="relative w-full max-w-6xl">

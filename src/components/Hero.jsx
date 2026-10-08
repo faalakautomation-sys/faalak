@@ -10,7 +10,7 @@ const Hero = () => {
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
-      "Hi, I would like to book a free consultation with Faalak AI Automation."
+      "Hi, I would like to book a free consultation with Faalak AI/SI Automation."
     );
     window.open(`https://wa.me/14169104547?text=${message}`, "_blank", "noopener,noreferrer");
   };
@@ -27,7 +27,7 @@ const Hero = () => {
       style={{ paddingTop: "calc(var(--navbar-h) + clamp(1rem, 4vw, 3rem))" }}
       className="relative flex flex-col overflow-hidden px-4 pb-28 sm:px-12 sm:pb-36 lg:px-24 xl:px-40"
     >
-      {/* Full-bleed background video - replaces the old static AI-receptionist
+      {/* Full-bleed background video - replaces the old static AI/SI-receptionist
           photo. muted+playsInline+autoPlay is required for autoplay to be
           allowed on mobile browsers (iOS Safari in particular refuses
           autoplay with sound or without playsInline). */}
@@ -54,7 +54,7 @@ const Hero = () => {
           viewport={{ once: true }}
           className="font-elite w-full max-w-lg text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl"
         >
-          Faalak AI Agency
+          Faalak AI/SI Agency
         </motion.h1>
 
         <motion.p
@@ -65,7 +65,7 @@ const Hero = () => {
           className="font-display w-full max-w-xl text-base font-bold leading-snug text-white sm:text-lg md:text-xl lg:text-2xl"
         >
           
-          Customer Support AI Voice Agents that work 24/7 Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads
+          Customer Support AI/SI Voice Agents that work 24/7 Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads
           
                   </motion.p>
 

@@ -350,7 +350,7 @@ const RetellVoiceWidget = () => {
             className="fixed right-6 z-9996 w-[320px] max-w-[calc(100vw-32px)] rounded-lg bg-white px-4 py-4 text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.16)] ring-1 ring-slate-200"
           >
             <div className="flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold tracking-tight">Hi! Want to talk to our AI assistant?</p>
+              <p className="text-sm font-semibold tracking-tight">Hi! Want to talk to our AI/SI assistant?</p>
               <button type="button" onClick={() => setShowGreeting(false)} className="shrink-0 text-xs text-slate-500 transition hover:text-slate-900">Close</button>
             </div>
             <p className="mt-3 text-xs font-medium text-slate-400">Maya</p>
@@ -373,7 +373,7 @@ const RetellVoiceWidget = () => {
               <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />
               <div className="relative flex items-start justify-between">
                 <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#075bd8]">Faalak AI</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#075bd8]">Faalak AI/SI</p>
                   <h2 className="max-w-62.5 text-2xl font-semibold leading-tight text-slate-900">Talk with Maya.</h2>
                 </div>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-[#075bd8]">
@@ -381,7 +381,7 @@ const RetellVoiceWidget = () => {
                 </div>
               </div>
               <p className="relative mt-3 text-sm leading-6 text-slate-500">
-                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
+                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI/SI voice assistant."}
               </p>
               <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
                 <button

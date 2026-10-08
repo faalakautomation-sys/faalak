@@ -7,7 +7,7 @@ const NotFound = () => (
     className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center"
   >
     <Helmet>
-      <title>Page Not Found | Faalak AI Automation</title>
+      <title>Page Not Found | Faalak AI/SI Automation</title>
       <meta name="robots" content="noindex" />
     </Helmet>
     <p className="text-sm font-bold uppercase tracking-[0.25em] text-primary">404</p>

@@ -38,7 +38,7 @@ const ServiceCard = ({ service, index }) => {
           </div>
           <div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{service.title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-300">Premium AI automation</p>
+            <p className="text-sm text-gray-500 dark:text-gray-300">Premium AI/SI automation</p>
           </div>
         </div>
 

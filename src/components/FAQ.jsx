@@ -86,7 +86,7 @@ const FAQ = () => {
           Frequently Asked Questions
         </h2>
         <p className="mb-6 max-w-xl text-center text-sm text-white/70 sm:text-base">
-          Everything you need to know before putting an AI voice agent and chatbot to
+          Everything you need to know before putting an AI/SI voice agent and chatbot to
           work for your business.
         </p>
 

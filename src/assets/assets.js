@@ -64,7 +64,7 @@ export const servicesData = [
   },
   {
     title: "Owner-Operate Agents",
-    description: "Keep your own number while an AI voice agent answers calls, qualifies prospects, and books leads whenever you are busy or unavailable.",
+    description: "Keep your own number while an AI/SI voice agent answers calls, qualifies prospects, and books leads whenever you are busy or unavailable.",
     benefits: ["Use your number", "Books leads", "Works while you work"],
     detail: "Your agent covers calls during appointments, jobs, and busy hours, then sends qualified lead details to you so you can follow up when it suits you.",
     icon: FiUserCheck,
@@ -77,15 +77,15 @@ export const servicesData = [
     icon: FiPhoneCall,
   },
   {
-    title: "Website AI Chatbots",
-    description: "Turn every website visitor into a qualified lead with smart, brand-aligned chat automation powered by advanced AI technology.",
+    title: "Website AI/SI Chatbots",
+    description: "Turn every website visitor into a qualified lead with smart, brand-aligned chat automation powered by advanced AI/SI technology.",
     benefits: ["Real-time engagement", "Intent-based routing", "Lead capture"],
     detail: "Trained on your own site content and FAQs, so answers stay accurate and on-brand instead of generic chatbot replies.",
     icon: FiMessageSquare,
   },
   {
     title: "Appointment Booking",
-    description: "Let AI book, confirm, and reschedule appointments while reducing missed opportunities. Seamless integration with your calendar.",
+    description: "Let AI/SI book, confirm, and reschedule appointments while reducing missed opportunities. Seamless integration with your calendar.",
     benefits: ["Automated scheduling", "Reminder flows", "Reduced admin work"],
     detail: "Syncs directly with your existing calendar, so double-bookings and manual back-and-forth over available slots disappear.",
     icon: FiCalendar,
@@ -104,7 +104,7 @@ export const caseStudies = [
     slug: "furniture-store",
     title: "Furniture Store",
     industry: "Retail & Home Design",
-    summary: "AI handled showroom inquiries, answered product questions, and booked consultations automatically.",
+    summary: "AI/SI handled showroom inquiries, answered product questions, and booked consultations automatically.",
     challenge: "A steady stream of website and phone inquiries about stock, pricing, and custom orders was pulling showroom staff away from customers physically in-store.",
     solution: "Faalak deployed a voice agent and website chatbot trained on the store's full catalog, so common questions were answered instantly and only genuine consultation requests reached staff.",
     metrics: ["+38% qualified leads", "2 min avg. response", "92% satisfaction"],
@@ -113,16 +113,16 @@ export const caseStudies = [
     slug: "real-estate-agency",
     title: "Real Estate Agency",
     industry: "Property Sales",
-    summary: "AI qualified buyer leads in real time, routed hot prospects, and scheduled viewings without delay.",
+    summary: "AI/SI qualified buyer leads in real time, routed hot prospects, and scheduled viewings without delay.",
     challenge: "Listing inquiries were going cold before agents could call back, especially outside office hours when competing agencies were still responding.",
-    solution: "An AI voice agent now answers every inquiry instantly, qualifies budget and timeline, and books viewings directly onto agent calendars around the clock.",
+    solution: "An AI/SI voice agent now answers every inquiry instantly, qualifies budget and timeline, and books viewings directly onto agent calendars around the clock.",
     metrics: ["+52% lead capture", "Under 30 sec response", "89% booking rate"],
   },
   {
     slug: "massage-therapy-studio",
     title: "Massage & Therapy Studio",
     industry: "Wellness & Recovery",
-    summary: "AI managed booking requests, answered service questions, and sent instant reminders to reduce no-shows.",
+    summary: "AI/SI managed booking requests, answered service questions, and sent instant reminders to reduce no-shows.",
     challenge: "Front-desk staff were spending significant time on the phone taking bookings and reminder calls instead of focusing on clients in the studio.",
     solution: "Faalak's voice and WhatsApp automation now handles bookings, service questions, and automated reminders, freeing staff to focus on in-person care.",
     metrics: ["+31% bookings", "1 min response time", "97% reminder delivery"],
@@ -131,27 +131,27 @@ export const caseStudies = [
     slug: "landscaping-company",
     title: "Landscaping Company",
     industry: "Outdoor Services",
-    summary: "AI captured quote requests, qualified site visits, and followed up with customers 24/7.",
+    summary: "AI/SI captured quote requests, qualified site visits, and followed up with customers 24/7.",
     challenge: "Quote requests coming in evenings and weekends often went unanswered until the next business day, losing ground to faster-responding competitors.",
-    solution: "An always-on AI voice agent now captures every quote request immediately, qualifies the job scope, and follows up automatically until a site visit is booked.",
+    solution: "An always-on AI/SI voice agent now captures every quote request immediately, qualifies the job scope, and follows up automatically until a site visit is booked.",
     metrics: ["+44% quote requests", "Same-day follow-up", "85% lead conversion"],
   },
   {
     slug: "dental-clinic",
     title: "Dental Clinic",
     industry: "Healthcare",
-    summary: "AI answered FAQs, booked visits, and followed up with patients round-the-clock.",
+    summary: "AI/SI answered FAQs, booked visits, and followed up with patients round-the-clock.",
     challenge: "Patients calling outside clinic hours were routed to voicemail, and follow-up on missed appointments was inconsistent.",
-    solution: "Faalak's AI receptionist now answers FAQs, books and confirms visits 24/7, and automatically follows up with patients who miss an appointment.",
+    solution: "Faalak's AI/SI receptionist now answers FAQs, books and confirms visits 24/7, and automatically follows up with patients who miss an appointment.",
     metrics: ["+27% appointments", "1 min response time", "4.8/5 satisfaction"],
   },
   {
     slug: "auto-repair-shop",
     title: "Auto Repair Shop",
     industry: "Automotive Services",
-    summary: "AI handled booking requests, answered common repair questions, and sent service reminders automatically.",
+    summary: "AI/SI handled booking requests, answered common repair questions, and sent service reminders automatically.",
     challenge: "Technicians were regularly interrupted to answer phone questions about repair status and availability, slowing down work in the bay.",
-    solution: "An AI voice agent now handles booking requests and common repair questions directly, and sends automated service reminders, letting technicians stay focused on the vehicles in front of them.",
+    solution: "An AI/SI voice agent now handles booking requests and common repair questions directly, and sends automated service reminders, letting technicians stay focused on the vehicles in front of them.",
     metrics: ["+35% service bookings", "Under 2 min reply", "90% reminder completion"],
   },
 ]
@@ -188,7 +188,7 @@ export const caseStudies = [
     icon: FiMapPin,
   },
   {
-    title: "Scalable AI",
+    title: "Scalable AI/SI",
     description: "Built to grow with your team, your channels, and your customer volume.",
     detail: "Handles a quiet Tuesday and a 10x traffic spike the same way, with no extra hires required.",
     icon: FiLayers,
@@ -198,24 +198,24 @@ export const caseStudies = [
 
 export const faqData = [
   {
-    question: "What does Faalak AI Automation do?",
+    question: "What does Faalak AI/SI Automation do?",
     answer:
-      "We build AI Voice Agents. WhatsApp Automation. Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
+      "We build AI/SI Voice Agents. WhatsApp Automation. Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
   },
   {
-    question: "How quickly can I launch an AI Voice Agent?",
+    question: "How quickly can I launch an AI/SI Voice Agent?",
     answer:
       "Most clients go live within days. Faalak handles the setup, training, telephony and integrations so you do not need an internal engineering team.",
   },
   {
-    question: "Will my customers know they are speaking with AI?",
+    question: "Will my customers know they are speaking with AI/SI?",
     answer:
-      "Faalak's enterprise-grade AI system is designed for natural and humanlike conversations. It follows your business scripts and tone without robotic menus.",
+      "Faalak's enterprise-grade AI/SI system is designed for natural and humanlike conversations. It follows your business scripts and tone without robotic menus.",
   },
   {
     question: "Which languages can the agent speak?",
     answer:
-      "Our AI agents can speak multiple languages and accents. This helps you serve customers in the language they prefer.",
+      "Our AI/SI agents can speak multiple languages and accents. This helps you serve customers in the language they prefer.",
   },
   {
     question: "Does it integrate with my calendar and CRM?",
@@ -240,7 +240,7 @@ export const faqData = [
   {
     question: "Can it make outbound calls as well?",
     answer:
-      "Yes. Faalak AI agents can handle inbound and outbound calls including follow-ups, reminders and lead qualification.",
+      "Yes. Faalak AI/SI agents can handle inbound and outbound calls including follow-ups, reminders and lead qualification.",
   },
   {
     question: "What kind of businesses is this built for?",
@@ -255,7 +255,7 @@ export const faqData = [
   {
     question: "Can I try it before committing?",
     answer:
-      "Yes. Select \"Watch Demo\" or \"Talk to Maya\" to experience Faalak's AI Voice Agent. You can also book a free consultation for a solution tailored to your business.",
+      "Yes. Select \"Watch Demo\" or \"Talk to Maya\" to experience Faalak's AI/SI Voice Agent. You can also book a free consultation for a solution tailored to your business.",
   },
 ];
 
@@ -265,7 +265,7 @@ export const testimonialsData = [
     name: "Sarah M.",
     role: "Owner, Bright Smile Dental",
     quote:
-      "We used to lose calls every time we were mid-appointment. Now the AI answers instantly, books the slot, and it's already on our calendar before the patient even hangs up.",
+      "We used to lose calls every time we were mid-appointment. Now the AI/SI answers instantly, books the slot, and it's already on our calendar before the patient even hangs up.",
     rating: 5,
     detail: "Missed-call rate dropped to near zero within the first two weeks of going live.",
   },
@@ -273,7 +273,7 @@ export const testimonialsData = [
     name: "James R.",
     role: "Founder, Apex Home Services",
     quote:
-      "Faalak's voice agent sounds so natural our customers don't realize it's AI until we tell them. Missed calls dropped to almost zero in the first month.",
+      "Faalak's voice agent sounds so natural our customers don't realize it's AI/SI until we tell them. Missed calls dropped to almost zero in the first month.",
     rating: 5,
     detail: "Now answers every after-hours emergency call instead of routing straight to voicemail.",
   },
@@ -300,11 +300,11 @@ export const teamData = [
     name: "Ms. Asiya Jailani",
     role: "Founder & CEO",
     icon: FaCrown,
-    bio: "Sets the vision for Faalak and leads the team building AI voice agents and automation for growing businesses.",
+    bio: "Sets the vision for Faalak and leads the team building AI/SI voice agents and automation for growing businesses.",
   },
   {
     name: "Mr. Nofil Imran",
-    role: "Head of AI Engineering",
+    role: "Head of AI/SI Engineering",
     icon: FiCpu,
     bio: "Designs and ships the voice agent, chatbot, and automation systems that power every Faalak deployment.",
   },

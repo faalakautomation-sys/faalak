@@ -84,7 +84,7 @@ const OurTeam = () => {
 
       <Title
         title="Our Team"
-        desc="The people behind Faalak's AI voice agents and automation — building, deploying, and supporting your systems end to end."
+        desc="The people behind Faalak's AI/SI voice agents and automation — building, deploying, and supporting your systems end to end."
       />
 
       <div className="relative w-full max-w-5xl">

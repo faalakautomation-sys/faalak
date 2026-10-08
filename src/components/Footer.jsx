@@ -88,7 +88,7 @@ const Footer = () => {
 
             <div className="mt-7 space-y-3 text-sm text-gray-600">
               <p className="flex items-center gap-3"><FiMapPin className="text-primary" /> Toronto, Canada</p>
-              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI Automation</p>
+              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI/SI Automation</p>
               <a href="tel:+14169104547" className="flex items-center gap-3 hover:text-primary"><FiPhone className="text-primary" /> +1 416 910 4547</a>
               <a href="mailto:info@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> info@faalak.com</a>
               <a href="mailto:sales@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> sales@faalak.com</a>
@@ -118,7 +118,7 @@ const Footer = () => {
         <div>
           <img src={assets.logo_dark} alt="Faalak" className="h-9 w-auto object-contain" />
           <p className="mt-4 max-w-xs text-sm leading-6 text-white/60">
-            The voice that never tires. AI-powered voice agents and automation for inbound &amp; outbound calls.
+            The voice that never tires. AI/SI-powered voice agents and automation for inbound &amp; outbound calls.
           </p>
 
           <div className="mt-5 flex items-center gap-3">
@@ -126,7 +126,7 @@ const Footer = () => {
               href="https://www.facebook.com/faalakai/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI Automation Facebook"
+              aria-label="Faalak AI/SI Automation Facebook"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
             >
               <img src={assets.facebook_icon} alt="" className="h-4 w-4 brightness-0 invert" />
@@ -135,7 +135,7 @@ const Footer = () => {
               href="https://www.instagram.com/faalak.automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI Automation Instagram"
+              aria-label="Faalak AI/SI Automation Instagram"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
             >
               <img src={assets.instagram_icon} alt="" className="h-4 w-4 brightness-0 invert" />
@@ -144,7 +144,7 @@ const Footer = () => {
               href="https://www.linkedin.com/company/faalak-ai-automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI Automation LinkedIn"
+              aria-label="Faalak AI/SI Automation LinkedIn"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
             >
               <img src={assets.linkedin_icon} alt="" className="h-4 w-4 brightness-0 invert" />
@@ -168,6 +168,11 @@ const Footer = () => {
             <li>
               <Link className="hover:text-primary" to="/work">
                 Case Studies
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-primary" to="/blog/superintelligence">
+                Blog: Superintelligence
               </Link>
             </li>
             <li>
@@ -233,7 +238,7 @@ const Footer = () => {
         id="footer-bottom-row"
         className="mt-10 flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between"
       >
-        <p>&copy; 2026 Faalak AI Automation &mdash; All Rights Reserved.</p>
+        <p>&copy; 2026 Faalak AI/SI Automation &mdash; All Rights Reserved.</p>
         <div className="flex flex-wrap items-center gap-4">
           <span>Toronto, Canada</span>
           <a href="mailto:info@faalak.com" className="hover:text-primary">

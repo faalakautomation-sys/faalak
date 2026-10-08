@@ -10,7 +10,7 @@ const dataFlowRows = [
     role: "Call routing, phone number provisioning, WhatsApp message delivery",
   },
   {
-    layer: "Voice AI",
+    layer: "Voice AI/SI",
     provider: "Retell AI",
     role: "Speech-to-text / text-to-speech, conversation handling, call recording and transcript storage",
   },
@@ -72,16 +72,16 @@ const DataSecurity = () => {
       className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
     >
       <Helmet>
-        <title>Data Handling & Security Overview | Faalak AI Automation</title>
+        <title>Data Handling & Security Overview | Faalak AI/SI Automation</title>
         <meta
           name="description"
-          content="How Faalak's AI voice agent systems handle client and caller data - who builds and owns the system, where data is hosted, who has access, and compliance details."
+          content="How Faalak's AI/SI voice agent systems handle client and caller data - who builds and owns the system, where data is hosted, who has access, and compliance details."
         />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Data Handling & Security Overview | Faalak AI Automation" />
+        <meta property="og:title" content="Data Handling & Security Overview | Faalak AI/SI Automation" />
         <meta
           property="og:description"
-          content="How Faalak's AI voice agent systems handle client and caller data - system ownership, data flow, hosting, access, and compliance."
+          content="How Faalak's AI/SI voice agent systems handle client and caller data - system ownership, data flow, hosting, access, and compliance."
         />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
@@ -112,7 +112,7 @@ const DataSecurity = () => {
           </div>
         </div>
         <p className="mt-5 text-base leading-7 text-gray-600 dark:text-gray-400">
-          This document explains how client and caller data is handled within Faalak&apos;s AI voice agent systems.
+          This document explains how client and caller data is handled within Faalak&apos;s AI/SI voice agent systems.
         </p>
       </motion.div>
 

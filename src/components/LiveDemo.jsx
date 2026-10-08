@@ -64,7 +64,7 @@ const LiveDemo = () => {
       }
 
       setStatus("success");
-      toast.success("Connecting you to our AI voice agent now...");
+      toast.success("Connecting you to our AI/SI voice agent now...");
 
       // Immediately open the floating "Talk to Maya" widget, pre-filled with
       // what they just typed, and have it start dialing right away - so
@@ -118,7 +118,7 @@ const LiveDemo = () => {
             Hear it for yourself.
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-500 sm:text-base dark:text-white/70">
-            Pick your industry, drop your details, and our AI voice agent will
+            Pick your industry, drop your details, and our AI/SI voice agent will
             call you in seconds. No robotic &ldquo;press 1&rdquo; menus - a real
             conversation.
           </p>
@@ -226,7 +226,7 @@ const LiveDemo = () => {
                 className="sr-only"
               />
               <span className="text-xs leading-relaxed text-gray-500 dark:text-white/60">
-                I&apos;d like a demo call from Faalak&apos;s AI voice agent and
+                I&apos;d like a demo call from Faalak&apos;s AI/SI voice agent and
                 agree to be contacted at the number above.
               </span>
             </label>
@@ -247,7 +247,7 @@ const LiveDemo = () => {
         >
           <img
             src={assets.liveDemoImage}
-            alt="Customer on a phone call with Faalak's AI voice agent"
+            alt="Customer on a phone call with Faalak's AI/SI voice agent"
             className="h-full w-full object-cover"
           />
 
