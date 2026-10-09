@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MobileCallPopup from "./components/MobileCallPopup";
 import ScrollToHash from "./components/ScrollToHash";
 import Home from "./pages/Home";
 import CategoryDetail from "./pages/CategoryDetail";
@@ -87,6 +88,7 @@ const App = () => {
 
       <Footer />
       <RetellVoiceWidget />
+      <MobileCallPopup />
 
       <a
         href="https://wa.me/14169104547?text=Hi%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Faalak%20AI%20Automation."
