@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
 import ScrollArrows from "./ScrollArrows";
+import HeroWiringEffect from "./HeroWiringEffect";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -63,6 +64,8 @@ const Hero = () => {
           );
         })}
       </svg>
+
+      <HeroWiringEffect />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1228px] flex-col items-center gap-5 text-center text-white sm:items-start sm:text-left">
         <motion.h1
