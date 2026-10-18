@@ -1,0 +1,507 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Space+Grotesk:wght@500..700&family=Fraunces:ital,wght,0,600..900;1,600..900&display=swap");
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+* {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  cursor: none;
+}
+
+:root {
+  --navbar-h: 80px;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #f5f3ef;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(210, 191, 173, 0.12), transparent 40rem),
+    #f5f3ef;
+  background-attachment: fixed;
+  color: #24211e;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+#root::before {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  inset: 0;
+  content: "";
+  opacity: 0.12;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #9b8170 55%, transparent 100%),
+    radial-gradient(1px 1px at 82% 14%, #aa988a 55%, transparent 100%),
+    radial-gradient(1px 1px at 67% 72%, #9b8170 55%, transparent 100%),
+    radial-gradient(1px 1px at 28% 84%, #aa988a 55%, transparent 100%);
+  background-size: 280px 260px, 360px 310px, 420px 390px, 330px 370px;
+}
+
+::selection {
+  background: rgba(91, 225, 255, 0.3);
+  color: white;
+}
+
+@theme {
+  --color-primary: #0054a8;
+  --color-primary-deep: #f5f3ef;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-elite: "Fraunces", serif;
+}
+
+.faalak-theme {
+  color: #24211e;
+}
+
+.faalak-hero {
+  background: #05070c;
+}
+
+.faalak-work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.faalak-work-featured {
+  min-height: 35rem;
+}
+
+.faalak-work-sidecards {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(19.375rem, 1fr));
+  gap: 1rem;
+}
+
+.faalak-work-card {
+  min-height: 19.375rem;
+}
+
+@media (min-width: 1024px) {
+  .faalak-work-grid {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.92fr);
+  }
+
+  .faalak-work-featured {
+    min-height: 43.125rem;
+  }
+}
+
+.faalak-hero-waves {
+  animation: faalak-wave-drift 28s ease-in-out infinite alternate;
+}
+
+.faalak-hero-gradient-text {
+  display: inline-block;
+  background: linear-gradient(105deg, #4f91c9 8%, #c7d2dc 42%, #eef1f4 55%, #6da5d2 78%, #4f91c9 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: faalak-hero-gradient-shift 7s ease-in-out infinite alternate;
+}
+
+.faalak-light-demo {
+  color-scheme: light;
+  background:
+    radial-gradient(ellipse at 72% 48%, rgba(210, 191, 173, 0.16), transparent 32rem),
+    #f5f3ef;
+  color: #171717;
+}
+
+.faalak-demo-grid {
+  background-image:
+    linear-gradient(90deg, transparent 12%, rgba(135, 120, 108, 0.13) 12.05%, transparent 12.1%),
+    linear-gradient(90deg, transparent 88%, rgba(135, 120, 108, 0.13) 88.05%, transparent 88.1%);
+}
+
+.faalak-demo-cross {
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.faalak-demo-cross::before,
+.faalak-demo-cross::after {
+  position: absolute;
+  content: "";
+  background: rgba(135, 120, 108, 0.22);
+}
+
+.faalak-demo-cross::before {
+  top: 5px;
+  left: 0;
+  width: 12px;
+  height: 1px;
+}
+
+.faalak-demo-cross::after {
+  top: 0;
+  left: 5px;
+  width: 1px;
+  height: 12px;
+}
+
+.faalak-demo-model {
+  position: relative;
+  width: clamp(17rem, 30vw, 22rem);
+  aspect-ratio: 0.92;
+  overflow: hidden;
+  border: 1px solid rgba(0, 84, 168, 0.2);
+  border-radius: 46% 46% 1.5rem 1.5rem;
+  background: #07152e;
+  box-shadow: 0 24px 65px rgba(0, 37, 82, 0.2);
+}
+
+.faalak-demo-model::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(3, 12, 29, 0.78));
+}
+
+.faalak-demo-model img {
+  object-position: 59% center;
+}
+
+.faalak-demo-model-label {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 9999px;
+  background: rgba(5, 14, 32, 0.56);
+  padding: 0.6rem 0.85rem;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+}
+
+@keyframes faalak-wave-drift {
+  from {
+    transform: translate3d(-1.5%, 0, 0);
+  }
+  to {
+    transform: translate3d(1.5%, 2%, 0);
+  }
+}
+
+@keyframes faalak-hero-gradient-shift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faalak-hero-gradient-text {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+.faalak-theme input,
+.faalak-theme select,
+.faalak-theme textarea {
+  border-color: #e5e0da;
+  background-color: #fff;
+  color: #24211e;
+}
+
+.faalak-theme input::placeholder,
+.faalak-theme textarea::placeholder {
+  color: #91877f;
+}
+
+.faalak-theme select option {
+  background-color: #fff;
+  color: #24211e;
+}
+
+.faalak-theme :is(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #985236;
+  outline-offset: 3px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.faalak-faq-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.faalak-calculator-page {
+  min-height: 70vh;
+}
+
+.faalak-calculator-control {
+  --range-progress: 0%;
+}
+
+.faalak-calculator-range {
+  height: 4px;
+  margin: 10px 0;
+  appearance: none;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #e95420 0,
+    #e95420 var(--range-progress),
+    #d9d3cb var(--range-progress),
+    #d9d3cb 100%
+  );
+  cursor: pointer;
+}
+
+.faalak-calculator-range::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: #e95420;
+  box-shadow: 0 2px 6px rgba(92, 50, 31, 0.2);
+}
+
+.faalak-calculator-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: #e95420;
+  box-shadow: 0 2px 6px rgba(92, 50, 31, 0.2);
+}
+
+.faalak-agent-gallery {
+  color-scheme: light;
+  background:
+    radial-gradient(ellipse at 88% 30%, rgba(213, 190, 171, 0.17), transparent 34rem),
+    radial-gradient(ellipse at 5% 72%, rgba(191, 205, 190, 0.12), transparent 30rem),
+    #f5f3ef;
+  color: #171717;
+}
+
+.faalak-agent-gallery-grid {
+  opacity: 0.55;
+  background-image:
+    linear-gradient(90deg, transparent 8%, rgba(135, 120, 108, 0.09) 8.05%, transparent 8.1%),
+    linear-gradient(90deg, transparent 92%, rgba(135, 120, 108, 0.09) 92.05%, transparent 92.1%);
+}
+
+.faalak-theme .faalak-agent-gallery [class~="bg-white"],
+.faalak-theme .faalak-agent-gallery [class~="bg-white/65"] {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.faalak-theme .faalak-agent-gallery .faalak-agent-tab.is-selected {
+  background-color: #fff;
+}
+
+.faalak-agent-scroll-button {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ded7cf;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #292522;
+  transition: background-color 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+
+.faalak-agent-scroll-button:hover:not(:disabled) {
+  border-color: #b9a99a;
+  background: #fff;
+}
+
+.faalak-agent-scroll-button:disabled {
+  cursor: default;
+  opacity: 0.38;
+}
+
+.faalak-agent-orb {
+  position: relative;
+  width: clamp(9rem, 18vw, 12rem);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--agent-accent) 28%, white);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 35% 30%, color-mix(in srgb, var(--agent-accent) 35%, white), transparent 27%),
+    radial-gradient(ellipse at 66% 68%, color-mix(in srgb, var(--agent-accent) 32%, #f5f3ef), transparent 38%),
+    radial-gradient(circle at 50% 47%, #fff 0, #faf8f5 57%, #eae5df 100%);
+  box-shadow:
+    inset -22px -20px 42px rgba(85, 68, 53, 0.1),
+    inset 12px 9px 24px rgba(255, 255, 255, 0.95),
+    0 22px 60px var(--agent-glow);
+  animation: faalak-agent-float 7s ease-in-out infinite;
+}
+
+.faalak-agent-orb.is-compact {
+  width: 3.25rem;
+  min-width: 3.25rem;
+  border: 0;
+  box-shadow: inset -7px -6px 12px rgba(85, 68, 53, 0.1), 0 5px 16px var(--agent-glow);
+  animation: none;
+}
+
+.faalak-agent-orb-core {
+  position: absolute;
+  inset: 22%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 32% 26%, rgba(255, 255, 255, 0.94), transparent 23%),
+    radial-gradient(ellipse at 65% 64%, color-mix(in srgb, var(--agent-accent) 58%, white), transparent 66%),
+    rgba(255, 255, 255, 0.24);
+  box-shadow: 0 0 34px var(--agent-glow), inset 0 0 24px rgba(255, 255, 255, 0.75);
+  filter: blur(0.2px);
+}
+
+.faalak-agent-orb-halo {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: var(--agent-glow);
+  filter: blur(22px);
+  animation: faalak-agent-pulse 4.5s ease-in-out infinite alternate;
+}
+
+.faalak-agent-orb-ring {
+  position: absolute;
+  inset: 10%;
+  border: 1px solid color-mix(in srgb, var(--agent-accent) 26%, transparent);
+  border-radius: 50%;
+  transform: rotate(-28deg) scaleY(0.36);
+}
+
+.faalak-agent-orb-ring.ring-one {
+  animation: faalak-agent-orbit 19s linear infinite;
+}
+
+.faalak-agent-orb-ring.ring-two {
+  inset: 16%;
+  transform: rotate(54deg) scaleY(0.52);
+  animation: faalak-agent-orbit 25s linear infinite reverse;
+}
+
+.faalak-agent-orb-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid white;
+  border-radius: 50%;
+  background: var(--agent-accent);
+  box-shadow: 0 0 12px var(--agent-glow);
+}
+
+.faalak-agent-orb-dot.dot-one { top: 19%; left: 30%; }
+.faalak-agent-orb-dot.dot-two { top: 58%; right: 17%; width: 5px; height: 5px; }
+.faalak-agent-orb-dot.dot-three { bottom: 17%; left: 43%; width: 4px; height: 4px; }
+
+.faalak-agent-orb.is-compact .faalak-agent-orb-core {
+  inset: 25%;
+}
+
+.faalak-agent-orb.is-compact .faalak-agent-orb-ring.ring-one {
+  inset: 7%;
+}
+
+.faalak-agent-orb.is-compact .faalak-agent-orb-ring.ring-two {
+  inset: 17%;
+}
+
+.faalak-agent-orb.is-compact .faalak-agent-orb-dot {
+  width: 4px;
+  height: 4px;
+}
+
+.faalak-agent-stage {
+  background:
+    radial-gradient(ellipse at 50% 48%, var(--agent-glow), transparent 44%),
+    linear-gradient(135deg, #fbfaf8, #f1eee9);
+}
+
+.faalak-agent-stage-orbit {
+  position: absolute;
+  width: min(72%, 18rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(135, 120, 108, 0.12);
+  border-radius: 50%;
+}
+
+.faalak-agent-stage-orbit.orbit-a {
+  transform: scaleY(0.36) rotate(-24deg);
+}
+
+.faalak-agent-stage-orbit.orbit-b {
+  width: min(80%, 20rem);
+  transform: scaleY(0.55) rotate(24deg);
+}
+
+@keyframes faalak-agent-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes faalak-agent-pulse {
+  from { opacity: 0.48; transform: scale(0.94); }
+  to { opacity: 0.9; transform: scale(1.06); }
+}
+
+@keyframes faalak-agent-orbit {
+  to { rotate: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .faalak-faq-layout {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  * {
+    cursor: auto;
+  }
+}
