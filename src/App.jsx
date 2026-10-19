@@ -12,7 +12,6 @@ import CaseStudyDetail from "./pages/CaseStudyDetail";
 import DataSecurity from "./pages/DataSecurity";
 import SuperintelligenceArticle from "./pages/SuperintelligenceArticle";
 import NotFound from "./pages/NotFound";
-import MissedCallsCalculator from "./pages/MissedCallsCalculator";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
 import LoadingScreen from "./components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
@@ -75,7 +74,6 @@ const App = () => {
         <Route path="/work" element={<WorkIndex />} />
         <Route path="/work/:slug" element={<CaseStudyDetail />} />
         <Route path="/data-security" element={<DataSecurity />} />
-        <Route path="/missed-calls-calculator" element={<MissedCallsCalculator />} />
         <Route path="/blog/superintelligence" element={<SuperintelligenceArticle />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

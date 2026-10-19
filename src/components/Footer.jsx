@@ -4,9 +4,8 @@ import { motion } from "motion/react";
 import toast from "react-hot-toast";
 import { FiMail, FiMapPin, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import assets from "../assets/assets";
+import { API_BASE_URL } from "../api/config";
 import { servicesMenu, industriesMenu } from "../data/menuData";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 const Footer = () => {
   const [formData, setFormData] = useState({

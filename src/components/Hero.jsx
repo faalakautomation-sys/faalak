@@ -18,7 +18,7 @@ const Hero = () => {
   };
 
   const handleCalculatorClick = () => {
-    navigate("/missed-calls-calculator");
+    navigate("/#missed-call-calculator");
   };
 
   return (

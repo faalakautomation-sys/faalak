@@ -39,7 +39,7 @@ const OurWork = () => (
       whileInView="visible"
       viewport={{ once: true }}
       id="our-work"
-      className="relative flex flex-col items-center gap-7 px-4 pt-24 text-gray-800 sm:px-12 lg:px-16"
+      className="relative flex flex-col items-center gap-5 px-4 pt-14 text-gray-800 sm:px-12 sm:pt-16 lg:px-16"
     >
       <Title
         title="Built for the businesses Canada calls"
@@ -52,7 +52,7 @@ const OurWork = () => (
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="faalak-work-featured group relative isolate flex flex-col overflow-hidden rounded-2xl bg-[#14202b] p-6 text-white sm:p-9"
+          className="faalak-work-featured group relative isolate flex flex-col overflow-hidden rounded-2xl bg-[#14202b] p-5 text-white sm:p-7"
         >
           <img
             src={receptionistImage}
@@ -69,15 +69,15 @@ const OurWork = () => (
             </span>
           </div>
 
-          <div className="mt-auto max-w-3xl pb-8 pt-24 sm:pb-10">
-            <h3 className="max-w-2xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem]">
+          <div className="mt-auto max-w-3xl pb-5 pt-16 sm:pb-6">
+            <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight sm:text-3xl lg:text-4xl">
               Every call gets a helpful first response.
             </h3>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
+            <p className="mt-3 max-w-2xl text-sm leading-5 text-white/85 sm:text-base sm:leading-6">
               Faalak voice agents answer customer questions, capture what callers need, and help move appointment requests forward—even when your team is busy.
             </p>
 
-            <ul className="mt-7 grid gap-4 border-t border-white/35 pt-5 sm:grid-cols-3 sm:gap-5">
+            <ul className="mt-5 grid gap-3 border-t border-white/35 pt-4 sm:grid-cols-3 sm:gap-4">
               {featuredCapabilities.map(({ icon: Icon, label }) => (
                 <li key={label} className="flex items-start gap-2.5 text-sm leading-5 text-white/90">
                   <Icon aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#9fc8ed]" />
@@ -105,7 +105,7 @@ const OurWork = () => (
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.12 }}
               viewport={{ once: true }}
-              className="faalak-work-card group relative isolate flex flex-col overflow-hidden rounded-2xl bg-[#14202b] p-6 text-white"
+              className="faalak-work-card group relative isolate flex flex-col overflow-hidden rounded-2xl bg-[#14202b] p-5 text-white"
             >
               <img
                 src={card.image}
@@ -116,8 +116,8 @@ const OurWork = () => (
               <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/45 via-black/15 to-black/80" />
 
               <p className="text-sm font-semibold tracking-wide">{card.name}</p>
-              <div className="mt-auto max-w-sm pt-20">
-                <h3 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+              <div className="mt-auto max-w-sm pt-12">
+                <h3 className="text-xl font-semibold leading-tight tracking-tight sm:text-2xl">
                   {card.emphasis}
                 </h3>
                 <p className="mt-2 text-sm leading-5 text-white/85">{card.description}</p>

@@ -1,14 +1,11 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "motion/react";
-import { FiArrowLeft } from "react-icons/fi";
 
 const industries = [
-  { name: "Dental", averageRevenue: 350 },
-  { name: "Automotive", averageRevenue: 1200 },
-  { name: "Insurance", averageRevenue: 900 },
-  { name: "Property management", averageRevenue: 350 },
+  { name: "Physio Therapist", averageRevenue: 350 },
+  { name: "HVAC", averageRevenue: 450 },
+  { name: "Cannabis", averageRevenue: 100 },
+  { name: "Restaurant", averageRevenue: 120 },
 ];
 
 const currency = new Intl.NumberFormat("en-CA", {
@@ -93,34 +90,17 @@ const MissedCallsCalculator = () => {
   };
 
   return (
-    <main
-      className="faalak-calculator-page px-4 pb-20 sm:px-10 lg:px-16 xl:px-24"
-      style={{ paddingTop: "calc(var(--navbar-h) + 2rem)" }}
+    <section
+      id="missed-call-calculator"
+      aria-labelledby="missed-calls-heading"
+      className="faalak-calculator-page scroll-mt-24 px-4 py-10 sm:px-10 sm:py-14 lg:px-16 lg:py-16 xl:px-24"
     >
-      <Helmet>
-        <title>Missed Call Revenue Calculator | Faalak AI/SI Automation</title>
-        <meta
-          name="description"
-          content="Estimate the potential monthly and annual revenue associated with missed calls using your call volume, conversion rate, and average booking revenue."
-        />
-        <link rel="canonical" href="https://faalak.com/missed-calls-calculator" />
-      </Helmet>
-
       <div className="mx-auto max-w-7xl">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[#756b62] transition hover:text-[#0054a8]"
-        >
-          <FiArrowLeft className="h-4 w-4" />
-          Back to home
-        </Link>
-
         <motion.section
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
-          aria-labelledby="missed-calls-heading"
-          className="mt-7 border-x border-t border-[#ded8d0] bg-[#f5f3ef] px-5 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12"
+          className="border border-[#ded8d0] bg-[#f5f3ef] px-5 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12"
         >
           <h1
             id="missed-calls-heading"
@@ -132,7 +112,7 @@ const MissedCallsCalculator = () => {
           <div className="mt-9 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
               <fieldset>
-                <legend className="text-xs font-bold uppercase tracking-[0.18em] text-[#985236]">
+                <legend className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">
                   Industry
                 </legend>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -146,8 +126,8 @@ const MissedCallsCalculator = () => {
                         onClick={() => handleIndustrySelect(item)}
                         className={`rounded-full border px-4 py-2 text-sm transition ${
                           isSelected
-                            ? "border-[#0054a8] bg-[#0054a8] text-white"
-                            : "border-[#ddd6ce] bg-white text-[#39342f] hover:border-[#0054a8]/50"
+                            ? "border-sky-500 bg-sky-500 text-white"
+                            : "border-[#ddd6ce] bg-white text-[#39342f] hover:border-emerald-400"
                         }`}
                       >
                         {item.name}
@@ -203,7 +183,7 @@ const MissedCallsCalculator = () => {
               >
                 {currency.format(estimate.monthlyRevenueLost)}
               </motion.p>
-              <span className="mt-3 block h-[2px] w-16 bg-[#e95420]" />
+              <span className="mt-3 block h-[2px] w-16 bg-emerald-500" />
               <p className="mt-5 max-w-md text-sm leading-6 text-[#606a7a] sm:text-base">
                 About {estimate.bookingsLost} bookings from {missedCalls} missed calls, at{" "}
                 {currency.format(averageRevenue)} each.
@@ -242,7 +222,7 @@ const MissedCallsCalculator = () => {
                 <button
                   type="button"
                   onClick={handleBookDemo}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[#0054a8] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#004987]"
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-sky-600"
                 >
                   Book a demo
                 </button>
@@ -262,7 +242,7 @@ const MissedCallsCalculator = () => {
           </p>
         </motion.section>
       </div>
-    </main>
+    </section>
   );
 };
 

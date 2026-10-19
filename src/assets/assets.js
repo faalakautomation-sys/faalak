@@ -321,6 +321,12 @@ export const teamData = [
     bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },
   {
+    name: "Ms. Maya",
+    role: "Virtual Assistant · Business Analytics",
+    icon: FiBarChart2,
+    bio: "Maya turns business data into clear, AI-generated analytics reports that reveal trends and opportunities. These insights help us understand each business end to end, then design and continually refine voice agents to sound natural, work smoothly, and deliver the right experience for every client.",
+  },
+  {
     name: "Mr. John Markie",
     role: "SEO Expert & Marketing Specialist",
     icon: FiTrendingUp,

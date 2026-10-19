@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import LiveDemo from "../components/LiveDemo";
 import DirectAgentCalls from "../components/DirectAgentCalls";
+import MissedCallsCalculator from "./MissedCallsCalculator";
 import Services from "../components/Services";
 import OurWork from "../components/OurWork";
 import WhyChooseUs from "../components/WhyChooseUs";
@@ -14,6 +15,7 @@ const Home = () => (
     <Hero />
     <LiveDemo />
     <DirectAgentCalls />
+    <MissedCallsCalculator />
     <Services />
     <OurWork />
     <WhyChooseUs />

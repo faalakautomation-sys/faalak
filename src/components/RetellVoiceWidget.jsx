@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { RetellWebClient } from "retell-client-js-sdk";
 import { FiMessageCircle, FiMic, FiPhone, FiPhoneOff, FiSend, FiUser, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "../api/config";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 const API_HEADERS = {
   "Content-Type": "application/json",
   ...(API_BASE_URL.includes("ngrok") ? { "ngrok-skip-browser-warning": "true" } : {}),
@@ -140,10 +140,16 @@ const RetellVoiceWidget = () => {
         headers: API_HEADERS,
         body: JSON.stringify({ name: data.name.trim(), phoneNumber: data.phoneNumber.trim() }),
       });
-      const result = await response.json();
+      const result = await response.json().catch(() => null);
 
-      if (!response.ok || !result.accessToken) {
-        throw new Error(result.error || "Unable to create the Retell call");
+      if (!response.ok) {
+        throw new Error(
+          result?.error ||
+            `API request failed (${response.status}). Check that VITE_API_URL points to the backend and includes /api.`
+        );
+      }
+      if (!result?.accessToken) {
+        throw new Error("The backend returned an invalid response. Check the configured VITE_API_URL.");
       }
 
       await clientRef.current.startCall({ accessToken: result.accessToken });

@@ -2,10 +2,9 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
 import { FiCheck, FiMail, FiMic, FiPhone, FiUser } from "react-icons/fi";
+import { API_BASE_URL } from "../api/config";
 import { industriesMenu } from "../data/menuData";
 import faalakModel from "../assets/faalak-ai-model.jpg";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 // Only a curated handful of industries here, not the full menu - keeps the
 // pill row short and scannable instead of forcing visitors to scroll through

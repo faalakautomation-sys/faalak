@@ -80,17 +80,17 @@ body {
 }
 
 .faalak-work-featured {
-  min-height: 35rem;
+  min-height: 25rem;
 }
 
 .faalak-work-sidecards {
   display: grid;
-  grid-template-rows: repeat(2, minmax(19.375rem, 1fr));
-  gap: 1rem;
+  grid-template-rows: repeat(2, minmax(14rem, 1fr));
+  gap: 0.75rem;
 }
 
 .faalak-work-card {
-  min-height: 19.375rem;
+  min-height: 14rem;
 }
 
 @media (min-width: 1024px) {
@@ -99,7 +99,7 @@ body {
   }
 
   .faalak-work-featured {
-    min-height: 43.125rem;
+    min-height: 31rem;
   }
 }
 
@@ -260,7 +260,7 @@ body {
 }
 
 .faalak-calculator-page {
-  min-height: 70vh;
+  scroll-margin-top: calc(var(--navbar-h) + 1rem);
 }
 
 .faalak-calculator-control {
@@ -274,8 +274,8 @@ body {
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    #e95420 0,
-    #e95420 var(--range-progress),
+    #38bdf8 0,
+    #10b981 var(--range-progress),
     #d9d3cb var(--range-progress),
     #d9d3cb 100%
   );
@@ -288,8 +288,8 @@ body {
   appearance: none;
   border: 0;
   border-radius: 50%;
-  background: #e95420;
-  box-shadow: 0 2px 6px rgba(92, 50, 31, 0.2);
+  background: #10b981;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.28);
 }
 
 .faalak-calculator-range::-moz-range-thumb {
@@ -297,8 +297,8 @@ body {
   height: 18px;
   border: 0;
   border-radius: 50%;
-  background: #e95420;
-  box-shadow: 0 2px 6px rgba(92, 50, 31, 0.2);
+  background: #10b981;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.28);
 }
 
 .faalak-agent-gallery {
