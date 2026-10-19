@@ -113,7 +113,7 @@ const RetellVoiceWidget = () => {
     };
   }, []);
 
-//TESTING
+//
   useEffect(() => {
     if (mode === "chat") chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chatMessages, mode]);

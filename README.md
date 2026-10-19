@@ -15,7 +15,7 @@ Copy `.env.example` to `.env`:
 cp .env.example .env
 ```
 
-Update `VITE_API_URL` if your backend is running on a different port/domain:
+For local development, update `VITE_API_URL` if your backend is running on a different port/domain:
 ```env
 VITE_API_URL=http://localhost:3001/api
 ```
@@ -135,10 +135,17 @@ A: Ensure backend is running and MongoDB is configured
 
 ## Production Deployment
 
-1. Build: `npm run build`
-2. Upload `dist/` folder to hosting (Vercel, Netlify, etc.)
-3. Update `VITE_API_URL` to your production backend domain
-4. Rebuild and redeploy
+For Cloudflare Pages, set `VITE_API_URL` under **Settings → Environment variables** for both Production and Preview builds. It must be the public HTTPS URL of the running backend, including `/api`, for example:
+
+```text
+https://your-backend-domain.example/api
+```
+
+If using ngrok, use the currently active ngrok HTTPS endpoint for the website backend and append `/api`. Keep that backend running and reachable; an ngrok URL does not start the backend itself and a free temporary ngrok domain may change. Do not set this to `localhost`: in a visitor's browser, `localhost` points to the visitor's own device.
+
+After setting the variable, trigger a fresh Cloudflare Pages deployment so Vite embeds it in the generated static files. Production builds now fail clearly if `VITE_API_URL` is missing, not HTTPS, or points to localhost.
+
+For other static hosts, set `VITE_API_URL` in the build environment before running `npm run build`, then deploy the generated `dist/` folder.
 
 ## Support
 
