@@ -40,7 +40,7 @@ const Services = () => (
               className="flex min-h-[190px] flex-col border-b border-r border-[#e2ddd6] px-5 py-5 sm:min-h-[200px] sm:px-6 sm:py-6"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#b9b4ae] bg-[#f8f7f4] text-[#24211e]">
+                <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border ${service.iconColorClass}`}>
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <h3 className="text-base font-semibold tracking-[-0.02em] text-[#201e1c]">

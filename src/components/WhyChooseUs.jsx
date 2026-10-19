@@ -39,7 +39,7 @@ const WhyChooseUs = () => (
               viewport={{ once: true }}
               className="flex min-h-[190px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-6 text-center sm:min-h-[200px] sm:px-7"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#b9b4ae] bg-[#f8f7f4] text-[#24211e]">
+              <span className={`flex h-11 w-11 items-center justify-center rounded-full border ${item.iconColorClass}`}>
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </span>
               <h3 className="mt-3 text-base font-semibold tracking-[-0.02em] text-[#201e1c]">

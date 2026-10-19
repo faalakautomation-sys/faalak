@@ -12,36 +12,42 @@ const securityHighlights = [
   {
     title: "SOC 2 Type II",
     icon: FiShield,
+    iconColorClass: "border-blue-200 bg-blue-50 text-blue-800",
     description:
       "Our New Jersey data-center provider reports SOC 2 Type II controls for its facility infrastructure. This is a provider certification, not a Faalak certification.",
   },
   {
     title: "ISO 27001",
     icon: FiLock,
+    iconColorClass: "border-green-200 bg-green-50 text-green-800",
     description:
       "The hosting facility provider also reports ISO 27001 certification for its infrastructure. Ask us for provider documentation and scope details.",
   },
   {
     title: "Controlled access",
     icon: FiUsers,
+    iconColorClass: "border-indigo-200 bg-indigo-50 text-indigo-800",
     description:
       "Administrative access is limited to designated team members. Developer access is restricted to the code and configuration needed for maintenance.",
   },
   {
     title: "Encrypted connections",
     icon: FiGlobe,
+    iconColorClass: "border-teal-200 bg-teal-50 text-teal-800",
     description:
       "Encrypted connections are part of Faalak's operational security practices for protecting data in transit between systems.",
   },
   {
     title: "Regular backups",
     icon: FiDatabase,
+    iconColorClass: "border-orange-200 bg-orange-50 text-orange-800",
     description:
       "Regular backups support the in-house CRM and lead database. Specific retention and recovery requirements should be agreed before onboarding.",
   },
   {
     title: "Privacy documentation",
     icon: FiFileText,
+    iconColorClass: "border-violet-200 bg-violet-50 text-violet-800",
     description:
       "Request a Data Processing Agreement, NDA, business registration details, and available provider security documentation before onboarding.",
   },
@@ -84,7 +90,7 @@ const SecurityHighlights = ({
                 key={item.title}
                 className="flex min-h-[220px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-7 text-center sm:min-h-[230px] sm:px-7 sm:py-8"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b9b4ae] bg-[#f8f7f4] text-[#24211e]">
+                <span className={`flex h-12 w-12 items-center justify-center rounded-full border ${item.iconColorClass}`}>
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="mt-4 text-base font-semibold tracking-[-0.02em] text-[#201e1c]">

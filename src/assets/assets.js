@@ -61,6 +61,7 @@ export const servicesData = [
     benefits: ["Retell AI powered", "Natural voice", "Lead qualification"],
     detail: "Handles overflow and after-hours calls so a real team member only steps in once a lead is qualified and ready to talk.",
     icon: FiPhoneCall,
+    iconColorClass: "border-blue-200 bg-blue-50 text-blue-800",
   },
   {
     title: "Owner-Operate Agents",
@@ -68,6 +69,7 @@ export const servicesData = [
     benefits: ["Use your number", "Books leads", "Works while you work"],
     detail: "Your agent covers calls during appointments, jobs, and busy hours, then sends qualified lead details to you so you can follow up when it suits you.",
     icon: FiUserCheck,
+    iconColorClass: "border-green-200 bg-green-50 text-green-800",
   },
   {
     title: "Outbound Calls",
@@ -75,6 +77,7 @@ export const servicesData = [
     benefits: ["Retell AI technology", "Personalized calls", "Campaign automation"],
     detail: "Runs follow-up and re-engagement campaigns automatically, so cold leads get a consistent second touch without manual dialing.",
     icon: FiPhoneCall,
+    iconColorClass: "border-orange-200 bg-orange-50 text-orange-800",
   },
   {
     title: "Website AI/SI Chatbots",
@@ -82,6 +85,7 @@ export const servicesData = [
     benefits: ["Real-time engagement", "Intent-based routing", "Lead capture"],
     detail: "Trained on your own site content and FAQs, so answers stay accurate and on-brand instead of generic chatbot replies.",
     icon: FiMessageSquare,
+    iconColorClass: "border-violet-200 bg-violet-50 text-violet-800",
   },
   {
     title: "Appointment Booking",
@@ -89,6 +93,7 @@ export const servicesData = [
     benefits: ["Automated scheduling", "Reminder flows", "Reduced admin work"],
     detail: "Syncs directly with your existing calendar, so double-bookings and manual back-and-forth over available slots disappear.",
     icon: FiCalendar,
+    iconColorClass: "border-amber-200 bg-amber-50 text-amber-800",
   },
   {
     title: "CRM & Data Handling",
@@ -96,6 +101,7 @@ export const servicesData = [
     benefits: ["Zero manual entry", "Real-time sync", "Clear reporting"],
     detail: "Works with the CRM and spreadsheet tools you already use, so there's nothing new for your team to learn.",
     icon: FiDatabase,
+    iconColorClass: "border-teal-200 bg-teal-50 text-teal-800",
   }
 ]
 
@@ -162,36 +168,42 @@ export const caseStudies = [
     description: "Your voice agent answers every call day and night, so no customer or lead goes unanswered.",
     detail: "Nights, weekends, and holidays included. You get full call center coverage without hiring extra shifts.",
     icon: FiClock,
+    iconColorClass: "border-blue-200 bg-blue-50 text-blue-800",
   },
   {
     title: "Qualified Leads",
     description: "Our agents ask the right questions and pass you only serious, ready-to-buy leads.",
     detail: "Every caller is screened on your criteria, so your team skips the time wasters and talks only to people who are ready to buy.",
     icon: FiTarget,
+    iconColorClass: "border-green-200 bg-green-50 text-green-800",
   },
   {
     title: "Instant WhatsApp Notifications",
     description: "Get a WhatsApp alert the moment a lead is captured, so you can follow up while they are still interested.",
     detail: "Name, number, and a short summary of the conversation land on your phone within seconds of the call ending.",
     icon: FiBell,
+    iconColorClass: "border-orange-200 bg-orange-50 text-orange-800",
   },
   {
     title: "Human-Like Conversations",
     description: "Natural voice experiences that sound clear, friendly, and trustworthy.",
     detail: "Trained on your own scripts and business rules, so callers focus on getting help, not on spotting a bot.",
     icon: FiMessageSquare,
+    iconColorClass: "border-violet-200 bg-violet-50 text-violet-800",
   },
   {
     title: "Canada-Based Team",
     description: "We are a Canada-based company, so you get reliable support, clear communication, and service you can trust.",
     detail: "Work with a team that understands Canadian businesses and is easy to reach whenever you need help.",
     icon: FiMapPin,
+    iconColorClass: "border-red-200 bg-red-50 text-red-800",
   },
   {
     title: "Scalable AI/SI",
     description: "Built to grow with your team, your channels, and your customer volume.",
     detail: "Handles a quiet Tuesday and a 10x traffic spike the same way, with no extra hires required.",
     icon: FiLayers,
+    iconColorClass: "border-indigo-200 bg-indigo-50 text-indigo-800",
   },
 ]
 
@@ -300,36 +312,42 @@ export const teamData = [
     name: "Ms. Asiya Jailani",
     role: "Founder",
     icon: FaCrown,
+    iconColorClass: "border-amber-200 bg-amber-50 text-amber-800",
     bio: "Sets the vision for Faalak and leads the team building AI/SI voice agents and automation for growing businesses.",
   },
   {
     name: "Mr. Nofil Imran",
     role: "Head of AI/SI Engineering",
     icon: FiCpu,
+    iconColorClass: "border-blue-200 bg-blue-50 text-blue-800",
     bio: "Designs and ships the voice agent, chatbot, and automation systems that power every Faalak deployment.",
   },
   {
     name: "Mr. Bahadur Ali Bokhari",
     role: "Barrister & Legal Advisor",
     icon: FaBalanceScale,
+    iconColorClass: "border-teal-200 bg-teal-50 text-teal-800",
     bio: "Advises on contracts, compliance, and legal structure so Faalak and its clients operate on solid ground.",
   },
   {
     name: "Mr. David William",
     role: "Developer & SaaS Designer",
     icon: FiPenTool,
+    iconColorClass: "border-violet-200 bg-violet-50 text-violet-800",
     bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },
   {
     name: "Ms. Maya",
     role: "Virtual Assistant · Business Analytics",
     icon: FiBarChart2,
+    iconColorClass: "border-green-200 bg-green-50 text-green-800",
     bio: "Maya turns business data into clear, AI-generated analytics reports that reveal trends and opportunities. These insights help us understand each business end to end, then design and continually refine voice agents to sound natural, work smoothly, and deliver the right experience for every client.",
   },
   {
     name: "Mr. John Markie",
     role: "SEO Expert & Marketing Specialist",
     icon: FiTrendingUp,
+    iconColorClass: "border-orange-200 bg-orange-50 text-orange-800",
     bio: "Drives organic growth and campaign strategy so Faalak's automation reaches the businesses that need it most.",
   },
 ];
