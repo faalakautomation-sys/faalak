@@ -9,6 +9,13 @@ React + Vite + Tailwind CSS frontend for the Faalak website. Beautiful UI with R
 npm install
 ```
 
+### Local development API
+
+The development frontend uses the Vite `/api` proxy to reach the website backend
+at `http://localhost:3001`. Start the backend first, then run `npm run dev`.
+The local API setting is in `.env.development`; the production `VITE_API_URL`
+in `.env` remains separate.
+
 ### 2. Setup Environment Variables
 Copy `.env.example` to `.env`:
 ```bash
