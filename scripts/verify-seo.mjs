@@ -213,6 +213,7 @@ function checkStaticFiles() {
   assert(wrangler.includes('"not_found_handling": "404-page"'), "wrangler still soft-404s unknown paths");
   assert(wrangler.includes('"html_handling": "drop-trailing-slash"'), "wrangler does not serve extensionless HTML");
   assert(!wrangler.includes("single-page-application"), "wrangler still uses SPA fallback");
+  assert(wrangler.includes('"previews"'), "wrangler preview has no previews block");
 
   const netlify = read(path.join(root, "netlify.toml"));
   assert(!netlify.includes('to = "/index.html"'), "netlify.toml still rewrites every path to index.html");

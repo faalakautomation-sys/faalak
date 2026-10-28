@@ -5,5 +5,9 @@
     "directory": "./dist",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  // Workers Builds runs `wrangler preview` for non-production branches.
+  // That command exits in CI unless this block exists. It can be empty:
+  // assets and compatibility_date stay at the top level.
+  "previews": {}
 }
