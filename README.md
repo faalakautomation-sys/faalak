@@ -150,7 +150,7 @@ https://your-backend-domain.example/api
 
 If using ngrok, use the currently active ngrok HTTPS endpoint for the website backend and append `/api`. Keep that backend running and reachable; an ngrok URL does not start the backend itself and a free temporary ngrok domain may change. Do not set this to `localhost`: in a visitor's browser, `localhost` points to the visitor's own device.
 
-After setting the variable, trigger a fresh Cloudflare Pages deployment so Vite embeds it in the generated static files. Production builds now fail clearly if `VITE_API_URL` is missing, not HTTPS, or points to localhost.
+After setting the variable, trigger a fresh deployment so Vite embeds it in the generated static files. A build fails if `VITE_API_URL` is missing, not HTTPS, or points to localhost. The exception is a Workers Build (`WORKERS_CI=1`) with the variable unset: Vite then embeds the public backend URL already shipped in the production bundle (`https://limeade-detention-zen.ngrok-free.dev/api`). A value present in the build environment still wins.
 
 For other static hosts, set `VITE_API_URL` in the build environment before running `npm run build`, then deploy the generated `dist/` folder.
 
