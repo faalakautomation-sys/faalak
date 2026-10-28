@@ -1,9 +1,10 @@
-import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiCheck } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { servicesMenu, industriesMenu, findMenuItem } from "../data/menuData";
+import { resolveSeo } from "../seo/site.js";
+import NotFound from "./NotFound";
 
 // One shared template for both /services/:slug and /industries/:slug -
 // content shape (tagline, description, highlights) is identical between the
@@ -21,11 +22,10 @@ const CategoryDetail = ({ kind }) => {
   const crossBasePath = kind === "service" ? "/industries" : "/services";
 
   if (!item) {
-    return <Navigate to="/" replace />;
+    return <NotFound />;
   }
 
-  const canonicalUrl = `https://faalak.com${basePath}/${item.slug}`;
-  const pageTitle = `${item.name} | Faalak AI/SI Automation`;
+  const seo = resolveSeo(`${basePath}/${item.slug}`);
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
@@ -44,28 +44,6 @@ const CategoryDetail = ({ kind }) => {
       style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
       className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
     >
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={item.metaDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={item.metaDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": kind === "service" ? "Service" : "WebPage",
-            name: item.name,
-            description: item.metaDescription,
-            url: canonicalUrl,
-            ...(kind === "service"
-              ? { provider: { "@type": "Organization", name: "Faalak AI/SI Automation" } }
-              : {}),
-          })}
-        </script>
-      </Helmet>
-
       <Link
         to="/"
         className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-primary dark:text-gray-400"
@@ -87,7 +65,7 @@ const CategoryDetail = ({ kind }) => {
               <item.icon className="h-7 w-7" />
             </div>
             <h1 className="font-display text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl dark:text-white">
-              {item.name}
+              {seo.h1}
             </h1>
           </div>
           <p className="mt-5 text-lg font-medium text-gray-700 sm:text-xl dark:text-gray-300">{item.tagline}</p>

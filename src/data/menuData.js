@@ -46,9 +46,9 @@ export const servicesMenu = [
     image: voiceAgentsImage,
     tagline: "Let your number keep booking leads while you are busy doing the work.",
     metaDescription:
-      "Owner-operated voice agents answer your business calls, qualify leads, and book appointments through your own number while you work.",
+      "Owner-operated AI voice agents for small Toronto and Canada businesses that need reliable phone coverage without a full reception desk.",
     description:
-      "Keep your business number and let an AI/SI voice agent answer when you are with a customer, on a job, or away from the phone. It handles the first conversation, captures the right details, and books qualified leads so opportunities keep moving without pulling you away from the work that pays you.",
+      "Owner-operated AI voice agents give small Toronto and Canada businesses reliable phone coverage, including after hours, without a full reception desk. Keep your business number and let an AI/SI voice agent answer when you are with a customer, on a job, or away from the phone. It handles the first conversation, captures the right details, and books qualified leads so opportunities keep moving without pulling you away from the work that pays you.",
     highlights: [
       "Use your existing business number",
       "Answer calls while you are working or unavailable",
@@ -65,9 +65,9 @@ export const servicesMenu = [
     image: aiReceptionistImage,
     tagline: "A always-on front desk that never puts a caller on hold.",
     metaDescription:
-      "Faalak's AI/SI receptionist answers every call, greets customers by name, routes urgent calls, and books appointments 24/7 - so no caller ever hits voicemail.",
+      "AI receptionist for Toronto and Canadian businesses—answer calls, take messages, book after hours. Talk to Faalak about virtual reception.",
     description:
-      "Your AI/SI receptionist greets every caller in real time, answers common questions, and routes anything urgent to the right person - all without a hold queue or a missed call. It works around your existing phone number, so nothing about your setup has to change.",
+      "Faalak's virtual receptionist answers calls, takes messages, and books after hours for Toronto and Canadian businesses. It greets every caller in real time, answers common questions, and routes anything urgent to the right person — all without a hold queue or a missed call. It works around your existing phone number, so nothing about your setup has to change.",
     highlights: [
       "Answers instantly, 24/7 - including nights, weekends, and holidays",
       "Greets callers by name and pulls context from your CRM",
@@ -84,9 +84,9 @@ export const servicesMenu = [
     image: voiceAgentsImage,
     tagline: "Human-like AI/SI voice agents for sales, support, and follow-up.",
     metaDescription:
-      "Deploy Retell AI-powered voice agents that handle inbound support, outbound sales calls, and follow-up campaigns with natural, human-like conversation.",
+      "Custom AI voice agents for Toronto and Canada—qualify leads, handle inbound calls, and automate phone workflows. Built by Faalak.",
     description:
-      "Beyond front-desk reception, our voice agents run full conversations - qualifying inbound sales calls, handling support questions, and executing outbound campaigns - powered by Retell AI's natural voice models trained on your business's own scripts.",
+      "Custom AI voice agents for Toronto and Canada qualify leads, handle inbound calls, and automate phone workflows. Beyond front-desk reception, our voice agents run full conversations — qualifying inbound sales calls, handling support questions, and executing outbound campaigns — powered by Retell AI's natural voice models trained on your business's own scripts.",
     highlights: [
       "Natural, human-like conversation - not a robotic IVR menu",
       "Handles inbound support and outbound campaigns alike",
@@ -103,9 +103,9 @@ export const servicesMenu = [
     image: chatbotAutomationImage,
     tagline: "Turn every website and WhatsApp visitor into a qualified lead.",
     metaDescription:
-      "AI/SI chatbot automation for your website and WhatsApp - real-time, brand-aligned conversations that qualify leads and capture contact details around the clock.",
+      "Chatbot automation for Toronto and Canadian companies—qualify visitors and hand off to voice or sales. Explore Faalak chatbot services.",
     description:
-      "Your website and WhatsApp chatbot engages visitors the moment they land, answers questions using your own content, and captures qualified leads instead of letting them bounce - all styled to match your brand.",
+      "Chatbot automation for Toronto and Canadian companies qualifies visitors on the website and WhatsApp, then hands hot leads to voice or sales. Your chatbot answers questions using your own content and captures qualified leads instead of letting visitors bounce — styled to match your brand.",
     highlights: [
       "Embeds directly into your existing website - no rebuild required",
       "Trained on your own site content and FAQs for accurate answers",
@@ -141,9 +141,9 @@ export const servicesMenu = [
     image: leadGenerationImage,
     tagline: "Qualified leads captured and routed the moment they show interest.",
     metaDescription:
-      "AI/SI-driven lead generation that captures, qualifies, and routes leads from every call, chat, and campaign straight to your sales team in real time.",
+      "AI-assisted lead generation for Toronto and Canada businesses—capture and qualify inbound interest with voice and automation from Faalak.",
     description:
-      "Every call and chat is a potential lead - our AI/SI captures contact details, qualifies intent against your own criteria, and routes only the ready-to-buy conversations to your sales team, so your team's time goes to prospects worth pursuing.",
+      "AI-assisted lead generation for Toronto and Canada businesses captures and qualifies inbound interest with voice and automation from Faalak. Every call and chat can become a lead: contact details are captured, intent is qualified against your own criteria, and ready-to-buy conversations are routed to your sales team.",
     highlights: [
       "Qualifies leads against your own criteria, not a generic script",
       "Captures contact details from every call, chat, and form",

@@ -1,9 +1,9 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiCpu } from "react-icons/fi";
+import { resolveSeo } from "../seo/site.js";
 
-const canonicalUrl = "https://faalak.com/blog/superintelligence";
+const articleSeo = resolveSeo("/blog/superintelligence");
 
 const sections = [
   {
@@ -48,36 +48,6 @@ const SuperintelligenceArticle = () => (
     style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
-    <Helmet>
-      <title>What Is Superintelligence? Understanding the Next AI/SI Frontier | Faalak</title>
-      <meta
-        name="description"
-        content="A clear guide to superintelligence: what SI means, how it differs from today's AI, and how businesses can adopt automation responsibly."
-      />
-      <link rel="canonical" href={canonicalUrl} />
-      <meta property="og:title" content="What Is Superintelligence? Understanding the Next AI/SI Frontier" />
-      <meta
-        property="og:description"
-        content="Learn what superintelligence means, how it differs from today's AI, and how businesses can prepare responsibly."
-      />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="article" />
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: "What Is Superintelligence? Understanding the Next AI/SI Frontier",
-          description:
-            "A clear guide to superintelligence, how it differs from today's AI, and responsible business adoption.",
-          datePublished: "2026-10-08",
-          dateModified: "2026-10-08",
-          author: { "@type": "Organization", name: "Faalak" },
-          publisher: { "@type": "Organization", name: "Faalak AI/SI Automation" },
-          mainEntityOfPage: canonicalUrl,
-        })}
-      </script>
-    </Helmet>
-
     <Link
       to="/"
       className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-primary"
@@ -93,7 +63,7 @@ const SuperintelligenceArticle = () => (
     >
       <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Faalak Blog · AI/SI</p>
       <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl">
-        What Is Superintelligence? Understanding the Next AI/SI Frontier
+        {articleSeo.h1}
       </h1>
       <p className="mt-5 text-lg leading-8 text-gray-600">
         Superintelligence is one of technology&apos;s biggest questions. Here&apos;s what the term means,

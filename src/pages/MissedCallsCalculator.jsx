@@ -102,12 +102,12 @@ const MissedCallsCalculator = () => {
           transition={{ duration: 0.45 }}
           className="border border-[#ded8d0] bg-[#f5f3ef] px-5 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12"
         >
-          <h1
+          <h2
             id="missed-calls-heading"
             className="font-display max-w-2xl text-3xl font-semibold leading-[1.06] tracking-[-0.045em] text-[#171717] sm:text-4xl md:text-5xl"
           >
             What are missed calls costing you?
-          </h1>
+          </h2>
 
           <div className="mt-9 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>

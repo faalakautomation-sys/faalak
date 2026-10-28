@@ -2,7 +2,17 @@
   command = "npm run build"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Prerendered routes are real HTML files. Do not rewrite unknown paths to
+# index.html: that returns HTTP 200 for missing URLs and can hide robots.txt
+# or sitemap.xml behind the SPA shell. Netlify serves existing files, then
+# dist/404.html with HTTP 404.
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"

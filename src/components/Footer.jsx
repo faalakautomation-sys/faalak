@@ -82,7 +82,7 @@ const Footer = () => {
             </p>
 
             <div className="mt-7 space-y-3 text-sm text-gray-600">
-              <p className="flex items-center gap-3"><FiMapPin className="text-primary" /> Toronto, Canada</p>
+              <p className="flex items-center gap-3"><FiMapPin className="text-primary" /> Toronto, ON, Canada</p>
               <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI/SI Automation</p>
               <a href="tel:+14169104547" className="flex items-center gap-3 hover:text-primary"><FiPhone className="text-primary" /> +1 416 910 4547</a>
               <a href="mailto:info@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> info@faalak.com</a>
@@ -235,7 +235,7 @@ const Footer = () => {
       >
         <p>&copy; 2026 Faalak AI/SI Automation &mdash; All Rights Reserved.</p>
         <div className="flex flex-wrap items-center gap-4">
-          <span>Toronto, Canada</span>
+          <span>Toronto, ON, Canada</span>
           <a href="mailto:info@faalak.com" className="hover:text-primary">
             info@faalak.com
           </a>

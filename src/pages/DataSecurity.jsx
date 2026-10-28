@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "motion/react";
 import { FiArrowLeft } from "react-icons/fi";
 import SecurityHighlights from "../components/SecurityHighlights";
+import { resolveSeo } from "../seo/site.js";
+
+const securitySeo = resolveSeo("/data-security");
 
 const dataFlowRows = [
   {
@@ -62,8 +64,6 @@ const laterSections = [
 ];
 
 const DataSecurity = () => {
-  const canonicalUrl = "https://faalak.com/data-security";
-
   const handleRequestDocs = () => {
     const message = encodeURIComponent(
       "Hi, I'd like to request Faalak's data handling documentation, proof of business registration, and/or a signed NDA/DPA."
@@ -76,22 +76,6 @@ const DataSecurity = () => {
       style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
       className="px-4 pb-24 sm:px-12 lg:px-16 xl:px-24"
     >
-      <Helmet>
-        <title>Data Handling & Security Overview | Faalak AI/SI Automation</title>
-        <meta
-          name="description"
-          content="How Faalak's AI/SI voice agent systems handle client and caller data - who builds and owns the system, where data is hosted, who has access, and compliance details."
-        />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Data Handling & Security Overview | Faalak AI/SI Automation" />
-        <meta
-          property="og:description"
-          content="How Faalak's AI/SI voice agent systems handle client and caller data - system ownership, data flow, hosting, access, and compliance."
-        />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -106,10 +90,7 @@ const DataSecurity = () => {
         </Link>
 
         <div className="mt-8">
-          <SecurityHighlights
-            title="Committed to security, privacy and responsible data handling."
-            headingLevel="h1"
-          />
+          <SecurityHighlights title={securitySeo.h1} headingLevel="h1" />
         </div>
       </motion.div>
 

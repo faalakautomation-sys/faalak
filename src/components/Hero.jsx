@@ -2,8 +2,11 @@ import assets from "../assets/assets";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
+import { resolveSeo } from "../seo/site.js";
 import ScrollArrows from "./ScrollArrows";
 import HeroWiringEffect from "./HeroWiringEffect";
+
+const homeSeo = resolveSeo("/");
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -73,16 +76,21 @@ const Hero = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="font-display w-full max-w-5xl text-4xl font-semibold leading-[1.03] tracking-[-0.055em] text-white sm:text-5xl md:text-6xl lg:text-[clamp(3.5rem,4.6vw,4.5rem)]"
+          className="font-display w-full max-w-5xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-5xl lg:text-[clamp(2.7rem,4.2vw,3.75rem)]"
         >
-          Handle 100% of your
-          <br className="hidden sm:block" />
-          customer phone calls
-          <br className="hidden sm:block" />
-          24/7 with an
-          <br className="hidden sm:block" />
-          <span className="faalak-hero-gradient-text">AI voice agent</span>
+          {homeSeo.h1}
         </motion.h1>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.08 }}
+          viewport={{ once: true }}
+          className="font-display w-full max-w-4xl text-2xl font-semibold leading-tight tracking-[-0.04em] text-white/95 sm:text-3xl"
+        >
+          Handle 100% of your customer phone calls 24/7 with an{" "}
+          <span className="faalak-hero-gradient-text">AI voice agent</span>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -91,10 +99,8 @@ const Hero = () => {
           viewport={{ once: true }}
           className="font-display w-full max-w-3xl text-base font-medium leading-relaxed text-white/85 sm:text-lg md:text-xl lg:text-2xl"
         >
-          
-          Customer Support AI/SI Voice Agents that work 24/7 Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads
-          
-                  </motion.p>
+          Answer every call, book after-hours, send WhatsApp notifications, and hand your team qualified leads.
+        </motion.p>
 
         {/* The signature tagline - flat (no tilt), boxed in a simple rounded
             rectangle so it reads as a defined badge/callout rather than

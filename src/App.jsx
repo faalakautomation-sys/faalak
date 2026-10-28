@@ -12,6 +12,7 @@ import CaseStudyDetail from "./pages/CaseStudyDetail";
 import DataSecurity from "./pages/DataSecurity";
 import SuperintelligenceArticle from "./pages/SuperintelligenceArticle";
 import NotFound from "./pages/NotFound";
+import Seo from "./components/Seo";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
 import LoadingScreen from "./components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
@@ -62,6 +63,7 @@ const App = () => {
 
   return (
     <div className="faalak-theme relative min-h-screen overflow-hidden bg-[#f5f3ef] text-[#24211e]">
+      <Seo />
       <LoadingScreen />
       <Toaster />
       <ScrollToHash />

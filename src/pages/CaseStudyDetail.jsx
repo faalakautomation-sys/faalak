@@ -1,21 +1,20 @@
-import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { caseStudies } from "../assets/assets";
+import { resolveSeo } from "../seo/site.js";
+import NotFound from "./NotFound";
 
 const CaseStudyDetail = () => {
   const { slug } = useParams();
   const study = caseStudies.find((entry) => entry.slug === slug);
 
   if (!study) {
-    return <Navigate to="/work" replace />;
+    return <NotFound />;
   }
 
-  const canonicalUrl = `https://faalak.com/work/${study.slug}`;
-  const pageTitle = `${study.title} Case Study | Faalak AI/SI Automation`;
-  const metaDescription = `${study.summary} See how Faalak's AI/SI voice agent and automation helped this ${study.industry.toLowerCase()} business.`;
+  const seo = resolveSeo(`/work/${study.slug}`);
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
@@ -34,16 +33,6 @@ const CaseStudyDetail = () => {
       style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
       className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
     >
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-      </Helmet>
-
       <Link
         to="/work"
         className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-primary dark:text-gray-400"
@@ -59,7 +48,7 @@ const CaseStudyDetail = () => {
       >
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">{study.industry}</p>
         <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl dark:text-white">
-          {study.title}
+          {seo.h1}
         </h1>
         <p className="mt-5 text-lg text-gray-700 dark:text-gray-300">{study.summary}</p>
       </motion.div>

@@ -1,23 +1,16 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "motion/react";
 import { FiArrowRight } from "react-icons/fi";
 import { caseStudies } from "../assets/assets";
+import { resolveSeo } from "../seo/site.js";
+
+const workSeo = resolveSeo("/work");
 
 const WorkIndex = () => (
   <div
     style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
-    <Helmet>
-      <title>Case Studies | Faalak AI/SI Automation</title>
-      <meta
-        name="description"
-        content="See how Faalak's AI/SI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster."
-      />
-      <link rel="canonical" href="https://faalak.com/work" />
-    </Helmet>
-
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -26,7 +19,7 @@ const WorkIndex = () => (
     >
       <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Our Work</p>
       <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl dark:text-white">
-        Case studies
+        {workSeo.h1}
       </h1>
       <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-400">
         Real businesses using Faalak AI/SI automation to stop losing leads and start answering every call and chat.
