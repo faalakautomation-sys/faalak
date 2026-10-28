@@ -3,9 +3,29 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 // Public backend already baked into the committed production bundle.
-// Workers Builds applies dashboard build variables to the production trigger only,
-// so preview builds of non-production branches do not receive VITE_API_URL.
+// Preview builds do not receive the production VITE_API_URL secret.
 const PUBLISHED_API_URL = "https://limeade-detention-zen.ngrok-free.dev/api";
+
+function envIsSet(name) {
+  const value = process.env[name]?.trim();
+  return value === "1" || value === "true";
+}
+
+// Workers Builds documents CI=true and WORKERS_CI=1, plus WORKERS_CI_* ids.
+// Those defaults are per trigger and can be overridden, so accept any of them.
+// CF_PAGES is the Pages equivalent. ci-info treats WORKERS_CI as set, not only "1".
+function cloudflareBuildSignals() {
+  const flags = ["CI", "WORKERS_CI", "CF_PAGES"].filter((name) => envIsSet(name));
+  const present = ["WORKERS_CI_BUILD_UUID", "WORKERS_CI_COMMIT_SHA", "WORKERS_CI_BRANCH", "CF_PAGES_BRANCH", "CF_PAGES_COMMIT_SHA"].filter(
+    (name) => Boolean(process.env[name]?.trim()),
+  );
+  return [...flags, ...present];
+}
+
+function isProductionBranch() {
+  const branch = (process.env.WORKERS_CI_BRANCH || process.env.CF_PAGES_BRANCH || "").trim();
+  return branch === "main" || branch === "master";
+}
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,11 +33,12 @@ export default defineConfig(({ mode }) => {
   let apiUrl = env.VITE_API_URL?.trim();
 
   if (mode === "production") {
-    if (!apiUrl && process.env.WORKERS_CI === "1") {
+    const signals = cloudflareBuildSignals();
+    if (!apiUrl && signals.length > 0 && !isProductionBranch()) {
       apiUrl = PUBLISHED_API_URL;
       process.env.VITE_API_URL = PUBLISHED_API_URL;
       console.warn(
-        "[vite] VITE_API_URL is unset for this Workers Build. Embedding the public backend URL already shipped in the production bundle.",
+        `[vite] VITE_API_URL is unset (${signals.join(", ")}). Embedding the public backend URL already shipped in the production bundle.`,
       );
     }
 
