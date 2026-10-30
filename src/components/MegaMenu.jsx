@@ -140,10 +140,15 @@ const MegaMenu = ({ label, groups, teaser, basePath, navRef, onNavigate, light =
                           <Link
                             to={`${basePath}/${item.slug}`}
                             onClick={handleSelect}
-                            className="group inline-flex items-center gap-1.5 text-sm text-gray-700 transition-colors duration-300 hover:text-primary dark:text-gray-300"
+                            className="group inline-flex items-center gap-2 text-sm text-gray-700 transition-colors duration-300 hover:text-primary dark:text-gray-300"
                           >
                             {item.name}
-                            <FiArrowRight className="h-3.5 w-3.5 -translate-x-1 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                            <span
+                              aria-hidden="true"
+                              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-300 text-primary transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-primary group-hover:bg-blue-50 dark:border-gray-600 dark:group-hover:bg-gray-800"
+                            >
+                              <FiArrowRight className="h-3 w-3" />
+                            </span>
                           </Link>
                         </li>
                       ))}
