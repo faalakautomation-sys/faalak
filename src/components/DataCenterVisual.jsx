@@ -1,9 +1,9 @@
 import { motion } from "motion/react";
 
-// An original, license-safe "AI data center" illustration - rows of glowing
+// An original, license-safe "AI/SI data center" illustration - rows of glowing
 // server-rack blades on a dark gradient, built from CSS/SVG rather than a
 // stock photo. Used as the mega-menu teaser tile for Industries and Our
-// Work (Services uses the real AI-receptionist photo instead), so each
+// Work (Services uses the real AI/SI-receptionist photo instead), so each
 // dropdown gets a distinct visual instead of the same image repeated three
 // times.
 const ACCENTS = {

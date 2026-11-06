@@ -7,15 +7,19 @@ import MegaMenu from "./MegaMenu";
 import {
   servicesMenu,
   industriesMenu,
+  workMenu,
   servicesGroups,
   industriesGroups,
+  workGroups,
   servicesTeaser,
   industriesTeaser,
+  workTeaser,
   resolveGroups,
 } from "../data/menuData";
 
 const resolvedServiceGroups = resolveGroups(servicesGroups, servicesMenu);
 const resolvedIndustryGroups = resolveGroups(industriesGroups, industriesMenu);
+const resolvedWorkGroups = resolveGroups(workGroups, workMenu);
 
 const SCROLL_THRESHOLD = 40;
 
@@ -42,7 +46,7 @@ const NavLink = ({ to, onClick, light, drawer = false, children }) => (
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [compactNav, setCompactNav] = useState(false);
+  const [compactNav, setCompactNav] = useState(() => !window.matchMedia("(min-width: 768px)").matches);
   const [scrolled, setScrolled] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const navRef = useRef(null);
@@ -119,7 +123,7 @@ const Navbar = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`flex justify-between items-center gap-2 px-2 sm:px-3 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-0 md:px-4 lg:px-6 2xl:px-12 py-3 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
-        transparent ? "border-white/15 bg-transparent max-md:bg-[#05070c]/85" : "border-gray-200/70 bg-white/90 backdrop-blur-xl"
+        transparent ? "border-white/15 bg-transparent" : "border-gray-200/70 backdrop-blur-xl bg-white/50"
       }`}
     >
       <Link to="/" onClick={closeSidebar} className="md:justify-self-start">
@@ -127,9 +131,8 @@ const Navbar = () => {
           whileHover={{ scale: 1.04 }}
           transition={{ duration: 0.25 }}
           src={transparent ? assets.logo_dark : assets.logo}
-          alt="Faalak"
+          alt="logo"
           className="w-24 sm:w-28 lg:w-32 2xl:w-40 object-contain"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 55%, 42% 55%, 42% 100%, 0 100%)" }}
         />
       </Link>
 
@@ -149,14 +152,21 @@ const Navbar = () => {
       >
         <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 md:hidden">
           <div>
-            <p className="text-base font-bold tracking-wide text-slate-900">Faalak</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI/SI</p>
             <p className="mt-1 text-xs text-slate-500">Explore the site</p>
-            <p className="mt-2 text-sm font-medium text-slate-600">Mississauga, Canada</p>
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-50 py-1.5 pl-2 pr-3 ring-1 ring-slate-200/80">
+              <img src={assets.flag} alt="Canada flag" className="h-5 w-auto object-contain" />
+              <span className="text-xs font-semibold text-slate-700">Toronto, Canada</span>
+            </div>
           </div>
           <button type="button" onClick={closeSidebar} className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation">
             <FiX className="h-5 w-5" />
           </button>
         </div>
+
+        <NavLink to="/" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Home
+        </NavLink>
 
         <MegaMenu
           label="Services"
@@ -180,17 +190,33 @@ const Navbar = () => {
           drawerMode={compactNav}
         />
 
-        <NavLink to="/live-demos" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Live Demos
+        <MegaMenu
+          label="Our Projects"
+          groups={resolvedWorkGroups}
+          teaser={workTeaser}
+          basePath="/work"
+          navRef={navRef}
+          onNavigate={closeSidebar}
+          light={transparent && !drawerOpen}
+          drawerMode={compactNav}
+        />
+
+        <NavLink to="/blog/superintelligence" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Blog
         </NavLink>
-        <NavLink to="/#pricing" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Pricing
+
+        <NavLink to="/#gallery" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Gallery
+        </NavLink>
+
+        <NavLink to="/data-security" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Security
         </NavLink>
         <NavLink to="/#faq" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           FAQ
         </NavLink>
         <NavLink to="/#contact-us" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Contact
+          Contact Us
         </NavLink>
 
       </div>
@@ -201,17 +227,23 @@ const Navbar = () => {
           onClick={() => setSidebarOpen((open) => !open)}
           aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
           aria-expanded={sidebarOpen}
-          className={`rounded-full bg-transparent p-2 transition-colors md:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-transparent"}`}
+          className={`rounded-full p-2 transition-colors md:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-gray-100"}`}
         >
           {sidebarOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
         </button>
 
-        <a
-          href="tel:+12896709108"
-          className="whitespace-nowrap rounded-full bg-primary px-3 py-2 text-[11px] font-semibold text-white transition hover:bg-[#004987] sm:px-4 sm:text-sm"
-        >
-          Hear a demo
-        </a>
+        {/* Canada flag badge - hover reveals a "where we're based" tooltip. */}
+        <div className="group relative flex items-center">
+          <img
+            src={assets.flag}
+            alt="Canada"
+            className="h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-110 sm:h-8 2xl:h-9"
+          />
+          <div className="pointer-events-none absolute right-0 top-full z-50 mt-2 w-max origin-top-right scale-95 rounded-xl border border-gray-100 bg-white px-4 py-2.5 text-right opacity-0 shadow-xl shadow-blue-900/10 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 dark:border-white/10 dark:bg-primary-deep dark:shadow-black/40">
+            <p className="text-sm font-bold text-gray-900 dark:text-white">Toronto based</p>
+            <p className="text-xs text-gray-500 dark:text-white/60">Proudly serving Toronto businesses</p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

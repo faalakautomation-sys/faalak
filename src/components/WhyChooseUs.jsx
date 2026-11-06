@@ -23,7 +23,7 @@ const WhyChooseUs = () => (
           Why businesses trust Faalak.
         </h2>
         <p className="max-w-xl pb-1 text-sm leading-6 text-[#68635d] sm:text-base lg:justify-self-end">
-          We are a Canada-based AI automation company helping businesses answer customers, capture leads, and keep support moving—day and night.
+          We are a Canada-based AI/SI automation company helping businesses answer customers, capture leads, and keep support moving—day and night.
         </p>
       </div>
 

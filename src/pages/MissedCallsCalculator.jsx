@@ -1,7 +1,12 @@
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { ESTIMATES } from "../data/calculatorEstimates";
-import { GTA_INDUSTRIES } from "../data/industries";
+
+const industries = [
+  { name: "Physio Therapist", averageRevenue: 350 },
+  { name: "HVAC", averageRevenue: 450 },
+  { name: "Cannabis", averageRevenue: 100 },
+  { name: "Restaurant", averageRevenue: 120 },
+];
 
 const currency = new Intl.NumberFormat("en-CA", {
   style: "currency",
@@ -9,12 +14,7 @@ const currency = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 0,
 });
 
-const INDUSTRIES = GTA_INDUSTRIES.map((industry) => ({
-  ...industry,
-  ...ESTIMATES[industry.slug],
-}));
-
-const RangeControl = ({ id, label, value, min, max, step, displayValue, onChange, hint }) => (
+const RangeControl = ({ id, label, value, min, max, step, displayValue, onChange }) => (
   <div className="faalak-calculator-control">
     <div className="mb-3 flex items-baseline justify-between gap-4">
       <label htmlFor={id} className="text-sm leading-6 text-[#606a7a] sm:text-base">
@@ -39,32 +39,30 @@ const RangeControl = ({ id, label, value, min, max, step, displayValue, onChange
       <span>{min}</span>
       <span>{max}</span>
     </div>
-    {hint && <p className="mt-2 text-xs leading-5 text-[#82786f]">{hint}</p>}
   </div>
 );
 
 const MissedCallsCalculator = () => {
-  const [industry, setIndustry] = useState(INDUSTRIES[0]);
-  const [missedCalls, setMissedCalls] = useState(Math.round(INDUSTRIES[0].missedCallsPerWeek * 4.3));
-  const [conversionRate, setConversionRate] = useState(INDUSTRIES[0].closeRate);
-  const [customerValue, setCustomerValue] = useState(INDUSTRIES[0].customerValue);
+  const [industry, setIndustry] = useState(industries[0]);
+  const [missedCalls, setMissedCalls] = useState(80);
+  const [conversionRate, setConversionRate] = useState(22);
+  const [averageRevenue, setAverageRevenue] = useState(350);
 
   const estimate = useMemo(() => {
     const bookingsLost = Math.round(missedCalls * (conversionRate / 100));
-    const monthlyRevenueLost = bookingsLost * customerValue;
+    const monthlyRevenueLost = bookingsLost * averageRevenue;
+
     return {
       bookingsLost,
       monthlyRevenueLost,
       yearlyRevenueLost: monthlyRevenueLost * 12,
-      revenuePerConversionPoint: Math.round(missedCalls * 0.01 * customerValue),
+      revenuePerConversionPoint: Math.round(missedCalls * 0.01 * averageRevenue),
     };
-  }, [customerValue, conversionRate, missedCalls]);
+  }, [averageRevenue, conversionRate, missedCalls]);
 
   const handleIndustrySelect = (selectedIndustry) => {
     setIndustry(selectedIndustry);
-    setMissedCalls(Math.round(selectedIndustry.missedCallsPerWeek * 4.3));
-    setConversionRate(selectedIndustry.closeRate);
-    setCustomerValue(selectedIndustry.customerValue);
+    setAverageRevenue(selectedIndustry.averageRevenue);
   };
 
   const handleEmailBreakdown = () => {
@@ -75,7 +73,7 @@ const MissedCallsCalculator = () => {
         `Industry: ${industry.name}`,
         `Missed calls per month: ${missedCalls}`,
         `Estimated conversion rate: ${conversionRate}%`,
-        `Average value of a new customer: ${currency.format(customerValue)}`,
+        `Average revenue per booking: ${currency.format(averageRevenue)}`,
         `Estimated bookings missed per month: ${estimate.bookingsLost}`,
         `Estimated revenue missed per month: ${currency.format(estimate.monthlyRevenueLost)}`,
         `Estimated revenue missed per year: ${currency.format(estimate.yearlyRevenueLost)}`,
@@ -83,10 +81,11 @@ const MissedCallsCalculator = () => {
         "This is an estimate, not a guarantee of results.",
       ].join("\n")
     );
+
     window.location.href = `mailto:info@faalak.com?subject=${subject}&body=${body}`;
   };
 
-  const handleBookConsultation = () => {
+  const handleBookDemo = () => {
     window.dispatchEvent(new Event("open-retell-widget"));
   };
 
@@ -97,29 +96,31 @@ const MissedCallsCalculator = () => {
       className="faalak-calculator-page scroll-mt-24 px-4 py-10 sm:px-10 sm:py-14 lg:px-16 lg:py-16 xl:px-24"
     >
       <div className="mx-auto max-w-7xl">
-        <motion.div
+        <motion.section
           initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
           className="border border-[#ded8d0] bg-[#f5f3ef] px-5 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12"
         >
-          <h2
+          <h1
             id="missed-calls-heading"
             className="font-display max-w-2xl text-3xl font-semibold leading-[1.06] tracking-[-0.045em] text-[#171717] sm:text-4xl md:text-5xl"
           >
             What are missed calls costing you?
-          </h2>
+          </h1>
+
           <div className="mt-9 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
               <fieldset>
-                <legend className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">Industry</legend>
+                <legend className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">
+                  Industry
+                </legend>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {INDUSTRIES.map((item) => {
-                    const isSelected = industry.slug === item.slug;
+                  {industries.map((item) => {
+                    const isSelected = industry.name === item.name;
                     return (
                       <button
-                        key={item.slug}
+                        key={item.name}
                         type="button"
                         aria-pressed={isSelected}
                         onClick={() => handleIndustrySelect(item)}
@@ -143,10 +144,9 @@ const MissedCallsCalculator = () => {
                   value={missedCalls}
                   min={0}
                   max={500}
-                  step={1}
+                  step={5}
                   displayValue={missedCalls}
                   onChange={setMissedCalls}
-                  hint="Not sure? Check your phone bill or call log for unanswered calls."
                 />
                 <RangeControl
                   id="conversion-rate-range"
@@ -159,14 +159,14 @@ const MissedCallsCalculator = () => {
                   onChange={setConversionRate}
                 />
                 <RangeControl
-                  id="customer-value-range"
-                  label="Average value of a new customer"
-                  value={customerValue}
+                  id="average-revenue-range"
+                  label="Average revenue per booking"
+                  value={averageRevenue}
                   min={0}
-                  max={20000}
-                  step={50}
-                  displayValue={currency.format(customerValue)}
-                  onChange={setCustomerValue}
+                  max={1500}
+                  step={25}
+                  displayValue={currency.format(averageRevenue)}
+                  onChange={setAverageRevenue}
                 />
               </div>
             </div>
@@ -186,8 +186,9 @@ const MissedCallsCalculator = () => {
               <span className="mt-3 block h-[2px] w-16 bg-emerald-500" />
               <p className="mt-5 max-w-md text-sm leading-6 text-[#606a7a] sm:text-base">
                 About {estimate.bookingsLost} bookings from {missedCalls} missed calls, at{" "}
-                {currency.format(customerValue)} each.
+                {currency.format(averageRevenue)} each.
               </p>
+
               <div className="mt-8 grid grid-cols-3 gap-4 border-y border-[#e2ddd6] py-5">
                 <div>
                   <p className="text-lg font-semibold tabular-nums text-[#24211e] sm:text-xl">
@@ -196,26 +197,34 @@ const MissedCallsCalculator = () => {
                   <p className="mt-1 text-xs leading-5 text-[#82786f]">estimated per year</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold tabular-nums text-[#24211e] sm:text-xl">{estimate.bookingsLost}</p>
+                  <p className="text-lg font-semibold tabular-nums text-[#24211e] sm:text-xl">
+                    {estimate.bookingsLost}
+                  </p>
                   <p className="mt-1 text-xs leading-5 text-[#82786f]">bookings / month</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold tabular-nums text-[#24211e] sm:text-xl">{missedCalls}</p>
+                  <p className="text-lg font-semibold tabular-nums text-[#24211e] sm:text-xl">
+                    {missedCalls}
+                  </p>
                   <p className="mt-1 text-xs leading-5 text-[#82786f]">calls not answered</p>
                 </div>
               </div>
+
               <p className="mt-4 text-sm text-[#606a7a]">
-                Every 1% more calls you convert = about{" "}
-                <span className="font-semibold text-[#24211e]">{currency.format(estimate.revenuePerConversionPoint)}/month</span>
+                Each additional conversion point represents about{" "}
+                <span className="font-semibold text-[#24211e]">
+                  {currency.format(estimate.revenuePerConversionPoint)} / month
+                </span>
+                .
               </p>
-              <p className="mt-3 text-sm font-medium text-[#24211e]">Pays for itself after just a few booked calls.</p>
+
               <div className="mt-7 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  onClick={handleBookConsultation}
+                  onClick={handleBookDemo}
                   className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-sky-600"
                 >
-                  Book a free consultation
+                  Book a demo
                 </button>
                 <button
                   type="button"
@@ -227,10 +236,11 @@ const MissedCallsCalculator = () => {
               </div>
             </div>
           </div>
+
           <p className="mt-9 text-xs leading-5 text-[#82786f]">
             Estimates are illustrative only and use rounded booking counts. Actual results vary by business, call handling, and deployment.
           </p>
-        </motion.div>
+        </motion.section>
       </div>
     </section>
   );

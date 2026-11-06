@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiCpu } from "react-icons/fi";
 
-const canonicalUrl = "https://www.faalak.com/blog/superintelligence";
+const canonicalUrl = "https://faalak.com/blog/superintelligence";
 
 const sections = [
   {
@@ -35,9 +35,9 @@ const sections = [
     ],
   },
   {
-    title: "What AI means at Faalak",
+    title: "What AI/SI means at Faalak",
     paragraphs: [
-      "We use AI to talk about both the AI automation businesses can use today and the wider discussion about future superintelligence. Our current services focus on practical voice agents, chat, and workflow automation built with existing technologies. We are not claiming to offer superintelligence.",
+      "We use AI/SI to talk about both the AI automation businesses can use today and the wider discussion about future superintelligence. Our current services focus on practical voice agents, chat, and workflow automation built with existing technologies. We are not claiming to offer superintelligence.",
       "Our view is straightforward: use today's tools thoughtfully, keep people accountable for important decisions, and follow the research as capabilities evolve.",
     ],
   },
@@ -49,13 +49,13 @@ const SuperintelligenceArticle = () => (
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
     <Helmet>
-      <title>What Is Superintelligence? Understanding the Next AI Frontier | Faalak</title>
+      <title>What Is Superintelligence? Understanding the Next AI/SI Frontier | Faalak</title>
       <meta
         name="description"
-        content="A clear guide to superintelligence, how it differs from today's AI, and how businesses can adopt automation responsibly."
+        content="A clear guide to superintelligence: what SI means, how it differs from today's AI, and how businesses can adopt automation responsibly."
       />
       <link rel="canonical" href={canonicalUrl} />
-      <meta property="og:title" content="What Is Superintelligence? Understanding the Next AI Frontier" />
+      <meta property="og:title" content="What Is Superintelligence? Understanding the Next AI/SI Frontier" />
       <meta
         property="og:description"
         content="Learn what superintelligence means, how it differs from today's AI, and how businesses can prepare responsibly."
@@ -66,13 +66,13 @@ const SuperintelligenceArticle = () => (
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          headline: "What Is Superintelligence? Understanding the Next AI Frontier",
+          headline: "What Is Superintelligence? Understanding the Next AI/SI Frontier",
           description:
             "A clear guide to superintelligence, how it differs from today's AI, and responsible business adoption.",
           datePublished: "2026-10-08",
           dateModified: "2026-10-08",
           author: { "@type": "Organization", name: "Faalak" },
-          publisher: { "@type": "Organization", name: "Faalak AI Automation" },
+          publisher: { "@type": "Organization", name: "Faalak AI/SI Automation" },
           mainEntityOfPage: canonicalUrl,
         })}
       </script>
@@ -91,9 +91,9 @@ const SuperintelligenceArticle = () => (
       transition={{ duration: 0.5 }}
       className="mx-auto mt-8 max-w-4xl"
     >
-      <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Faalak Blog · AI</p>
+      <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Faalak Blog · AI/SI</p>
       <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl">
-        What Is Superintelligence? Understanding the Next AI Frontier
+        What Is Superintelligence? Understanding the Next AI/SI Frontier
       </h1>
       <p className="mt-5 text-lg leading-8 text-gray-600">
         Superintelligence is one of technology&apos;s biggest questions. Here&apos;s what the term means,
@@ -102,7 +102,7 @@ const SuperintelligenceArticle = () => (
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-500">
         <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 font-medium text-primary">
-          <FiCpu className="h-4 w-4" /> AI Explained
+          <FiCpu className="h-4 w-4" /> AI/SI Explained
         </span>
         <time dateTime="2026-10-08">October 8, 2026</time>
         <span aria-hidden="true">·</span>
@@ -115,7 +115,7 @@ const SuperintelligenceArticle = () => (
         <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6 sm:p-8">
           <p className="text-base leading-7 text-gray-700">
             <strong className="font-semibold text-gray-900">The short version:</strong> superintelligence
-            is a hypothetical level of intelligence that would outperform humans across a broad
+            (SI) is a hypothetical level of intelligence that would outperform humans across a broad
             range of cognitive work. It is not the same as the task-focused AI tools businesses use
             today, and there is no settled date for when—or whether—it will arrive.
           </p>

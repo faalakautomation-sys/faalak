@@ -13,9 +13,9 @@ const CaseStudyDetail = () => {
     return <Navigate to="/work" replace />;
   }
 
-  const canonicalUrl = `https://www.faalak.com/work/${study.slug}`;
-  const pageTitle = `${study.title} Case Study | Faalak`;
-  const metaDescription = `${study.summary} See how Faalak's AI voice agent and automation helped this ${study.industry.toLowerCase()} business.`;
+  const canonicalUrl = `https://faalak.com/work/${study.slug}`;
+  const pageTitle = `${study.title} Case Study | Faalak AI/SI Automation`;
+  const metaDescription = `${study.summary} See how Faalak's AI/SI voice agent and automation helped this ${study.industry.toLowerCase()} business.`;
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(

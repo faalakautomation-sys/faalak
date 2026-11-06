@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MobileCallPopup from "./components/MobileCallPopup";
 import ScrollToHash from "./components/ScrollToHash";
 import Home from "./pages/Home";
 import CategoryDetail from "./pages/CategoryDetail";
@@ -10,19 +11,58 @@ import WorkIndex from "./pages/WorkIndex";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import DataSecurity from "./pages/DataSecurity";
 import SuperintelligenceArticle from "./pages/SuperintelligenceArticle";
-import LiveDemosPage from "./pages/LiveDemosPage";
 import NotFound from "./pages/NotFound";
 import RetellVoiceWidget from "./components/RetellVoiceWidget";
+import LoadingScreen from "./components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
+  const dotRef = useRef(null);
+  const outlineRef = useRef(null);
+
+  // Refs for custom cursor Position tracking
+  const mouse = useRef({ x: 0, y: 0 });
+  const position = useRef({ x: 0, y: 0 });
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "light");
     document.documentElement.style.colorScheme = "light";
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouse.current.x = e.clientX;
+      mouse.current.y = e.clientY;
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    const animate = () => {
+      position.current.x += (mouse.current.x - position.current.x) * 0.1;
+      position.current.y += (mouse.current.y - position.current.y) * 0.1;
+
+      if (dotRef.current && outlineRef.current) {
+        dotRef.current.style.transform = `translate3d(${
+          mouse.current.x - 6
+        }px, ${mouse.current.y - 6}px, 0)`;
+        outlineRef.current.style.transform = `translate3d(${
+          position.current.x - 20
+        }px, ${position.current.y - 20}px, 0)`;
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
     <div className="faalak-theme relative min-h-screen overflow-hidden bg-[#f5f3ef] text-[#24211e]">
+      <LoadingScreen />
       <Toaster />
       <ScrollToHash />
       <Navbar />
@@ -31,7 +71,6 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/services/:slug" element={<CategoryDetail kind="service" />} />
         <Route path="/industries/:slug" element={<CategoryDetail kind="industry" />} />
-        <Route path="/live-demos" element={<LiveDemosPage />} />
         <Route path="/work" element={<WorkIndex />} />
         <Route path="/work/:slug" element={<CaseStudyDetail />} />
         <Route path="/data-security" element={<DataSecurity />} />
@@ -41,6 +80,7 @@ const App = () => {
 
       <Footer />
       <RetellVoiceWidget />
+      <MobileCallPopup />
 
       <a
         href="https://wa.me/14169104547?text=Hi%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Faalak%20AI%20Automation."
@@ -51,6 +91,19 @@ const App = () => {
       >
         <FaWhatsapp className="h-7 w-7" />
       </a>
+
+      {/* Custom Cursor Ring */}
+      <div
+        ref={outlineRef}
+        className="fixed top-0 left-0 h-10 w-10 rounded-full border border-primary pointer-events-none z-9999"
+        style={{ transition: "transform 0.1s ease-out" }}
+      ></div>
+
+      {/* Custom Cursor Dot */}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 h-3 w-3 rounded-full bg-primary pointer-events-none z-9999"
+      ></div>
     </div>
   );
 };

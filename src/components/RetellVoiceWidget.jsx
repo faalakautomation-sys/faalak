@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { RetellWebClient } from "retell-client-js-sdk";
 import { FiMessageCircle, FiMic, FiPhone, FiPhoneOff, FiSend, FiUser, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../api/config";
@@ -22,6 +23,7 @@ const PANEL_OFFSET_ABOVE_BUTTON = 72;
 const RetellVoiceWidget = () => {
   const clientRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(true);
   const [status, setStatus] = useState("idle");
   const [mode, setMode] = useState("voice");
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
@@ -63,58 +65,51 @@ const RetellVoiceWidget = () => {
   }, []);
 
   useEffect(() => {
-    let disposed = false;
-    let client;
-    let openWidget;
-    let handleCallStarted;
-    let handleCallEnded;
-    let handleCallError;
+    const client = new RetellWebClient();
+    clientRef.current = client;
 
-    import("retell-client-js-sdk")
-      .then(({ RetellWebClient }) => {
-        if (disposed) return;
-        client = new RetellWebClient();
-        clientRef.current = client;
+    // Lets other parts of the site (e.g. LiveDemo's "Call me now" form) open
+    // this widget pre-filled and already dialing, instead of just popping it
+    // open empty and making the visitor retype what they just entered.
+    // event.detail: { name, phoneNumber, autoStart }.
+    const openWidget = (event) => {
+      const detail = event.detail || {};
+      setShowGreeting(false);
+      setIsOpen(true);
+      setMode("voice");
 
-        openWidget = (event) => {
-          const detail = event.detail || {};
-          setIsOpen(true);
-          setMode("voice");
-          if (detail.name || detail.phoneNumber) {
-            const prefilled = { name: detail.name || "", phoneNumber: detail.phoneNumber || "" };
-            setFormData(prefilled);
-            if (detail.autoStart) startVoiceAgent(prefilled);
-          }
-        };
-        handleCallStarted = () => setStatus("active");
-        handleCallEnded = () => {
-          setStatus("idle");
-          setFormData({ name: "", phoneNumber: "" });
-        };
-        handleCallError = () => {
-          setStatus("error");
-          toast.error("The voice agent could not connect. Please try again.");
-        };
+      if (detail.name || detail.phoneNumber) {
+        const prefilled = { name: detail.name || "", phoneNumber: detail.phoneNumber || "" };
+        setFormData(prefilled);
+        if (detail.autoStart) {
+          startVoiceAgent(prefilled);
+        }
+      }
+    };
 
-        client.on("call_started", handleCallStarted);
-        client.on("call_ended", handleCallEnded);
-        client.on("error", handleCallError);
-        window.addEventListener("open-retell-widget", openWidget);
-      })
-      .catch((error) => {
-        console.error("Could not load the Retell voice client:", error);
-        toast.error("The voice assistant could not load. Please try again.");
-      });
+    const handleCallStarted = () => setStatus("active");
+    const handleCallEnded = () => {
+      setStatus("idle");
+      // Always ask again next time - even for a second call in the same
+      // widget-open session, not just after closing and reopening it.
+      setFormData({ name: "", phoneNumber: "" });
+    };
+    const handleCallError = () => {
+      setStatus("error");
+      toast.error("The voice agent could not connect. Please try again.");
+    };
+
+    client.on("call_started", handleCallStarted);
+    client.on("call_ended", handleCallEnded);
+    client.on("error", handleCallError);
+    window.addEventListener("open-retell-widget", openWidget);
 
     return () => {
-      disposed = true;
-      if (client) {
-        client.stopCall();
-        client.removeListener("call_started", handleCallStarted);
-        client.removeListener("call_ended", handleCallEnded);
-        client.removeListener("error", handleCallError);
-      }
-      if (openWidget) window.removeEventListener("open-retell-widget", openWidget);
+      client.stopCall();
+      client.removeListener("call_started", handleCallStarted);
+      client.removeListener("call_ended", handleCallEnded);
+      client.removeListener("error", handleCallError);
+      window.removeEventListener("open-retell-widget", openWidget);
     };
   }, []);
 
@@ -158,7 +153,6 @@ const RetellVoiceWidget = () => {
         throw new Error("The backend returned an invalid response. Check the configured VITE_API_URL.");
       }
 
-      if (!clientRef.current) throw new Error("The voice assistant is still loading. Please try again.");
       await clientRef.current.startCall({ accessToken: result.accessToken });
     } catch (error) {
       console.error("Retell voice call failed:", error);
@@ -314,6 +308,7 @@ const RetellVoiceWidget = () => {
       setIsOpen(false);
       setMode("voice");
       setStatus("idle");
+      setShowGreeting(false);
       setFormData({ name: "", phoneNumber: "" });
     } catch (error) {
       toast.error(error.message || "Unable to finish the chat right now.");
@@ -336,6 +331,7 @@ const RetellVoiceWidget = () => {
               closeWidget();
             }
           } else {
+            setShowGreeting(false);
             setIsOpen(true);
           }
         }}
@@ -352,6 +348,24 @@ const RetellVoiceWidget = () => {
       </motion.button>
 
       <AnimatePresence>
+        {showGreeting && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
+            className="fixed right-6 z-9996 w-[320px] max-w-[calc(100vw-32px)] rounded-lg bg-white px-4 py-4 text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.16)] ring-1 ring-slate-200"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm font-semibold tracking-tight">Hi! Want to talk to our AI/SI assistant?</p>
+              <button type="button" onClick={() => setShowGreeting(false)} className="shrink-0 text-xs text-slate-500 transition hover:text-slate-900">Close</button>
+            </div>
+            <p className="mt-3 text-xs font-medium text-slate-400">Maya</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
         {isOpen && (
           <motion.section
             initial={{ opacity: 0, y: 18, scale: 0.96 }}
@@ -366,7 +380,7 @@ const RetellVoiceWidget = () => {
               <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />
               <div className="relative flex items-start justify-between">
                 <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0054a8]">Faalak</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0054a8]">Faalak AI/SI</p>
                   <h2 className="max-w-62.5 text-2xl font-semibold leading-tight text-slate-900">Talk with Maya.</h2>
                 </div>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-[#0054a8]">
@@ -374,7 +388,7 @@ const RetellVoiceWidget = () => {
                 </div>
               </div>
               <p className="relative mt-3 text-sm leading-6 text-slate-500">
-                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our voice assistant."}
+                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI/SI voice assistant."}
               </p>
               <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
                 <button
