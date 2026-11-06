@@ -1,16 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import "./index.css";
+import App from "./App.jsx";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
-  </StrictMode>,
-)
+const rootElement = typeof document === "undefined" ? null : document.getElementById("root");
+
+if (rootElement) {
+  const application = (
+    <StrictMode>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </StrictMode>
+  );
+
+  if (rootElement.hasChildNodes()) {
+    hydrateRoot(rootElement, application);
+  } else {
+    createRoot(rootElement).render(application);
+  }
+}

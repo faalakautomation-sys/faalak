@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080B12"/>
+      <stop offset="1" stop-color="#102B43"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="140" y1="420" x2="785" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#53C7E8"/>
+      <stop offset="1" stop-color="#84A9FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 420 -560 0 1080 60)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1265A4" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#1265A4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#background)"/>
+  <rect width="1200" height="630" rx="32" fill="url(#glow)"/>
+  <circle cx="1020" cy="315" r="174" stroke="#B5E5FF" stroke-opacity=".16" stroke-width="2"/>
+  <circle cx="1020" cy="315" r="127" stroke="#B5E5FF" stroke-opacity=".2" stroke-width="2"/>
+  <path d="M903 318h74l26-50 37 102 29-52h38" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <text x="100" y="130" fill="#E8F4FF" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" letter-spacing="3">FAALAK</text>
+  <text x="100" y="315" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">Never miss another</text>
+  <text x="100" y="405" fill="url(#accent)" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" letter-spacing="-2">customer call</text>
+  <text x="104" y="484" fill="#CBD5E1" font-family="Arial, Helvetica, sans-serif" font-size="27">AI receptionist · Based in Mississauga · Serving the GTA</text>
+  <rect x="100" y="528" width="225" height="4" rx="2" fill="url(#accent)"/>
+</svg>

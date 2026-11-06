@@ -1,24 +1,14 @@
-import assets from "../assets/assets";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { useNavigate } from "react-router-dom";
-import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
-import ScrollArrows from "./ScrollArrows";
+import assets from "../assets/assets";
 import HeroWiringEffect from "./HeroWiringEffect";
 
 const Hero = () => {
-  const navigate = useNavigate();
-  const buttonsScroll = useHorizontalScroll();
-  const badgesScroll = useHorizontalScroll();
-
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
-      "Hi, I would like to book a free consultation with Faalak AI/SI Automation."
+      "Hi, I would like to book a free consultation with Faalak AI Automation."
     );
     window.open(`https://wa.me/14169104547?text=${message}`, "_blank", "noopener,noreferrer");
-  };
-
-  const handleCalculatorClick = () => {
-    navigate("/#missed-call-calculator");
   };
 
   return (
@@ -28,7 +18,7 @@ const Hero = () => {
         paddingTop: "calc(var(--navbar-h) + clamp(2.5rem, 8vh, 7rem))",
         minHeight: "min(900px, 100svh)",
       }}
-      className="faalak-hero relative flex flex-col justify-center overflow-hidden px-4 pb-24 sm:px-12 sm:pb-28 lg:px-16 xl:px-24"
+      className="faalak-hero relative flex flex-col justify-center overflow-hidden px-4 pb-20 sm:px-12 sm:pb-24 lg:px-16 xl:px-24"
     >
       <video
         autoPlay
@@ -40,10 +30,8 @@ const Hero = () => {
       >
         <source src={assets.hero_video} type="video/mp4" />
       </video>
-
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/90 via-black/60 to-black/15 sm:from-black/85 sm:via-black/45" />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/35 via-transparent to-[#05070c]" />
-
       <svg
         aria-hidden="true"
         className="faalak-hero-waves pointer-events-none absolute inset-x-[-18%] top-[2%] z-[2] h-[58%] w-[136%]"
@@ -64,114 +52,89 @@ const Hero = () => {
           );
         })}
       </svg>
-
       <HeroWiringEffect />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1228px] flex-col items-center gap-5 text-center text-white sm:items-start sm:text-left">
-        <motion.h1
-          initial={{ opacity: 0, y: -14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="font-display w-full max-w-5xl text-4xl font-semibold leading-[1.03] tracking-[-0.055em] text-white sm:text-5xl md:text-6xl lg:text-[clamp(3.5rem,4.6vw,4.5rem)]"
-        >
-          Handle 100% of your
-          <br className="hidden sm:block" />
-          customer phone calls
-          <br className="hidden sm:block" />
-          24/7 with an
-          <br className="hidden sm:block" />
-          <span className="faalak-hero-gradient-text">AI voice agent</span>
-        </motion.h1>
+      <div className="relative z-10 mx-auto grid w-full max-w-[1228px] gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+        <div className="flex flex-col items-center gap-5 text-center text-white sm:items-start sm:text-left">
+          <p className="text-sm font-semibold tracking-wide text-white/75 sm:text-base">
+            Based in Mississauga · Serving the GTA
+          </p>
+          <motion.h1
+            aria-label="Never miss another customer call"
+            initial={{ opacity: 0, y: -14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="font-display w-full max-w-3xl text-4xl font-semibold leading-[1.03] tracking-[-0.055em] text-white sm:text-5xl md:text-6xl lg:text-[clamp(3.5rem,4.6vw,4.5rem)]"
+          >
+            Never miss another{" "}
+            <span className="faalak-hero-gradient-text">customer call</span>
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.12 }}
-          viewport={{ once: true }}
-          className="font-display w-full max-w-3xl text-base font-medium leading-relaxed text-white/85 sm:text-lg md:text-xl lg:text-2xl"
-        >
-          
-          Customer Support AI/SI Voice Agents that work 24/7 Generate Leads, Send Instant WhatsApp Notifications, and hand you Qualified Leads
-          
-                  </motion.p>
-
-        {/* The signature tagline - flat (no tilt), boxed in a simple rounded
-            rectangle so it reads as a defined badge/callout rather than
-            free-floating text. */}
-        
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.36 }}
-          viewport={{ once: true }}
-          className="mt-1 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/25 p-1 pr-3 backdrop-blur-md"
-        >
-          <img className="w-16" src={assets.group_profile} alt="group-profile" />
-          <p className="text-[11px] font-medium">Trusted by 10k+ people</p>
-        </motion.div> */}
-
-        <div className="relative w-full sm:w-auto">
-          <motion.div
-            ref={buttonsScroll.ref}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.48 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
             viewport={{ once: true }}
-            className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+            className="font-display w-full max-w-2xl text-base font-medium leading-relaxed text-white/85 sm:text-lg md:text-xl"
           >
+            Our AI receptionist answers every call 24/7, books appointments, and sends you the details on WhatsApp.
+          </motion.p>
+
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a
+              href="tel:+12896709108"
+              className="inline-flex min-h-12 w-full items-center justify-center whitespace-nowrap rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition hover:scale-[1.02] sm:w-auto"
+            >
+              Call our AI now: (289) 670-9108
+            </a>
             <button
               type="button"
               onClick={handleConsultationClick}
-              className="shrink-0 snap-center whitespace-nowrap rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition hover:scale-105"
+              className="inline-flex min-h-12 w-full items-center justify-center whitespace-nowrap rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition hover:bg-white/20 sm:w-auto"
             >
-              Book Free Consultation
+              Book a free consultation
             </button>
-            <button
-              type="button"
-              onClick={handleCalculatorClick}
-              className="shrink-0 snap-center whitespace-nowrap rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition hover:scale-105 hover:bg-white/20"
-            >
-              Calculate my missed-call earnings
-            </button>
-          </motion.div>
-          <ScrollArrows
-            canScrollLeft={buttonsScroll.canScrollLeft}
-            canScrollRight={buttonsScroll.canScrollRight}
-            onLeft={() => buttonsScroll.scrollByStep(-1)}
-            onRight={() => buttonsScroll.scrollByStep(1)}
-          />
-        </div>
+          </div>
 
-        <div className="relative w-full sm:w-auto">
-          <motion.div
-            ref={badgesScroll.ref}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory items-center gap-2 overflow-x-auto px-4 pb-1 text-xs sm:mx-0 sm:w-auto sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+          <Link
+            to="/#missed-call-calculator"
+            className="text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 transition hover:text-white/80"
           >
-            {[
-              "Answer Every Call 24/7.",
-              "Voice Like a Human.",
-              "Book Lead and Give you Final Quote.",
-            ].map((badge) => (
+            What are missed calls costing me? →
+          </Link>
+
+          <div className="hidden flex-wrap gap-2 text-xs sm:flex">
+            {["Answers 24/7", "Sounds natural", "Books appointments and collects job details"].map((chip) => (
               <span
-                key={badge}
-                className="shrink-0 snap-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-white shadow-sm backdrop-blur-sm"
+                key={chip}
+                className="whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-white shadow-sm backdrop-blur-sm"
               >
-                {badge}
+                {chip}
               </span>
             ))}
-          </motion.div>
-          <ScrollArrows
-            canScrollLeft={badgesScroll.canScrollLeft}
-            canScrollRight={badgesScroll.canScrollRight}
-            onLeft={() => badgesScroll.scrollByStep(-1)}
-            onRight={() => badgesScroll.scrollByStep(1)}
-          />
+          </div>
         </div>
+
+        <motion.aside
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="hidden justify-self-end rounded-3xl border border-white/20 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-xl md:block lg:p-10"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/65">Live demo line</p>
+          <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight lg:text-4xl">
+            Hear it yourself.
+          </h2>
+          <a
+            href="tel:+12896709108"
+            className="mt-6 block whitespace-nowrap text-2xl font-semibold text-white underline decoration-white/40 underline-offset-4 lg:text-3xl"
+          >
+            Call (289) 670-9108
+          </a>
+          <p className="mt-3 text-sm text-white/75">Available 24/7, no signup.</p>
+        </motion.aside>
       </div>
       <div className="pointer-events-none absolute bottom-0 left-0 z-[2] h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </section>

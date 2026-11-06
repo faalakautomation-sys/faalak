@@ -79,7 +79,7 @@ const MobileCallPopup = () => {
           id="mobile-call-popup-description"
           className="mt-4 text-lg leading-8 text-slate-600 sm:text-xl"
         >
-          Call our AI/SI phone answering service right now — experience the voice your callers will hear.
+          Call our AI phone answering service right now — experience the voice your callers will hear.
         </p>
 
         <a

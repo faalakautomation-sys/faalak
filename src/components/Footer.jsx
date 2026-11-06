@@ -83,7 +83,7 @@ const Footer = () => {
 
             <div className="mt-7 space-y-3 text-sm text-gray-600">
               <p className="flex items-center gap-3"><FiMapPin className="text-primary" /> Toronto, Canada</p>
-              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI/SI Automation</p>
+              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak</p>
               <a href="tel:+14169104547" className="flex items-center gap-3 hover:text-primary"><FiPhone className="text-primary" /> +1 416 910 4547</a>
               <a href="mailto:info@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> info@faalak.com</a>
               <a href="mailto:sales@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> sales@faalak.com</a>
@@ -111,9 +111,14 @@ const Footer = () => {
       {/* Link columns */}
       <div className="mt-12 grid grid-cols-1 gap-10 border-t border-[#ded8d0] pt-12 text-sm text-[#68635d] sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <img src={assets.logo} alt="Faalak" className="h-9 w-auto object-contain" />
+          <img
+            src={assets.logo}
+            alt="Faalak"
+            className="h-9 w-auto object-contain"
+            style={{ clipPath: "polygon(0 0, 100% 0, 100% 55%, 42% 55%, 42% 100%, 0 100%)" }}
+          />
           <p className="mt-4 max-w-xs text-sm leading-6 text-[#68635d]">
-            The voice that never tires. AI/SI-powered voice agents and automation for inbound &amp; outbound calls.
+            Faalak&apos;s AI receptionist answers calls and sends lead details to your team.
           </p>
 
           <div className="mt-5 flex items-center gap-3">
@@ -121,7 +126,7 @@ const Footer = () => {
               href="https://www.facebook.com/faalakai/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation Facebook"
+              aria-label="Faalak AI Automation Facebook"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.facebook_icon} alt="" className="h-4 w-4" />
@@ -130,7 +135,7 @@ const Footer = () => {
               href="https://www.instagram.com/faalak.automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation Instagram"
+              aria-label="Faalak AI Automation Instagram"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.instagram_icon} alt="" className="h-4 w-4" />
@@ -139,7 +144,7 @@ const Footer = () => {
               href="https://www.linkedin.com/company/faalak-ai-automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation LinkedIn"
+              aria-label="Faalak AI Automation LinkedIn"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.linkedin_icon} alt="" className="h-4 w-4" />
@@ -166,8 +171,13 @@ const Footer = () => {
               </Link>
             </li>
             <li>
+              <Link className="hover:text-primary" to="/live-demos">
+                Live Demos
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-primary" to="/blog/superintelligence">
-                Blog: Superintelligence
+                Blog
               </Link>
             </li>
             <li>
@@ -233,7 +243,7 @@ const Footer = () => {
         id="footer-bottom-row"
         className="mt-10 flex flex-col gap-3 border-t border-[#ded8d0] py-6 text-xs text-[#8b8076] sm:flex-row sm:items-center sm:justify-between"
       >
-        <p>&copy; 2026 Faalak AI/SI Automation &mdash; All Rights Reserved.</p>
+        <p>&copy; 2026 Faalak AI Automation &mdash; All Rights Reserved.</p>
         <div className="flex flex-wrap items-center gap-4">
           <span>Toronto, Canada</span>
           <a href="mailto:info@faalak.com" className="hover:text-primary">
