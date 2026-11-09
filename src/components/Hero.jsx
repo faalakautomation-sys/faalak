@@ -81,21 +81,6 @@ const Hero = () => {
           Our AI receptionist answers every call 24/7, books appointments, and sends you the details on WhatsApp.
           </motion.p>
 
-        {/* The signature tagline - flat (no tilt), boxed in a simple rounded
-            rectangle so it reads as a defined badge/callout rather than
-            free-floating text. */}
-        
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.36 }}
-          viewport={{ once: true }}
-          className="mt-1 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/25 p-1 pr-3 backdrop-blur-md"
-        >
-          <img className="w-16" src={assets.group_profile} alt="group-profile" />
-          <p className="text-[11px] font-medium">Trusted by 10k+ people</p>
-        </motion.div> */}
-
           <div className="relative w-full sm:w-auto">
           <motion.div
             ref={buttonsScroll.ref}

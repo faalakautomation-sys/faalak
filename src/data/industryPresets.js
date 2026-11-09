@@ -1,8 +1,8 @@
-import massageBusinessImage from "../assets/bg-lady-image.jpg";
-import furnitureStoreImage from "../assets/teaser-work.jpeg";
-import hvacBusinessImage from "../assets/category/cat-ai-receptionist.png";
-import realEstateImage from "../assets/category/cat-mortgage.jpeg";
-import landscapingBusinessImage from "../assets/category/cat-store.webp";
+import massageBusinessImage from "../assets/massage-spa.jpg";
+import furnitureStoreImage from "../assets/furniture-store.jpg";
+import hvacBusinessImage from "../assets/hvac.jpg";
+import realEstateImage from "../assets/real-estate.jpg";
+import landscapingBusinessImage from "../assets/landscaping.jpg";
 
 export const industryPresets = [
   {
