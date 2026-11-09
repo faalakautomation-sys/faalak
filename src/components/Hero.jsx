@@ -160,27 +160,6 @@ const Hero = () => {
           </div>
         </div>
 
-          <motion.aside
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            viewport={{ once: true }}
-            className="hidden rounded-3xl border border-white/20 bg-white/10 p-7 text-left shadow-[0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl lg:block"
-          >
-            <p className="text-xl font-semibold tracking-tight text-white">
-              Hear it yourself.
-            </p>
-            <p className="mt-3 text-sm leading-6 text-white/75">
-              Call{" "}
-              <a
-                href="tel:+12896709108"
-                className="whitespace-nowrap font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white"
-              >
-                (289) 670-9108
-              </a>
-              , available 24/7, no signup.
-            </p>
-            </motion.aside>
       </div>
       <div className="pointer-events-none absolute bottom-0 left-0 z-[2] h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </section>

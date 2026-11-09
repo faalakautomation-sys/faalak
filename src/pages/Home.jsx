@@ -1,5 +1,4 @@
 import Hero from "../components/Hero";
-import LiveDemo from "../components/LiveDemo";
 import DirectAgentCalls from "../components/DirectAgentCalls";
 import MissedCallsCalculator from "./MissedCallsCalculator";
 import Pricing from "../components/Pricing";
@@ -15,11 +14,10 @@ const Home = () => (
   <>
     <Hero />
     <HowItWorks />
-    <WhoItsFor />
-    <MissedCallsCalculator />
-    <Pricing />
-    <LiveDemo />
     <DirectAgentCalls />
+    <MissedCallsCalculator />
+    <WhoItsFor />
+    <Pricing />
     <Services />
     <WhyChooseUs />
     <SecurityHighlights detailsLink />
