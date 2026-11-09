@@ -15,7 +15,6 @@ const HeroWiringEffect = () => {
     let particles = [];
     let isVisible = true;
     let time = 0;
-    let pointer = null;
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -43,30 +42,15 @@ const HeroWiringEffect = () => {
       const rotation = reducedMotion.matches ? 0.16 : time * 0.00011;
       const cosine = Math.cos(rotation);
       const sine = Math.sin(rotation);
-      if (pointer) {
-        const glow = context.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 210);
-        glow.addColorStop(0, "rgba(53, 151, 255, 0.16)");
-        glow.addColorStop(1, "rgba(53, 151, 255, 0)");
-        context.fillStyle = glow;
-        context.fillRect(0, 0, width, height);
-      }
       const projected = particles.map((particle) => {
         const x = particle.x * cosine + particle.z * sine;
         const z = -particle.x * sine + particle.z * cosine;
         const depth = 2.7 + z + Math.sin(time * 0.0007 + particle.phase) * 0.1;
         const perspective = 1 / depth;
-        const projectedX = width / 2 + x * width * 0.76 * perspective;
-        const projectedY = height / 2 + particle.y * height * 1.38 * perspective;
-        const pointerDistance = pointer
-          ? Math.hypot(projectedX - pointer.x, projectedY - pointer.y)
-          : Infinity;
-        const pointerInfluence = Math.max(0, 1 - pointerDistance / 190);
-
         return {
-          x: projectedX + (pointer ? (projectedX - pointer.x) * pointerInfluence * 0.13 : 0),
-          y: projectedY + (pointer ? (projectedY - pointer.y) * pointerInfluence * 0.13 : 0),
+          x: width / 2 + x * width * 0.76 * perspective,
+          y: height / 2 + particle.y * height * 1.38 * perspective,
           depth,
-          pointerInfluence,
         };
       });
 
@@ -80,8 +64,7 @@ const HeroWiringEffect = () => {
           const maxDistance = 142;
           if (distance >= maxDistance) continue;
 
-          const pointerInfluence = Math.max(point.pointerInfluence, other.pointerInfluence);
-          const opacity = (1 - distance / maxDistance) * (0.46 + pointerInfluence * 0.38);
+          const opacity = (1 - distance / maxDistance) * 0.46;
           context.strokeStyle = `rgba(112, 184, 255, ${opacity})`;
           context.lineWidth = 0.8;
           context.beginPath();
@@ -91,9 +74,9 @@ const HeroWiringEffect = () => {
         }
 
         context.beginPath();
-        const opacity = Math.min(1, 0.58 + (2.7 - point.depth) * 0.12 + point.pointerInfluence * 0.32);
+        const opacity = Math.min(1, 0.58 + (2.7 - point.depth) * 0.12);
         context.fillStyle = `rgba(177, 218, 255, ${opacity})`;
-        context.arc(point.x, point.y, 1.2 + point.pointerInfluence * 1.8, 0, Math.PI * 2);
+        context.arc(point.x, point.y, 1.2, 0, Math.PI * 2);
         context.fill();
       }
 
@@ -116,29 +99,12 @@ const HeroWiringEffect = () => {
       window.cancelAnimationFrame(frameId);
       draw();
     };
-    const handlePointerMove = (event) => {
-      const bounds = canvas.getBoundingClientRect();
-      pointer = {
-        x: event.clientX - bounds.left,
-        y: event.clientY - bounds.top,
-      };
-      if (isVisible && (reducedMotion.matches || !frameId)) draw();
-    };
-    const handlePointerLeave = () => {
-      pointer = null;
-      if (isVisible) draw();
-    };
-    const hero = canvas.parentElement;
-    hero?.addEventListener("pointermove", handlePointerMove, { passive: true });
-    hero?.addEventListener("pointerleave", handlePointerLeave, { passive: true });
     reducedMotion.addEventListener("change", handleMotionChange);
 
     return () => {
       window.cancelAnimationFrame(frameId);
       observer.disconnect();
       visibilityObserver.disconnect();
-      hero?.removeEventListener("pointermove", handlePointerMove);
-      hero?.removeEventListener("pointerleave", handlePointerLeave);
       reducedMotion.removeEventListener("change", handleMotionChange);
     };
   }, []);

@@ -2,8 +2,9 @@ import Hero from "../components/Hero";
 import LiveDemo from "../components/LiveDemo";
 import DirectAgentCalls from "../components/DirectAgentCalls";
 import MissedCallsCalculator from "./MissedCallsCalculator";
+import Pricing from "../components/Pricing";
 import Services from "../components/Services";
-import OurWork from "../components/OurWork";
+import WhoItsFor, { HowItWorks } from "../components/OurWork";
 import WhyChooseUs from "../components/WhyChooseUs";
 import FAQ from "../components/FAQ";
 import Testimonials from "../components/Testimonials";
@@ -13,11 +14,13 @@ import SecurityHighlights from "../components/SecurityHighlights";
 const Home = () => (
   <>
     <Hero />
+    <HowItWorks />
+    <WhoItsFor />
+    <MissedCallsCalculator />
+    <Pricing />
     <LiveDemo />
     <DirectAgentCalls />
-    <MissedCallsCalculator />
     <Services />
-    <OurWork />
     <WhyChooseUs />
     <SecurityHighlights detailsLink />
     <Testimonials />

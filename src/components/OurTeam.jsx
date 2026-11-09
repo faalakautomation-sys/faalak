@@ -70,7 +70,7 @@ const OurTeam = () => {
             Our Team
           </h2>
           <p className="max-w-xl pb-1 text-sm leading-6 text-[#68635d] sm:text-base lg:justify-self-end">
-            Meet the people building, deploying, and supporting Faalak&apos;s AI/SI voice agents and automation.
+            Meet the people building, deploying, and supporting Faalak&apos;s AI voice agents and automation.
           </p>
         </div>
 

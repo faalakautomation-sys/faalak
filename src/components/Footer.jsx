@@ -6,6 +6,11 @@ import { FiMail, FiMapPin, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import assets from "../assets/assets";
 import { API_BASE_URL } from "../api/config";
 import { servicesMenu, industriesMenu } from "../data/menuData";
+import { industryPresets } from "../data/industryPresets";
+
+const featuredIndustries = industryPresets
+  .map(({ slug }) => industriesMenu.find((industry) => industry.slug === slug))
+  .filter(Boolean);
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -83,7 +88,7 @@ const Footer = () => {
 
             <div className="mt-7 space-y-3 text-sm text-gray-600">
               <p className="flex items-center gap-3"><FiMapPin className="text-primary" /> Toronto, Canada</p>
-              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI/SI Automation</p>
+              <p className="flex items-center gap-3"><FiUser className="text-primary" /> Faalak AI Automation</p>
               <a href="tel:+14169104547" className="flex items-center gap-3 hover:text-primary"><FiPhone className="text-primary" /> +1 416 910 4547</a>
               <a href="mailto:info@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> info@faalak.com</a>
               <a href="mailto:sales@faalak.com" className="flex items-center gap-3 hover:text-primary"><FiMail className="text-primary" /> sales@faalak.com</a>
@@ -96,7 +101,7 @@ const Footer = () => {
             <input name="email" value={formData.email} onChange={handleChange} required type="email" placeholder="Email" autoComplete="email" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
             <select name="category" value={formData.category} onChange={handleChange} required className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 outline-none focus:border-primary">
               <option value="">Business category</option>
-              {industriesMenu.map((industry) => <option key={industry.slug} value={industry.name}>{industry.name}</option>)}
+              {featuredIndustries.map((industry) => <option key={industry.slug} value={industry.name}>{industry.name}</option>)}
               <option value="Other">Other</option>
             </select>
             <textarea name="description" value={formData.description} onChange={handleChange} rows="4" placeholder="Tell us about your business or what you need help with" className="sm:col-span-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
@@ -113,7 +118,7 @@ const Footer = () => {
         <div>
           <img src={assets.logo} alt="Faalak" className="h-9 w-auto object-contain" />
           <p className="mt-4 max-w-xs text-sm leading-6 text-[#68635d]">
-            The voice that never tires. AI/SI-powered voice agents and automation for inbound &amp; outbound calls.
+            The voice that never tires. AI-powered voice agents and automation for inbound &amp; outbound calls.
           </p>
 
           <div className="mt-5 flex items-center gap-3">
@@ -121,7 +126,7 @@ const Footer = () => {
               href="https://www.facebook.com/faalakai/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation Facebook"
+              aria-label="Faalak AI Automation Facebook"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.facebook_icon} alt="" className="h-4 w-4" />
@@ -130,7 +135,7 @@ const Footer = () => {
               href="https://www.instagram.com/faalak.automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation Instagram"
+              aria-label="Faalak AI Automation Instagram"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.instagram_icon} alt="" className="h-4 w-4" />
@@ -139,7 +144,7 @@ const Footer = () => {
               href="https://www.linkedin.com/company/faalak-ai-automation/"
               target="_blank"
               rel="noreferrer"
-              aria-label="Faalak AI/SI Automation LinkedIn"
+              aria-label="Faalak AI Automation LinkedIn"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e9e3dc] transition hover:bg-[#ded5cb]"
             >
               <img src={assets.linkedin_icon} alt="" className="h-4 w-4" />
@@ -167,7 +172,7 @@ const Footer = () => {
             </li>
             <li>
               <Link className="hover:text-primary" to="/blog/superintelligence">
-                Blog: Superintelligence
+                Blog
               </Link>
             </li>
             <li>
@@ -177,7 +182,7 @@ const Footer = () => {
             </li>
             <li>
               <Link className="hover:text-primary" to="/data-security">
-                Data Privacy &amp; Security
+                Security
               </Link>
             </li>
             <li>
@@ -190,10 +195,10 @@ const Footer = () => {
 
         <div>
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#8b8076]">Industries</p>
-          {/* Two 7-item columns side by side, matching the reference layout. */}
+          {/* Split featured industries across two compact link columns. */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
             <ul className="space-y-2.5">
-              {industriesMenu.slice(0, 7).map((item) => (
+              {featuredIndustries.slice(0, 3).map((item) => (
                 <li key={item.slug}>
                   <Link className="hover:text-primary" to={`/industries/${item.slug}`}>
                     {item.name}
@@ -202,7 +207,7 @@ const Footer = () => {
               ))}
             </ul>
             <ul className="space-y-2.5">
-              {industriesMenu.slice(7).map((item) => (
+              {featuredIndustries.slice(3).map((item) => (
                 <li key={item.slug}>
                   <Link className="hover:text-primary" to={`/industries/${item.slug}`}>
                     {item.name}
@@ -233,7 +238,7 @@ const Footer = () => {
         id="footer-bottom-row"
         className="mt-10 flex flex-col gap-3 border-t border-[#ded8d0] py-6 text-xs text-[#8b8076] sm:flex-row sm:items-center sm:justify-between"
       >
-        <p>&copy; 2026 Faalak AI/SI Automation &mdash; All Rights Reserved.</p>
+        <p>&copy; 2026 Faalak AI Automation &mdash; All Rights Reserved.</p>
         <div className="flex flex-wrap items-center gap-4">
           <span>Toronto, Canada</span>
           <a href="mailto:info@faalak.com" className="hover:text-primary">

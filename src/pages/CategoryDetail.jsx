@@ -25,7 +25,7 @@ const CategoryDetail = ({ kind }) => {
   }
 
   const canonicalUrl = `https://faalak.com${basePath}/${item.slug}`;
-  const pageTitle = `${item.name} | Faalak AI/SI Automation`;
+  const pageTitle = `${item.name} | Faalak AI Automation`;
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
@@ -60,7 +60,7 @@ const CategoryDetail = ({ kind }) => {
             description: item.metaDescription,
             url: canonicalUrl,
             ...(kind === "service"
-              ? { provider: { "@type": "Organization", name: "Faalak AI/SI Automation" } }
+              ? { provider: { "@type": "Organization", name: "Faalak AI Automation" } }
               : {}),
           })}
         </script>

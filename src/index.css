@@ -7,7 +7,7 @@
 * {
   font-family: "Manrope", sans-serif;
   font-weight: 500;
-  cursor: none;
+  cursor: auto;
 }
 
 :root {
@@ -85,7 +85,7 @@ body {
 
 .faalak-work-sidecards {
   display: grid;
-  grid-template-rows: repeat(2, minmax(14rem, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
 }
 
@@ -94,12 +94,18 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .faalak-work-grid {
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.92fr);
+  .faalak-work-sidecards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .faalak-work-featured {
     min-height: 31rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .faalak-work-sidecards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

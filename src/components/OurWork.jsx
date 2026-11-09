@@ -2,9 +2,8 @@ import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { FiArrowUpRight, FiCalendar, FiMessageCircle, FiPhoneCall } from "react-icons/fi";
 import notificationWorkflow from "../assets/faalak-notification-workflow.svg";
-import receptionistImage from "../assets/category/cat-ai-receptionist.png";
-import propertyImage from "../assets/category/cat-real-estate.jpg";
-import businessTeamImage from "../assets/category/cat-medium-to-big-business.png";
+import { industriesMenu } from "../data/menuData";
+import { industryPresets } from "../data/industryPresets";
 import Title from "./Title";
 
 const featuredCapabilities = [
@@ -13,36 +12,33 @@ const featuredCapabilities = [
   { icon: FiMessageCircle, label: "Lead details sent to your team" },
 ];
 
-const industryCards = [
-  {
-    name: "Canadian real estate teams",
-    emphasis: "Be ready for the next inquiry.",
-    description: "Capture buyer and seller calls, even when agents are out showing homes.",
-    image: propertyImage,
-    imageAlt: "A real estate professional reviewing a model home",
-    href: "/work/real-estate-agency",
-  },
-  {
-    name: "Canadian professional teams",
-    emphasis: "Keep conversations moving.",
-    description: "Collect new requests and appointment details while your team is with a client.",
-    image: businessTeamImage,
-    imageAlt: "Two professionals discussing a project at a table",
-    href: "/work/massage-therapy-studio",
-  },
-];
+const industryCards = industryPresets
+  .map((preset) => {
+    const industry = industriesMenu.find((item) => item.slug === preset.slug);
+    if (!industry) return null;
 
-const OurWork = () => (
-  <>
+    return {
+      name: industry.name,
+      emphasis: industry.tagline,
+      description: preset.cardDescription,
+      image: preset.cardImage,
+      imageAlt: preset.cardImageAlt,
+      href: `/industries/${industry.slug}`,
+    };
+  })
+  .filter(Boolean);
+const featuredIndustry = industryCards[0];
+
+export const WhoItsFor = () => (
     <motion.section
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      id="our-work"
+      id="who-its-for"
       className="relative flex flex-col items-center gap-5 px-4 pt-14 text-gray-800 sm:px-12 sm:pt-16 lg:px-16"
     >
       <Title
-        title="Built for the businesses Canada calls"
+        title="Built for busy GTA businesses"
         desc="From the first hello to the next booked appointment, Faalak helps Canadian teams stay responsive without adding more to their plate."
       />
 
@@ -55,15 +51,15 @@ const OurWork = () => (
           className="faalak-work-featured group relative isolate flex flex-col overflow-hidden rounded-2xl bg-[#14202b] p-5 text-white sm:p-7"
         >
           <img
-            src={receptionistImage}
-            alt="A customer reviewing an appointment notification from an AI voice agent"
+            src={featuredIndustry.image}
+            alt={featuredIndustry.imageAlt}
             className="absolute inset-0 -z-20 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
             loading="lazy"
           />
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/35 to-black/85" />
 
           <div className="flex items-center justify-between gap-3">
-            <p className="text-sm font-semibold tracking-wide">Canadian clinics &amp; service teams</p>
+            <p className="text-sm font-semibold tracking-wide">{featuredIndustry.name}</p>
             <span className="rounded-full border border-white/30 bg-black/20 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
               Made for Canada
             </span>
@@ -71,10 +67,10 @@ const OurWork = () => (
 
           <div className="mt-auto max-w-3xl pb-5 pt-16 sm:pb-6">
             <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight sm:text-3xl lg:text-4xl">
-              Every call gets a helpful first response.
+              {featuredIndustry.emphasis}
             </h3>
             <p className="mt-3 max-w-2xl text-sm leading-5 text-white/85 sm:text-base sm:leading-6">
-              Faalak voice agents answer customer questions, capture what callers need, and help move appointment requests forward—even when your team is busy.
+              {featuredIndustry.description}
             </p>
 
             <ul className="mt-5 grid gap-3 border-t border-white/35 pt-4 sm:grid-cols-3 sm:gap-4">
@@ -88,9 +84,9 @@ const OurWork = () => (
           </div>
 
           <Link
-            to="/work/dental-clinic"
+            to={featuredIndustry.href}
             className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-            aria-label="Explore Faalak's approach for dental clinics"
+            aria-label={`Explore Faalak for ${featuredIndustry.name.toLowerCase()}`}
           />
           <span className="pointer-events-none absolute bottom-7 right-7 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-black/20 text-white backdrop-blur-sm transition group-hover:bg-white group-hover:text-[#14202b] sm:bottom-9 sm:right-9">
             <FiArrowUpRight aria-hidden="true" className="h-5 w-5" />
@@ -98,7 +94,7 @@ const OurWork = () => (
         </motion.article>
 
         <div className="faalak-work-sidecards">
-          {industryCards.map((card, index) => (
+          {industryCards.slice(1).map((card, index) => (
             <motion.article
               key={card.name}
               initial={{ opacity: 0, y: 24 }}
@@ -135,26 +131,29 @@ const OurWork = () => (
         </div>
       </div>
     </motion.section>
+);
 
+export const HowItWorks = () => (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      aria-labelledby="notification-workflow-title"
+      id="how-it-works"
+      aria-labelledby="how-it-works-title"
       className="px-4 pb-16 pt-8 sm:px-12 lg:px-16"
     >
       <div className="mx-auto max-w-5xl border border-[#ded8d0] bg-[#f8f7f4] p-4 sm:p-6">
         <div className="mb-4 flex flex-col gap-1 sm:mb-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#0054a8]">
-              From call to follow-up
+              How it works
             </p>
             <h2
-              id="notification-workflow-title"
+              id="how-it-works-title"
               className="mt-1 text-xl font-semibold tracking-tight text-[#201e1c] sm:text-2xl"
             >
-              See how Faalak keeps your team in the loop.
+              From the call to a WhatsApp follow-up.
             </h2>
           </div>
           <p className="max-w-md text-sm leading-5 text-[#68635d]">
@@ -169,7 +168,6 @@ const OurWork = () => (
         />
       </div>
     </motion.section>
-  </>
 );
 
-export default OurWork;
+export default WhoItsFor;

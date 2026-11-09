@@ -7,19 +7,15 @@ import MegaMenu from "./MegaMenu";
 import {
   servicesMenu,
   industriesMenu,
-  workMenu,
   servicesGroups,
   industriesGroups,
-  workGroups,
   servicesTeaser,
   industriesTeaser,
-  workTeaser,
   resolveGroups,
 } from "../data/menuData";
 
 const resolvedServiceGroups = resolveGroups(servicesGroups, servicesMenu);
 const resolvedIndustryGroups = resolveGroups(industriesGroups, industriesMenu);
-const resolvedWorkGroups = resolveGroups(workGroups, workMenu);
 
 const SCROLL_THRESHOLD = 40;
 
@@ -123,7 +119,7 @@ const Navbar = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`flex justify-between items-center gap-2 px-2 sm:px-3 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-0 md:px-4 lg:px-6 2xl:px-12 py-3 fixed inset-x-0 top-0 z-40 border-b font-medium transition-colors duration-500 ${
-        transparent ? "border-white/15 bg-transparent" : "border-gray-200/70 backdrop-blur-xl bg-white/50"
+        transparent ? "border-white/15 bg-transparent" : "border-gray-200/70 bg-white/75 backdrop-blur-xl"
       }`}
     >
       <Link to="/" onClick={closeSidebar} className="md:justify-self-start">
@@ -152,7 +148,7 @@ const Navbar = () => {
       >
         <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-5 md:hidden">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI/SI</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Faalak AI</p>
             <p className="mt-1 text-xs text-slate-500">Explore the site</p>
             <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-50 py-1.5 pl-2 pr-3 ring-1 ring-slate-200/80">
               <img src={assets.flag} alt="Canada flag" className="h-5 w-auto object-contain" />
@@ -163,10 +159,6 @@ const Navbar = () => {
             <FiX className="h-5 w-5" />
           </button>
         </div>
-
-        <NavLink to="/" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Home
-        </NavLink>
 
         <MegaMenu
           label="Services"
@@ -190,44 +182,37 @@ const Navbar = () => {
           drawerMode={compactNav}
         />
 
-        <MegaMenu
-          label="Our Projects"
-          groups={resolvedWorkGroups}
-          teaser={workTeaser}
-          basePath="/work"
-          navRef={navRef}
-          onNavigate={closeSidebar}
-          light={transparent && !drawerOpen}
-          drawerMode={compactNav}
-        />
-
-        <NavLink to="/blog/superintelligence" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Blog
-        </NavLink>
-
         <NavLink to="/#gallery" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Gallery
+          Live Demos
         </NavLink>
 
-        <NavLink to="/data-security" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Security
+        <NavLink to="/#pricing" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Pricing
         </NavLink>
+
         <NavLink to="/#faq" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           FAQ
         </NavLink>
         <NavLink to="/#contact-us" onClick={closeSidebar} drawer={compactNav} light={transparent}>
-          Contact Us
+          Contact
         </NavLink>
 
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4 md:justify-self-end">
+        <a
+          href="tel:+12896709108"
+          className="hidden items-center justify-center whitespace-nowrap rounded-full bg-[#0054a8] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#003f80] lg:inline-flex 2xl:px-5 2xl:text-sm"
+        >
+          Hear a demo
+        </a>
+
         <button
           type="button"
           onClick={() => setSidebarOpen((open) => !open)}
           aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
           aria-expanded={sidebarOpen}
-          className={`rounded-full p-2 transition-colors md:hidden ${transparent ? "text-white hover:bg-white/10" : "text-gray-800 hover:bg-gray-100"}`}
+          className={`p-2 transition-colors md:hidden ${transparent ? "text-white hover:text-white/80" : "text-gray-800 hover:text-gray-700"}`}
         >
           {sidebarOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
         </button>

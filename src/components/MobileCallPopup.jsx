@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FiPhone, FiX } from "react-icons/fi";
 
-const DISMISSED_KEY = "faalak-mobile-call-popup-seen";
 const CALL_NUMBER = "+12896709108";
 
 const MobileCallPopup = () => {
@@ -9,16 +8,12 @@ const MobileCallPopup = () => {
   const closeButtonRef = useRef(null);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem(DISMISSED_KEY)) return undefined;
+    const handleOpenPopup = () => setIsOpen(true);
+    window.addEventListener("open-mobile-call-popup", handleOpenPopup);
 
-    const timer = window.setTimeout(() => {
-      if (window.matchMedia("(max-width: 767px)").matches) {
-        window.sessionStorage.setItem(DISMISSED_KEY, "true");
-        setIsOpen(true);
-      }
-    }, 3000);
-
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.removeEventListener("open-mobile-call-popup", handleOpenPopup);
+    };
   }, []);
 
   useEffect(() => {
@@ -79,7 +74,7 @@ const MobileCallPopup = () => {
           id="mobile-call-popup-description"
           className="mt-4 text-lg leading-8 text-slate-600 sm:text-xl"
         >
-          Call our AI/SI phone answering service right now — experience the voice your callers will hear.
+          Call our AI phone answering service right now — experience the voice your callers will hear.
         </p>
 
         <a
@@ -87,7 +82,7 @@ const MobileCallPopup = () => {
           className="mt-8 flex min-h-24 cursor-pointer items-center justify-center gap-4 rounded-2xl bg-primary px-5 py-5 text-2xl font-bold leading-tight text-white shadow-[0_16px_30px_-12px_rgba(0,84,168,0.4)] transition hover:bg-[#004987] active:scale-[0.98] sm:text-3xl"
         >
           <FiPhone className="h-7 w-7 shrink-0" aria-hidden="true" />
-          <span>Call (289) 670-9108</span>
+          <span className="whitespace-nowrap">Call (289) 670-9108</span>
         </a>
 
         <p className="mt-6 text-base leading-7 text-slate-500 sm:text-lg">

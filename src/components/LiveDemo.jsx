@@ -4,13 +4,13 @@ import toast from "react-hot-toast";
 import { FiCheck, FiMail, FiMic, FiPhone, FiUser } from "react-icons/fi";
 import { API_BASE_URL } from "../api/config";
 import { industriesMenu } from "../data/menuData";
+import { industryPresets } from "../data/industryPresets";
 import faalakModel from "../assets/faalak-ai-model.jpg";
 
 // Only a curated handful of industries here, not the full menu - keeps the
 // pill row short and scannable instead of forcing visitors to scroll through
 // all sixteen before they can even fill out the form.
-const DEMO_INDUSTRY_SLUGS = ["massage-and-spa", "furniture-store", "hvac", "real-estate", "landscaping"];
-const industries = DEMO_INDUSTRY_SLUGS.map((slug) =>
+const industries = industryPresets.map(({ slug }) =>
   industriesMenu.find((item) => item.slug === slug)
 ).filter(Boolean);
 
@@ -67,7 +67,7 @@ const LiveDemo = () => {
       }
 
       setStatus("success");
-      toast.success("Connecting you to our AI/SI voice agent now...");
+      toast.success("Connecting you to our AI voice agent now...");
 
       // Immediately open the floating "Talk to Maya" widget, pre-filled with
       // what they just typed, and have it start dialing right away - so
@@ -149,7 +149,7 @@ const LiveDemo = () => {
             Hear it for yourself.
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#5c5b59] sm:text-base">
-            Pick your industry, drop your details, and our AI/SI voice agent will
+            Pick your industry, drop your details, and our AI voice agent will
             call you in seconds. No robotic &ldquo;press 1&rdquo; menus - a real
             conversation.
           </p>
@@ -259,7 +259,7 @@ const LiveDemo = () => {
                   {agreed && <FiCheck className="h-3 w-3 text-white" />}
                 </span>
                 <span className="text-xs leading-relaxed text-[#6f6a64]">
-                  I&apos;d like a demo call from Faalak&apos;s AI/SI voice agent and
+                  I&apos;d like a demo call from Faalak&apos;s AI voice agent and
                   agree to be contacted at the number above.
                 </span>
               </label>

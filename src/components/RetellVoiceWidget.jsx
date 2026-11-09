@@ -23,7 +23,6 @@ const PANEL_OFFSET_ABOVE_BUTTON = 72;
 const RetellVoiceWidget = () => {
   const clientRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [showGreeting, setShowGreeting] = useState(true);
   const [status, setStatus] = useState("idle");
   const [mode, setMode] = useState("voice");
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
@@ -74,7 +73,6 @@ const RetellVoiceWidget = () => {
     // event.detail: { name, phoneNumber, autoStart }.
     const openWidget = (event) => {
       const detail = event.detail || {};
-      setShowGreeting(false);
       setIsOpen(true);
       setMode("voice");
 
@@ -308,7 +306,6 @@ const RetellVoiceWidget = () => {
       setIsOpen(false);
       setMode("voice");
       setStatus("idle");
-      setShowGreeting(false);
       setFormData({ name: "", phoneNumber: "" });
     } catch (error) {
       toast.error(error.message || "Unable to finish the chat right now.");
@@ -331,39 +328,20 @@ const RetellVoiceWidget = () => {
               closeWidget();
             }
           } else {
-            setShowGreeting(false);
             setIsOpen(true);
           }
         }}
         aria-label="Open Maya chat and voice assistant"
         style={{ bottom: dockOffset }}
-        className="fixed right-6 z-9997 flex h-14 items-center gap-3 rounded-full bg-[#0054a8] px-5 text-white shadow-[0_12px_28px_rgba(0,84,168,0.28)] transition hover:-translate-y-0.5 hover:bg-[#004987]"
+        className="fixed right-6 z-9997 flex h-14 items-center gap-3 rounded-full border border-slate-200 bg-white px-5 text-slate-800 shadow-[0_12px_28px_rgba(15,23,42,0.14)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50"
         whileTap={{ scale: 0.95 }}
       >
-        <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#5b91c8] to-[#004987] shadow-inner">
-          <FiMic className="h-4 w-4 text-white" />
+        <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-blue-50">
+          <FiMic className="h-4 w-4 text-[#0054a8]" />
         </span>
         <span className="text-sm font-semibold tracking-tight">Talk to Maya</span>
         {isOpen && <FiX className="ml-1 h-4 w-4" />}
       </motion.button>
-
-      <AnimatePresence>
-        {showGreeting && !isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
-            className="fixed right-6 z-9996 w-[320px] max-w-[calc(100vw-32px)] rounded-lg bg-white px-4 py-4 text-slate-800 shadow-[0_14px_38px_rgba(15,23,42,0.16)] ring-1 ring-slate-200"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold tracking-tight">Hi! Want to talk to our AI/SI assistant?</p>
-              <button type="button" onClick={() => setShowGreeting(false)} className="shrink-0 text-xs text-slate-500 transition hover:text-slate-900">Close</button>
-            </div>
-            <p className="mt-3 text-xs font-medium text-slate-400">Maya</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <AnimatePresence>
         {isOpen && (
@@ -380,7 +358,7 @@ const RetellVoiceWidget = () => {
               <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />
               <div className="relative flex items-start justify-between">
                 <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0054a8]">Faalak AI/SI</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0054a8]">Faalak AI</p>
                   <h2 className="max-w-62.5 text-2xl font-semibold leading-tight text-slate-900">Talk with Maya.</h2>
                 </div>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-[#0054a8]">
@@ -388,7 +366,7 @@ const RetellVoiceWidget = () => {
                 </div>
               </div>
               <p className="relative mt-3 text-sm leading-6 text-slate-500">
-                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI/SI voice assistant."}
+                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
               </p>
               <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
                 <button

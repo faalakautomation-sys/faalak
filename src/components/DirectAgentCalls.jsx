@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { QRCodeSVG } from "qrcode.react";
 import {
   FiActivity,
   FiCheck,
@@ -24,6 +25,7 @@ const agents = [
     category: "Health & wellness",
     description:
       "A calm first contact for patients: answering service questions, understanding what callers need, and helping them request an appointment.",
+    tryPrompt: "Ask about a therapy service and request an appointment.",
     moments: ["Patient enquiries", "Service information", "Appointment requests"],
     icon: FiActivity,
     accent: "#a883d8",
@@ -37,6 +39,7 @@ const agents = [
     category: "Home services",
     description:
       "An always-ready voice for heating and cooling enquiries, gathering job details and helping callers arrange a service visit.",
+    tryPrompt: "Pretend your furnace stopped working and book a repair.",
     moments: ["Service enquiries", "Job details", "Visit requests"],
     icon: FiWind,
     accent: "#62a9b4",
@@ -50,6 +53,7 @@ const agents = [
     category: "Retail",
     description:
       "A helpful shop assistant for store information, product questions, and availability, keeping every caller moving in the right direction.",
+    tryPrompt: "Ask about store hours and whether a product is available.",
     moments: ["Store information", "Product enquiries", "Availability questions"],
     icon: FiFeather,
     accent: "#91a86c",
@@ -63,6 +67,7 @@ const agents = [
     category: "Hospitality",
     description:
       "A warm welcome for guests with quick answers about the menu, opening hours, location, and reservation requests.",
+    tryPrompt: "Ask about the menu and request a table reservation.",
     moments: ["Menu questions", "Hours & location", "Reservation requests"],
     icon: FiCoffee,
     accent: "#d59c69",
@@ -157,7 +162,7 @@ const DirectAgentCalls = () => {
               id="direct-agent-calls-heading"
               className="font-display mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-[#151515] sm:text-4xl md:text-5xl"
             >
-              Voice Agents Gallery.
+              Live Demos
             </h2>
           </div>
           <div className="flex items-end justify-between gap-5 lg:pb-1">
@@ -350,7 +355,7 @@ const DirectAgentCalls = () => {
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#985236]">Live demo call</p>
                   <h2 id="direct-call-dialog-title" className="mt-2 text-2xl font-semibold">
-                    Call {selectedAgent.name}
+                    Call our {selectedAgent.name} demo agent
                   </h2>
                 </div>
                 <button
@@ -365,6 +370,10 @@ const DirectAgentCalls = () => {
               <p className="mt-4 text-sm leading-6 text-[#6d665f]">
                 You are viewing the site on a laptop. Use a phone to call this number, or open a phone app configured on this computer.
               </p>
+              <p className="mt-4 rounded-xl border border-[#e9e3dc] bg-white/70 px-4 py-3 text-sm leading-6 text-[#423b35]">
+                <span className="font-bold text-[#171717]">Try this:</span>{" "}
+                {selectedAgent.tryPrompt}
+              </p>
               <div className="mt-5 flex items-center justify-between rounded-xl border border-[#e9e3dc] bg-white px-4 py-3">
                 <span className="text-lg font-bold tracking-wide">{selectedAgent.displayNumber}</span>
                 <button
@@ -377,12 +386,24 @@ const DirectAgentCalls = () => {
                   {copied ? "Copied" : "Copy"}
                 </button>
               </div>
+              <div className="mt-5 hidden items-center justify-center gap-5 rounded-xl border border-[#e9e3dc] bg-white p-4 sm:flex">
+                <QRCodeSVG
+                  value={`tel:${selectedAgent.number}`}
+                  size={128}
+                  level="M"
+                  title={`Scan to call our ${selectedAgent.name} demo agent`}
+                  className="h-32 w-32 shrink-0"
+                />
+                <p className="max-w-40 text-sm font-semibold leading-6 text-[#423b35]">
+                  Scan to call from your phone
+                </p>
+              </div>
               <a
                 href={`tel:${selectedAgent.number}`}
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0054a8] px-5 py-3 font-bold text-white transition hover:bg-[#004987]"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0054a8] px-5 py-3 font-bold text-white transition hover:bg-[#004987] sm:hidden"
               >
                 <FiPhoneForwarded className="h-4 w-4" />
-                Dial From Your Phone
+                Call this demo agent
               </a>
             </motion.div>
           </motion.div>

@@ -1,12 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-
-const industries = [
-  { name: "Physio Therapist", averageRevenue: 350 },
-  { name: "HVAC", averageRevenue: 450 },
-  { name: "Cannabis", averageRevenue: 100 },
-  { name: "Restaurant", averageRevenue: 120 },
-];
+import { industryPresets } from "../data/industryPresets";
 
 const currency = new Intl.NumberFormat("en-CA", {
   style: "currency",
@@ -14,12 +8,15 @@ const currency = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 0,
 });
 
-const RangeControl = ({ id, label, value, min, max, step, displayValue, onChange }) => (
+const RangeControl = ({ id, label, hint, value, min, max, step, displayValue, onChange }) => (
   <div className="faalak-calculator-control">
     <div className="mb-3 flex items-baseline justify-between gap-4">
-      <label htmlFor={id} className="text-sm leading-6 text-[#606a7a] sm:text-base">
-        {label}
-      </label>
+      <div>
+        <label htmlFor={id} className="text-sm leading-6 text-[#606a7a] sm:text-base">
+          {label}
+        </label>
+        {hint && <p className="mt-1 text-xs leading-5 text-[#82786f]">{hint}</p>}
+      </div>
       <output htmlFor={id} className="shrink-0 text-sm font-semibold tabular-nums text-[#24211e] sm:text-base">
         {displayValue}
       </output>
@@ -43,10 +40,10 @@ const RangeControl = ({ id, label, value, min, max, step, displayValue, onChange
 );
 
 const MissedCallsCalculator = () => {
-  const [industry, setIndustry] = useState(industries[0]);
-  const [missedCalls, setMissedCalls] = useState(80);
-  const [conversionRate, setConversionRate] = useState(22);
-  const [averageRevenue, setAverageRevenue] = useState(350);
+  const [industry, setIndustry] = useState(industryPresets[0]);
+  const [missedCalls, setMissedCalls] = useState(industryPresets[0].missedCalls);
+  const [conversionRate, setConversionRate] = useState(industryPresets[0].conversionRate);
+  const [averageRevenue, setAverageRevenue] = useState(industryPresets[0].averageCustomerValue);
 
   const estimate = useMemo(() => {
     const bookingsLost = Math.round(missedCalls * (conversionRate / 100));
@@ -62,7 +59,9 @@ const MissedCallsCalculator = () => {
 
   const handleIndustrySelect = (selectedIndustry) => {
     setIndustry(selectedIndustry);
-    setAverageRevenue(selectedIndustry.averageRevenue);
+    setMissedCalls(selectedIndustry.missedCalls);
+    setConversionRate(selectedIndustry.conversionRate);
+    setAverageRevenue(selectedIndustry.averageCustomerValue);
   };
 
   const handleEmailBreakdown = () => {
@@ -73,7 +72,7 @@ const MissedCallsCalculator = () => {
         `Industry: ${industry.name}`,
         `Missed calls per month: ${missedCalls}`,
         `Estimated conversion rate: ${conversionRate}%`,
-        `Average revenue per booking: ${currency.format(averageRevenue)}`,
+        `Average value of a new customer: ${currency.format(averageRevenue)}`,
         `Estimated bookings missed per month: ${estimate.bookingsLost}`,
         `Estimated revenue missed per month: ${currency.format(estimate.monthlyRevenueLost)}`,
         `Estimated revenue missed per year: ${currency.format(estimate.yearlyRevenueLost)}`,
@@ -116,7 +115,7 @@ const MissedCallsCalculator = () => {
                   Industry
                 </legend>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {industries.map((item) => {
+                  {industryPresets.map((item) => {
                     const isSelected = industry.name === item.name;
                     return (
                       <button
@@ -141,6 +140,7 @@ const MissedCallsCalculator = () => {
                 <RangeControl
                   id="missed-calls-range"
                   label="Missed calls each month"
+                  hint="Not sure? Check your phone bill or call log for unanswered calls."
                   value={missedCalls}
                   min={0}
                   max={500}
@@ -160,11 +160,11 @@ const MissedCallsCalculator = () => {
                 />
                 <RangeControl
                   id="average-revenue-range"
-                  label="Average revenue per booking"
+                  label="Average value of a new customer"
                   value={averageRevenue}
                   min={0}
-                  max={1500}
-                  step={25}
+                  max={10000}
+                  step={10}
                   displayValue={currency.format(averageRevenue)}
                   onChange={setAverageRevenue}
                 />
@@ -187,6 +187,9 @@ const MissedCallsCalculator = () => {
               <p className="mt-5 max-w-md text-sm leading-6 text-[#606a7a] sm:text-base">
                 About {estimate.bookingsLost} bookings from {missedCalls} missed calls, at{" "}
                 {currency.format(averageRevenue)} each.
+              </p>
+              <p className="mt-3 text-sm font-semibold text-[#0054a8]">
+                Pays for itself after just a few booked calls.
               </p>
 
               <div className="mt-8 grid grid-cols-3 gap-4 border-y border-[#e2ddd6] py-5">
@@ -211,11 +214,10 @@ const MissedCallsCalculator = () => {
               </div>
 
               <p className="mt-4 text-sm text-[#606a7a]">
-                Each additional conversion point represents about{" "}
+                Every 1% more calls you convert = about{" "}
                 <span className="font-semibold text-[#24211e]">
-                  {currency.format(estimate.revenuePerConversionPoint)} / month
+                  {currency.format(estimate.revenuePerConversionPoint)}/month
                 </span>
-                .
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
@@ -224,7 +226,7 @@ const MissedCallsCalculator = () => {
                   onClick={handleBookDemo}
                   className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-sky-600"
                 >
-                  Book a demo
+                  Book a free consultation
                 </button>
                 <button
                   type="button"
