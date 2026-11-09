@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiCpu } from "react-icons/fi";
 
-const canonicalUrl = "https://faalak.com/blog/superintelligence";
+const canonicalUrl = "https://www.faalak.com/blog/superintelligence";
 
 const sections = [
   {

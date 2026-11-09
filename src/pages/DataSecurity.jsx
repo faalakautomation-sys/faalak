@@ -62,7 +62,7 @@ const laterSections = [
 ];
 
 const DataSecurity = () => {
-  const canonicalUrl = "https://faalak.com/data-security";
+  const canonicalUrl = "https://www.faalak.com/data-security";
 
   const handleRequestDocs = () => {
     const message = encodeURIComponent(

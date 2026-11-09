@@ -42,7 +42,7 @@ const NavLink = ({ to, onClick, light, drawer = false, children }) => (
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [compactNav, setCompactNav] = useState(() => !window.matchMedia("(min-width: 768px)").matches);
+  const [compactNav, setCompactNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const navRef = useRef(null);

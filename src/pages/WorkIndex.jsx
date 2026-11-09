@@ -15,7 +15,7 @@ const WorkIndex = () => (
         name="description"
         content="See how Faalak's AI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster."
       />
-      <link rel="canonical" href="https://faalak.com/work" />
+      <link rel="canonical" href="https://www.faalak.com/work" />
     </Helmet>
 
     <motion.div

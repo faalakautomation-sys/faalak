@@ -24,7 +24,7 @@ const CategoryDetail = ({ kind }) => {
     return <Navigate to="/" replace />;
   }
 
-  const canonicalUrl = `https://faalak.com${basePath}/${item.slug}`;
+  const canonicalUrl = `https://www.faalak.com${basePath}/${item.slug}`;
   const pageTitle = `${item.name} | Faalak AI Automation`;
 
   const handleConsultationClick = () => {
