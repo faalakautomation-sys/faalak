@@ -147,11 +147,20 @@ const RetellVoiceWidget = () => {
             `API request failed (${response.status}). Check that VITE_API_URL points to the backend and includes /api.`
         );
       }
-      if (!result?.accessToken) {
+
+      const accessToken = result?.accessToken || result?.access_token;
+      const callId = result?.callId || result?.call_id;
+      const iceServers = result?.iceServers || result?.ice_servers;
+      if (!accessToken) {
         throw new Error("The backend returned an invalid response. Check the configured VITE_API_URL.");
       }
 
-      await clientRef.current.startCall({ accessToken: result.accessToken });
+      await clientRef.current.startCall({
+        accessToken,
+        ...(callId ? { callId } : {}),
+        ...(result?.transport ? { transport: result.transport } : {}),
+        ...(iceServers ? { iceServers } : {}),
+      });
     } catch (error) {
       console.error("Retell voice call failed:", error);
       setStatus("error");
