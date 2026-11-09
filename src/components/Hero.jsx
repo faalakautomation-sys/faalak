@@ -78,7 +78,7 @@ const Hero = () => {
           className="font-display w-full max-w-3xl text-base font-medium leading-relaxed text-white/85 sm:text-lg md:text-xl lg:text-2xl"
         >
           
-          Our AI receptionist answers every call 24/7, books appointments, and sends you the details on WhatsApp.
+          Our AI receptionist answers every call 24 / 7, books appointments, and sends you the details on WhatsApp.
           </motion.p>
 
           <div className="relative w-full sm:w-auto">
@@ -129,7 +129,7 @@ const Hero = () => {
             className="no-scrollbar -mx-4 flex w-full snap-x snap-mandatory flex-wrap items-center justify-center gap-2 overflow-x-auto px-4 pb-1 text-xs sm:mx-0 sm:w-auto sm:justify-start sm:overflow-visible sm:px-0 sm:pb-0"
           >
             {[
-              "Answers 24/7",
+              "Answers 24 / 7",
               "Sounds natural",
               "Books appointments and collects job details",
             ].map((badge) => (
