@@ -1,8 +1,15 @@
 {
   "name": "faalak",
+  "main": "./worker.js",
   "compatibility_date": "2026-10-18",
+  "routes": [
+    { "pattern": "faalak.com/*", "zone_name": "faalak.com" },
+    { "pattern": "www.faalak.com/*", "zone_name": "faalak.com" }
+  ],
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/*"]
   }
 }
