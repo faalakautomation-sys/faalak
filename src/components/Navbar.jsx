@@ -191,6 +191,10 @@ const Navbar = () => {
           Pricing
         </NavLink>
 
+        <NavLink to="/book-appointment" onClick={closeSidebar} drawer={compactNav} light={transparent}>
+          Book Appointment
+        </NavLink>
+
         <NavLink to="/#faq" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           FAQ
         </NavLink>
