@@ -16,7 +16,7 @@ const app = (
   </StrictMode>
 )
 
-if (rootElement.hasChildNodes()) {
+if (window.location.pathname === '/' && rootElement.hasChildNodes()) {
   hydrateRoot(rootElement, app)
 } else {
   createRoot(rootElement).render(app)
