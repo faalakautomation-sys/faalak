@@ -7,7 +7,6 @@ import {
   FiLayers,
   FiMessageSquare,
   FiMapPin,
-  FiPenTool,
   FiPhoneCall,
   FiUserCheck,
   FiSettings,
@@ -299,13 +298,6 @@ export const teamData = [
     icon: FaBalanceScale,
     iconColorClass: "border-teal-200 bg-teal-50 text-teal-800",
     bio: "Advises on contracts, compliance, and legal structure so Faalak and its clients operate on solid ground.",
-  },
-  {
-    name: "Mr. David William",
-    role: "Developer & SaaS Designer",
-    icon: FiPenTool,
-    iconColorClass: "border-violet-200 bg-violet-50 text-violet-800",
-    bio: "Shapes Faalak's brand voice and visual identity across the website, campaigns, and client-facing materials.",
   },
   {
     name: "Ms. Maya",

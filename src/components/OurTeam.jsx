@@ -74,7 +74,7 @@ const OurTeam = () => {
           </p>
         </div>
 
-        <div className="mt-7 grid border-l border-t border-[#e2ddd6] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid border-l border-t border-[#e2ddd6] md:grid-cols-3">
           {teamData.map((member, index) => {
             const Icon = member.icon;
             return (
@@ -87,7 +87,7 @@ const OurTeam = () => {
                 transition={{ duration: 0.4, delay: index * 0.06 }}
                 viewport={{ once: true }}
                 aria-label={`View details for ${member.name}`}
-                className="flex min-h-[180px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-6 text-center transition-colors hover:bg-[#f8f7f4] focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#0054a8] sm:min-h-[190px] sm:px-7"
+                className={`flex min-h-[180px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-6 text-center transition-colors hover:bg-[#f8f7f4] focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#0054a8] sm:min-h-[190px] sm:px-7 ${index === 4 ? "md:col-start-3" : ""}`}
               >
                 <span className={`flex h-11 w-11 items-center justify-center rounded-full border ${member.iconColorClass}`}>
                   <Icon className="h-5 w-5" aria-hidden="true" />
