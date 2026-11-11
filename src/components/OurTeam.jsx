@@ -87,7 +87,7 @@ const OurTeam = () => {
                 transition={{ duration: 0.4, delay: index * 0.06 }}
                 viewport={{ once: true }}
                 aria-label={`View details for ${member.name}`}
-                className={`flex min-h-[180px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-6 text-center transition-colors hover:bg-[#f8f7f4] focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#0054a8] sm:min-h-[190px] sm:px-7 ${index === 4 ? "md:col-start-3" : ""}`}
+                className={`flex min-h-[180px] flex-col items-center border-b border-r border-[#e2ddd6] px-5 py-6 text-center transition-colors hover:bg-[#f8f7f4] focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#0054a8] sm:min-h-[190px] sm:px-7 ${index === 4 ? "md:col-start-3 md:border-l" : ""}`}
               >
                 <span className={`flex h-11 w-11 items-center justify-center rounded-full border ${member.iconColorClass}`}>
                   <Icon className="h-5 w-5" aria-hidden="true" />

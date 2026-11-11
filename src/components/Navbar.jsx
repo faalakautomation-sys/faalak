@@ -7,16 +7,12 @@ import MegaMenu from "./MegaMenu";
 import ResourcesMenu from "./ResourcesMenu";
 import {
   servicesMenu,
-  industriesMenu,
   servicesGroups,
-  industriesGroups,
   servicesTeaser,
-  industriesTeaser,
   resolveGroups,
 } from "../data/menuData";
 
 const resolvedServiceGroups = resolveGroups(servicesGroups, servicesMenu);
-const resolvedIndustryGroups = resolveGroups(industriesGroups, industriesMenu);
 
 const SCROLL_THRESHOLD = 40;
 
@@ -166,17 +162,6 @@ const Navbar = () => {
           groups={resolvedServiceGroups}
           teaser={servicesTeaser}
           basePath="/services"
-          navRef={navRef}
-          onNavigate={closeSidebar}
-          light={transparent && !drawerOpen}
-          drawerMode={compactNav}
-        />
-
-        <MegaMenu
-          label="Industries"
-          groups={resolvedIndustryGroups}
-          teaser={industriesTeaser}
-          basePath="/industries"
           navRef={navRef}
           onNavigate={closeSidebar}
           light={transparent && !drawerOpen}
