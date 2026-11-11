@@ -10,6 +10,32 @@ const API_HEADERS = {
   ...(API_BASE_URL.includes("ngrok") ? { "ngrok-skip-browser-warning": "true" } : {}),
 };
 
+const getMicrophoneErrorMessage = (error) => {
+  switch (error?.name) {
+    case "NotFoundError":
+    case "DevicesNotFoundError":
+      return "No microphone was found. Connect or enable a microphone, then try again.";
+    case "NotAllowedError":
+    case "PermissionDeniedError":
+    case "SecurityError":
+      return "Microphone access is blocked. Allow microphone access for this site in your browser settings, then try again.";
+    case "NotReadableError":
+    case "TrackStartError":
+      return "Your microphone could not be opened. Check that it is connected and not being used by another app.";
+    default:
+      return null;
+  }
+};
+
+const checkMicrophoneAvailable = async () => {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    throw new Error("Microphone access is unavailable. Open this site in a supported browser over HTTPS.");
+  }
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  stream.getTracks().forEach((track) => track.stop());
+};
+
 // Matches Tailwind's bottom-6 (1.5rem) - the button's normal resting gap
 // above the viewport edge before the footer ever enters the picture.
 const BASE_DOCK_OFFSET = 24;
@@ -92,9 +118,9 @@ const RetellVoiceWidget = () => {
       // widget-open session, not just after closing and reopening it.
       setFormData({ name: "", phoneNumber: "" });
     };
-    const handleCallError = () => {
+    const handleCallError = (error) => {
       setStatus("error");
-      toast.error("The voice agent could not connect. Please try again.");
+      toast.error(getMicrophoneErrorMessage(error) || "The voice agent could not connect. Please try again.");
     };
 
     client.on("call_started", handleCallStarted);
@@ -134,6 +160,8 @@ const RetellVoiceWidget = () => {
     setStatus("connecting");
 
     try {
+      await checkMicrophoneAvailable();
+
       const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
         method: "POST",
         headers: API_HEADERS,
@@ -164,7 +192,7 @@ const RetellVoiceWidget = () => {
     } catch (error) {
       console.error("Retell voice call failed:", error);
       setStatus("error");
-      toast.error(error.message || "Unable to start the voice agent.");
+      toast.error(getMicrophoneErrorMessage(error) || error.message || "Unable to start the voice agent.");
     }
   };
 

@@ -97,7 +97,7 @@ const Hero = () => {
               Call our AI now: (289) 670-9108
             </a>
             <a
-              href="https://wa.me/14169104547?text=Hi%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20Faalak%20AI%2FSI%20Automation."
+              href="https://wa.me/14169104547?text=Hi%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20Faalak."
               target="_blank"
               rel="noreferrer"
               className="w-full shrink-0 snap-center whitespace-nowrap rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition hover:scale-105 hover:bg-white/20 sm:w-auto"

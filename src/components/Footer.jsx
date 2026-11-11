@@ -5,12 +5,19 @@ import toast from "react-hot-toast";
 import { FiMail, FiMapPin, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import assets from "../assets/assets";
 import { API_BASE_URL } from "../api/config";
-import { servicesMenu, industriesMenu } from "../data/menuData";
+import { industriesMenu } from "../data/menuData";
 import { industryPresets } from "../data/industryPresets";
 
 const featuredIndustries = industryPresets
   .map(({ slug }) => industriesMenu.find((industry) => industry.slug === slug))
   .filter(Boolean);
+
+const footerServices = [
+  { name: "AI Receptionist", to: "/services/ai-receptionist" },
+  { name: "Owner-Operated Voice Agents", to: "/services/owner-operated-voice-agents" },
+  { name: "Website Chatbots", to: "/services/chatbot-automation" },
+  { name: "Appointment Booking & CRM", to: "/#services" },
+];
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -221,9 +228,9 @@ const Footer = () => {
         <div>
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#8b8076]">Services</p>
           <ul className="space-y-2.5">
-            {servicesMenu.map((item) => (
-              <li key={item.slug}>
-                <Link className="hover:text-primary" to={`/services/${item.slug}`}>
+            {footerServices.map((item) => (
+              <li key={item.name}>
+                <Link className="hover:text-primary" to={item.to}>
                   {item.name}
                 </Link>
               </li>

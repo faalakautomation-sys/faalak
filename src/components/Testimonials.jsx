@@ -50,9 +50,7 @@ const Testimonials = () => (
                 />
               ))}
             </div>
-            <blockquote className="mt-3 text-sm leading-6 text-[#4e4a45]">
-              &ldquo;{item.quote}&rdquo;
-            </blockquote>
+            <p className="mt-3 text-sm leading-6 text-[#4e4a45]">{item.quote}</p>
             {item.detail && (
               <p className="mt-2 border-t border-[#e2ddd6] pt-2 text-xs leading-5 text-[#77716a]">
                 {item.detail}

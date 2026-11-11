@@ -192,9 +192,14 @@ export const caseStudies = [
 
 export const faqData = [
   {
-    question: "What does Faalak AI Automation do?",
+    question: "What does Faalak do?",
     answer:
-      "We build AI Voice Agents. WhatsApp Automation. Website Chatbots that answer calls and messages, qualify leads and book appointments 24/7 without additional staff.",
+      "Faalak builds AI voice agents and chatbots that help businesses answer every customer, 24/7. Based in Mississauga and serving the GTA, our AI receptionist picks up on your existing number, answers questions, qualifies leads, books appointments and routes urgent calls by your rules. Website and WhatsApp chatbots capture leads around the clock, and Lead Notifications send you every caller's details instantly on WhatsApp and SMS. Our goal is simple: no missed calls, more booked customers, and more time for you to run your business.",
+  },
+  {
+    question: "What are Marketing Alerts?",
+    answer:
+      "Marketing Alerts turn every call into a follow-up that sells. The moment a call ends, your AI receptionist sends the caller a personalized WhatsApp or SMS message in your company's name: a thank-you, a booking confirmation, a special offer or a link to book. Customers hear from you while they're still deciding, so leads from your ads stay warm and are far more likely to book. Every message is sent with the caller's permission and includes an easy opt-out. Lead Notifications keep you informed, and Marketing Alerts keep your customers coming back.",
   },
   {
     question: "How quickly can I launch an AI Voice Agent?",
@@ -270,22 +275,6 @@ export const testimonialsData = [
       "Faalak's voice agent sounds so natural our customers don't realize it's AI until we tell them. Missed calls dropped to almost zero in the first month.",
     rating: 5,
     detail: "Now answers every after-hours emergency call instead of routing straight to voicemail.",
-  },
-  {
-    name: "Priya K.",
-    role: "Manager, Real Estate Group",
-    quote:
-      "Leads get qualified and synced to our CRM automatically now. Our team only talks to people who are actually ready to move forward — huge time saver.",
-    rating: 5,
-    detail: "Agents now spend their time on qualified viewings instead of screening cold inquiries.",
-  },
-  {
-    name: "Daniel O.",
-    role: "Owner, Wellness & Therapy Studio",
-    quote:
-      "Setup took a few days, not months like we expected. The WhatsApp automation alone has probably paid for itself twice over already.",
-    rating: 4,
-    detail: "Went from first call to fully live automation in under a week.",
   },
 ];
 

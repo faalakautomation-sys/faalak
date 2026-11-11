@@ -4,6 +4,7 @@ import assets from "../assets/assets";
 import { motion } from "motion/react";
 import { FiMenu, FiX } from "react-icons/fi";
 import MegaMenu from "./MegaMenu";
+import ResourcesMenu from "./ResourcesMenu";
 import {
   servicesMenu,
   industriesMenu,
@@ -193,6 +194,12 @@ const Navbar = () => {
         <NavLink to="/#faq" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           FAQ
         </NavLink>
+        <ResourcesMenu
+          navRef={navRef}
+          onNavigate={closeSidebar}
+          light={transparent && !drawerOpen}
+          drawerMode={compactNav}
+        />
         <NavLink to="/#contact-us" onClick={closeSidebar} drawer={compactNav} light={transparent}>
           Contact
         </NavLink>
