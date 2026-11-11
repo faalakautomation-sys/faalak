@@ -427,6 +427,12 @@ const Footer = () => {
           <a href="mailto:info@faalak.com" className="hover:text-primary">
             info@faalak.com
           </a>
+          <Link to="/privacy" className="hover:text-primary">
+            Privacy Policy
+          </Link>
+          <Link to="/terms" className="hover:text-primary">
+            Terms of Service
+          </Link>
         </div>
       </div>
     </div>
