@@ -114,7 +114,7 @@ const BookAppointment = () => {
       setSlots((current) => current.filter((slot) => slot.start !== selectedSlot));
       setSelectedSlot("");
       setFormData({ name: "", email: "", phoneNumber: "", note: "" });
-      if (!result.ownerNotificationSent) {
+      if (result.emailNotificationsEnabled && !result.ownerNotificationSent) {
         toast.error("Your appointment is booked, but the team notification email could not be sent.");
       } else {
         toast.success("Your appointment is confirmed.");
@@ -155,18 +155,22 @@ const BookAppointment = () => {
             <p className="mt-2 text-sm leading-6 text-[#68635d]">
               We&apos;ll meet on {confirmation.date} at {confirmation.time} Toronto time.
             </p>
-            {confirmation.visitorConfirmationSent && (
-              <p className="mt-2 text-sm text-[#68635d]">A confirmation email was sent to your email address.</p>
-            )}
-            {!confirmation.ownerNotificationSent && (
-              <p className="mt-3 text-sm text-amber-700">
-                Your booking is saved, but we couldn&apos;t send the team notification. Please contact info@faalak.com to make sure we see it.
-              </p>
-            )}
-            {!confirmation.visitorConfirmationSent && (
-              <p className="mt-2 text-sm text-amber-700">
-                Your booking is saved, but the confirmation email could not be sent. Please save the appointment details above.
-              </p>
+            {confirmation.emailNotificationsEnabled && (
+              <>
+                {confirmation.visitorConfirmationSent && (
+                  <p className="mt-2 text-sm text-[#68635d]">A confirmation email was sent to your email address.</p>
+                )}
+                {!confirmation.ownerNotificationSent && (
+                  <p className="mt-3 text-sm text-amber-700">
+                    Your booking is saved, but we couldn&apos;t send the team notification email.
+                  </p>
+                )}
+                {!confirmation.visitorConfirmationSent && (
+                  <p className="mt-2 text-sm text-amber-700">
+                    Your booking is saved, but the confirmation email could not be sent. Please save the appointment details above.
+                  </p>
+                )}
+              </>
             )}
             <button type="button" onClick={() => setConfirmation(null)} className="mt-6 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-[#24211e] hover:bg-gray-50">
               Book another appointment
