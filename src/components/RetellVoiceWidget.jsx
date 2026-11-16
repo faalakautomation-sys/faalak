@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { RetellWebClient } from "retell-client-js-sdk";
-import { FiMessageCircle, FiMic, FiPhone, FiPhoneOff, FiSend, FiUser, FiX } from "react-icons/fi";
+import { FiMessageCircle, FiMic, FiPhoneOff, FiSend, FiUser, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../api/config";
+import PhoneNumberInput from "./PhoneNumberInput";
+import {
+  parseInternationalPhoneNumber,
+  toE164PhoneNumber,
+} from "../utils/phoneNumber";
 
 const API_HEADERS = {
   "Content-Type": "application/json",
@@ -48,10 +53,12 @@ const PANEL_OFFSET_ABOVE_BUTTON = 72;
 
 const RetellVoiceWidget = () => {
   const clientRef = useRef(null);
+  const startVoiceAgentRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("idle");
   const [mode, setMode] = useState("voice");
   const [formData, setFormData] = useState({ name: "", phoneNumber: "" });
+  const [phoneCountry, setPhoneCountry] = useState("CA");
   const [chatSessionId, setChatSessionId] = useState("");
   const [isStartingChat, setIsStartingChat] = useState(false);
   const [isEndingChat, setIsEndingChat] = useState(false);
@@ -96,17 +103,23 @@ const RetellVoiceWidget = () => {
     // Lets other parts of the site (e.g. LiveDemo's "Call me now" form) open
     // this widget pre-filled and already dialing, instead of just popping it
     // open empty and making the visitor retype what they just entered.
-    // event.detail: { name, phoneNumber, autoStart }.
+    // event.detail: { name, phoneNumber, phoneCountry?, autoStart }.
     const openWidget = (event) => {
       const detail = event.detail || {};
       setIsOpen(true);
       setMode("voice");
 
       if (detail.name || detail.phoneNumber) {
-        const prefilled = { name: detail.name || "", phoneNumber: detail.phoneNumber || "" };
+        const parsedPhone = parseInternationalPhoneNumber(detail.phoneNumber);
+        const prefilled = {
+          name: detail.name || "",
+          phoneNumber: parsedPhone?.nationalNumber || detail.phoneNumber || "",
+          phoneCountry: parsedPhone?.country || detail.phoneCountry || "CA",
+        };
         setFormData(prefilled);
+        setPhoneCountry(parsedPhone?.country || detail.phoneCountry || "CA");
         if (detail.autoStart) {
-          startVoiceAgent(prefilled);
+          startVoiceAgentRef.current?.(prefilled);
         }
       }
     };
@@ -117,6 +130,7 @@ const RetellVoiceWidget = () => {
       // Always ask again next time - even for a second call in the same
       // widget-open session, not just after closing and reopening it.
       setFormData({ name: "", phoneNumber: "" });
+      setPhoneCountry("CA");
     };
     const handleCallError = (error) => {
       setStatus("error");
@@ -156,6 +170,11 @@ const RetellVoiceWidget = () => {
       toast.error("Please enter your name and phone number.");
       return;
     }
+    const phoneNumber = toE164PhoneNumber(data.phoneNumber, data.phoneCountry || "CA");
+    if (!phoneNumber) {
+      toast.error("Enter a valid phone number for the selected country.");
+      return;
+    }
 
     setStatus("connecting");
 
@@ -165,7 +184,7 @@ const RetellVoiceWidget = () => {
       const response = await fetch(`${API_BASE_URL}/retell/web-call`, {
         method: "POST",
         headers: API_HEADERS,
-        body: JSON.stringify({ name: data.name.trim(), phoneNumber: data.phoneNumber.trim() }),
+        body: JSON.stringify({ name: data.name.trim(), phoneNumber }),
       });
       const result = await response.json().catch(() => null);
 
@@ -195,10 +214,16 @@ const RetellVoiceWidget = () => {
       toast.error(getMicrophoneErrorMessage(error) || error.message || "Unable to start the voice agent.");
     }
   };
+  startVoiceAgentRef.current = startVoiceAgent;
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    startVoiceAgent(formData);
+    startVoiceAgent({ ...formData, phoneCountry });
+  };
+
+  const getCurrentPhoneNumber = () => {
+    if (!formData.phoneNumber.trim()) return "";
+    return toE164PhoneNumber(formData.phoneNumber, phoneCountry);
   };
 
   const ensureChatSession = () => {
@@ -211,7 +236,7 @@ const RetellVoiceWidget = () => {
       headers: API_HEADERS,
       body: JSON.stringify({
         name: formData.name.trim() || undefined,
-        phoneNumber: formData.phoneNumber.trim() || undefined,
+        phoneNumber: getCurrentPhoneNumber() || undefined,
       }),
     })
       .then(async (response) => {
@@ -233,6 +258,10 @@ const RetellVoiceWidget = () => {
 
   const handleChatModeSelect = () => {
     if (isEndingChat) return;
+    if (formData.phoneNumber.trim() && !getCurrentPhoneNumber()) {
+      toast.error("Enter a valid phone number for the selected country, or clear it.");
+      return;
+    }
     setMode("chat");
     ensureChatSession().catch((error) => {
       toast.error(error.message || "Unable to prepare chat right now.");
@@ -263,7 +292,7 @@ const RetellVoiceWidget = () => {
       body: JSON.stringify({
         chatId: activeChatId,
         name: formData.name.trim() || undefined,
-        phoneNumber: formData.phoneNumber.trim() || undefined,
+        phoneNumber: getCurrentPhoneNumber() || undefined,
       }),
     });
     const result = await response.json().catch(() => ({}));
@@ -294,6 +323,10 @@ const RetellVoiceWidget = () => {
     event.preventDefault();
     const message = chatInput.trim();
     if (!message || isSendingChat || isEndingChat) return;
+    if (formData.phoneNumber.trim() && !getCurrentPhoneNumber()) {
+      toast.error("Enter a valid phone number for the selected country, or clear it.");
+      return;
+    }
 
     setChatInput("");
     setChatMessages((previous) => [...previous, { sender: "user", message }]);
@@ -309,7 +342,7 @@ const RetellVoiceWidget = () => {
           chatId: activeChatId,
           message,
           name: formData.name.trim() || undefined,
-          phoneNumber: formData.phoneNumber.trim() || undefined,
+          phoneNumber: getCurrentPhoneNumber() || undefined,
         }),
       });
       const result = await response.json();
@@ -344,6 +377,7 @@ const RetellVoiceWidget = () => {
       setMode("voice");
       setStatus("idle");
       setFormData({ name: "", phoneNumber: "" });
+      setPhoneCountry("CA");
     } catch (error) {
       toast.error(error.message || "Unable to finish the chat right now.");
     } finally {
@@ -446,20 +480,19 @@ const RetellVoiceWidget = () => {
                       className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
                     />
                   </label>
-                  <label>
-                    <span className="sr-only">Phone number (optional)</span>
-                    <input
-                      type="tel"
-                      name="phoneNumber"
+                  <div className="col-span-2 min-w-0">
+                    <PhoneNumberInput
+                      id="maya-chat-phone"
                       value={formData.phoneNumber}
-                      onChange={handleInputChange}
+                      country={phoneCountry}
+                      onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
+                      onCountryChange={setPhoneCountry}
                       disabled={isEndingChat}
-                      maxLength={40}
-                      autoComplete="tel"
                       placeholder="Phone (optional)"
-                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
+                      selectClassName="max-w-28 rounded-lg border border-slate-200 bg-white px-1 py-2 text-[10px] text-slate-900 outline-none focus:border-blue-500"
+                      inputClassName="min-w-0 flex-1 rounded-lg border border-slate-200 px-2 py-2 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500"
                     />
-                  </label>
+                  </div>
                   <button
                     type="button"
                     onClick={closeWidget}
@@ -524,13 +557,21 @@ const RetellVoiceWidget = () => {
                       <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Jane Smith" autoComplete="name" disabled={isCalling} className="w-full rounded-xl border border-slate-200 bg-white px-11 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
                     </span>
                   </label>
-                  <label className="block">
+                  <div>
                     <span className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-slate-500">Phone number</span>
-                    <span className="relative block">
-                      <FiPhone className="absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
-                      <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} placeholder="+1 416 555 0199" autoComplete="tel" disabled={isCalling} className="w-full rounded-xl border border-slate-200 bg-white px-11 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
-                    </span>
-                  </label>
+                    <PhoneNumberInput
+                        id="maya-voice-phone"
+                        value={formData.phoneNumber}
+                        country={phoneCountry}
+                        onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
+                        onCountryChange={setPhoneCountry}
+                        required
+                        disabled={isCalling}
+                        placeholder="Phone number"
+                        selectClassName="max-w-32 rounded-xl border border-slate-200 bg-white px-2 py-3 text-xs text-slate-900 outline-none focus:border-blue-500"
+                        inputClassName="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                    />
+                  </div>
                 </div>
                 <button type="submit" disabled={isCalling} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0054a8] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#004987] disabled:cursor-wait disabled:opacity-70">
                   {status === "connecting" ? "Connecting..." : <><FiMic className="h-4 w-4" /> Start voice call</>}

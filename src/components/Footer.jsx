@@ -5,6 +5,12 @@ import toast from "react-hot-toast";
 import { FiArrowLeft, FiArrowRight, FiMail, FiMapPin, FiPhone, FiSend, FiUser } from "react-icons/fi";
 import assets from "../assets/assets";
 import { API_BASE_URL } from "../api/config";
+import PhoneNumberInput from "./PhoneNumberInput";
+import {
+  formatPhoneNumberForDisplay,
+  isValidPhoneInput,
+  toE164PhoneNumber,
+} from "../utils/phoneNumber";
 import { industriesMenu } from "../data/menuData";
 import { industryPresets } from "../data/industryPresets";
 
@@ -46,6 +52,7 @@ const Footer = () => {
     category: "",
     description: "",
   });
+  const [phoneCountry, setPhoneCountry] = useState("CA");
   const [formStatus, setFormStatus] = useState("idle");
 
   const handleChange = (event) => {
@@ -68,9 +75,15 @@ const Footer = () => {
       toast.error("Choose your business type to continue.");
       return;
     }
-    if (contactStep === 3 && (!formData.name.trim() || !formData.phoneNumber.trim() || !formData.email.trim())) {
-      toast.error("Please add your name, phone number, and email to continue.");
-      return;
+    if (contactStep === 3) {
+      if (!formData.name.trim() || !formData.phoneNumber.trim() || !formData.email.trim()) {
+        toast.error("Please add your name, phone number, and email to continue.");
+        return;
+      }
+      if (!isValidPhoneInput(formData.phoneNumber, phoneCountry)) {
+        toast.error("Enter a valid phone number for the selected country.");
+        return;
+      }
     }
     setContactStep((step) => Math.min(step + 1, 4));
   };
@@ -83,6 +96,11 @@ const Footer = () => {
     }
     if (!buildChoice || !formData.name.trim() || !formData.phoneNumber.trim() || !formData.email.trim() || !formData.category) {
       toast.error("Please complete the required details before sending.");
+      return;
+    }
+    const phoneNumber = toE164PhoneNumber(formData.phoneNumber, phoneCountry);
+    if (!phoneNumber) {
+      toast.error("Enter a valid phone number for the selected country.");
       return;
     }
 
@@ -98,7 +116,7 @@ const Footer = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name.trim(),
-          phoneNumber: formData.phoneNumber.trim(),
+          phoneNumber,
           email: formData.email.trim(),
           category: formData.category,
           description,
@@ -110,6 +128,7 @@ const Footer = () => {
 
       setFormStatus("success");
       setFormData({ name: "", phoneNumber: "", email: "", category: "", description: "" });
+      setPhoneCountry("CA");
       setBuildChoice("");
       setSelectedGoals([]);
       setContactStep(0);
@@ -253,7 +272,18 @@ const Footer = () => {
                   <p className="mt-2 text-sm text-[#77716a]">Our team will follow up about your project.</p>
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" autoComplete="name" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
-                    <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} type="tel" placeholder="Phone" autoComplete="tel" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
+                    <PhoneNumberInput
+                      id="contact-phone"
+                      value={formData.phoneNumber}
+                      country={phoneCountry}
+                      onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
+                      onCountryChange={setPhoneCountry}
+                      required
+                      placeholder="Phone"
+                      className="min-w-0 sm:col-span-2"
+                      selectClassName="max-w-32 rounded-xl border border-gray-200 bg-white px-2 py-3 text-xs text-gray-900 outline-none focus:border-primary"
+                      inputClassName="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary"
+                    />
                     <input name="email" value={formData.email} onChange={handleChange} type="email" placeholder="Email" autoComplete="email" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary sm:col-span-2" />
                   </div>
                 </div>
@@ -267,7 +297,7 @@ const Footer = () => {
                   <dl className="mt-5 divide-y divide-[#e5dfd8] border-y border-[#e5dfd8] text-sm">
                     <div className="py-3"><dt className="text-xs text-[#82786f]">What to build</dt><dd className="mt-1 font-semibold text-[#24211e]">{buildChoice}</dd></div>
                     <div className="py-3"><dt className="text-xs text-[#82786f]">Business type</dt><dd className="mt-1 font-semibold text-[#24211e]">{formData.category}</dd></div>
-                    <div className="py-3"><dt className="text-xs text-[#82786f]">Contact</dt><dd className="mt-1 font-semibold text-[#24211e]">{formData.name} · {formData.phoneNumber} · {formData.email}</dd></div>
+                    <div className="py-3"><dt className="text-xs text-[#82786f]">Contact</dt><dd className="mt-1 font-semibold text-[#24211e]">{formData.name} · {formatPhoneNumberForDisplay(formData.phoneNumber, phoneCountry)} · {formData.email}</dd></div>
                     {selectedGoals.length > 0 && <div className="py-3"><dt className="text-xs text-[#82786f]">Goals</dt><dd className="mt-1 text-[#24211e]">{selectedGoals.join(", ")}</dd></div>}
                     {formData.description.trim() && <div className="py-3"><dt className="text-xs text-[#82786f]">Additional details</dt><dd className="mt-1 whitespace-pre-wrap text-[#24211e]">{formData.description}</dd></div>}
                   </dl>

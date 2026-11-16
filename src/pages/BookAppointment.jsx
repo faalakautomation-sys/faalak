@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { FiCalendar, FiCheckCircle, FiClock } from "react-icons/fi";
 import { API_BASE_URL } from "../api/config";
+import PhoneNumberInput from "../components/PhoneNumberInput";
+import { isValidPhoneInput, toE164PhoneNumber } from "../utils/phoneNumber";
 
 const TIME_ZONE = "America/Toronto";
 const dateFormatter = new Intl.DateTimeFormat("en-CA", {
@@ -52,6 +54,7 @@ const BookAppointment = () => {
   const [availabilityError, setAvailabilityError] = useState("");
   const [confirmation, setConfirmation] = useState(null);
   const [formData, setFormData] = useState({ name: "", email: "", phoneNumber: "", note: "" });
+  const [phoneCountry, setPhoneCountry] = useState("CA");
 
   useEffect(() => {
     if (!selectedDate) return undefined;
@@ -96,6 +99,13 @@ const BookAppointment = () => {
       toast.error("Choose an available appointment time.");
       return;
     }
+    const phoneNumber = formData.phoneNumber.trim()
+      ? toE164PhoneNumber(formData.phoneNumber, phoneCountry)
+      : "";
+    if (formData.phoneNumber.trim() && (!phoneNumber || !isValidPhoneInput(formData.phoneNumber, phoneCountry))) {
+      toast.error("Enter a valid phone number for the selected country, or leave it blank.");
+      return;
+    }
 
     setBooking(true);
     try {
@@ -105,7 +115,7 @@ const BookAppointment = () => {
           "Content-Type": "application/json",
           ...(API_BASE_URL.includes("ngrok") ? { "ngrok-skip-browser-warning": "true" } : {}),
         },
-        body: JSON.stringify({ ...formData, start: selectedSlot }),
+        body: JSON.stringify({ ...formData, phoneNumber, start: selectedSlot }),
       });
       const result = await response.json();
       if (!response.ok || !result.success) throw new Error(result.error || "Unable to book your appointment.");
@@ -114,6 +124,7 @@ const BookAppointment = () => {
       setSlots((current) => current.filter((slot) => slot.start !== selectedSlot));
       setSelectedSlot("");
       setFormData({ name: "", email: "", phoneNumber: "", note: "" });
+      setPhoneCountry("CA");
       if (result.emailNotificationsEnabled && !result.ownerNotificationSent) {
         toast.error("Your appointment is booked, but the team notification email could not be sent.");
       } else {
@@ -244,8 +255,17 @@ const BookAppointment = () => {
                 <input id="booking-name" name="name" value={formData.name} onChange={handleChange} required maxLength={100} autoComplete="name" placeholder="Name" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
                 <label className="sr-only" htmlFor="booking-email">Email</label>
                 <input id="booking-email" name="email" type="email" value={formData.email} onChange={handleChange} required maxLength={254} autoComplete="email" placeholder="Email" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
-                <label className="sr-only" htmlFor="booking-phone">Phone number (optional)</label>
-                <input id="booking-phone" name="phoneNumber" type="tel" value={formData.phoneNumber} onChange={handleChange} maxLength={40} autoComplete="tel" placeholder="Phone number (optional)" className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
+                <PhoneNumberInput
+                  id="booking-phone"
+                  value={formData.phoneNumber}
+                  country={phoneCountry}
+                  onChange={(value) => setFormData((current) => ({ ...current, phoneNumber: value }))}
+                  onCountryChange={setPhoneCountry}
+                  placeholder="Phone number (optional)"
+                  className="flex min-w-0 flex-col"
+                  selectClassName="max-w-36 rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-primary"
+                  inputClassName="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary"
+                />
                 <label className="sr-only" htmlFor="booking-note">What would you like to discuss?</label>
                 <textarea id="booking-note" name="note" value={formData.note} onChange={handleChange} required maxLength={2000} rows="4" placeholder="What would you like to discuss?" className="resize-y rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary" />
                 <button type="submit" disabled={!selectedSlot || loadingSlots || booking || Boolean(availabilityError)} className="mt-1 inline-flex items-center justify-center rounded-xl bg-[#0054a8] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#004987] disabled:cursor-not-allowed disabled:opacity-50">

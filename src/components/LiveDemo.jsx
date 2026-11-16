@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
-import { FiCheck, FiMail, FiMic, FiPhone, FiUser } from "react-icons/fi";
+import { FiCheck, FiMail, FiMic, FiUser } from "react-icons/fi";
 import { API_BASE_URL } from "../api/config";
 import { industriesMenu } from "../data/menuData";
 import { industryPresets } from "../data/industryPresets";
+import PhoneNumberInput from "./PhoneNumberInput";
+import { isValidPhoneInput, toE164PhoneNumber } from "../utils/phoneNumber";
 import faalakModel from "../assets/faalak-ai-model.jpg";
 
 // Only a curated handful of industries here, not the full menu - keeps the
@@ -20,6 +22,7 @@ const LiveDemo = () => {
   // notification, same flow as the rest of the site's call-back forms). ---
   const [selectedIndustry, setSelectedIndustry] = useState(industries[0].slug);
   const [formData, setFormData] = useState({ name: "", email: "", phoneNumber: "" });
+  const [phoneCountry, setPhoneCountry] = useState("CA");
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState("idle");
 
@@ -39,6 +42,11 @@ const LiveDemo = () => {
       toast.error("Please enter your name and phone number.");
       return;
     }
+    const phoneNumber = toE164PhoneNumber(formData.phoneNumber, phoneCountry);
+    if (!phoneNumber || !isValidPhoneInput(formData.phoneNumber, phoneCountry)) {
+      toast.error("Enter a valid phone number for the selected country.");
+      return;
+    }
 
     if (!agreed) {
       toast.error("Please confirm you'd like a demo call before continuing.");
@@ -56,7 +64,7 @@ const LiveDemo = () => {
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim() || undefined,
-          phoneNumber: formData.phoneNumber.trim(),
+          phoneNumber,
           notes: `Live demo request - industry: ${industryName}`,
         }),
       });
@@ -77,13 +85,14 @@ const LiveDemo = () => {
         new CustomEvent("open-retell-widget", {
           detail: {
             name: formData.name.trim(),
-            phoneNumber: formData.phoneNumber.trim(),
+            phoneNumber,
             autoStart: true,
           },
         })
       );
 
       setFormData({ name: "", email: "", phoneNumber: "" });
+      setPhoneCountry("CA");
       setAgreed(false);
     } catch (error) {
       console.error("Live demo call request failed:", error);
@@ -220,19 +229,18 @@ const LiveDemo = () => {
                   3 &middot; Enter your number
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <label className="relative block flex-1">
-                    <FiPhone className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a938b]" />
-                    <input
-                      id="live-demo-phone"
-                      type="tel"
-                      name="phoneNumber"
-                      value={formData.phoneNumber}
-                      onChange={handleChange}
-                      placeholder="+1 (555) 000-0000"
-                      autoComplete="tel"
-                      className="w-full rounded-xl border border-[#e5e0da] bg-white py-3 pl-11 pr-4 text-sm text-[#171717] outline-none placeholder:text-[#9a938b] focus:border-[#a75a3a]"
-                    />
-                  </label>
+                  <PhoneNumberInput
+                    id="live-demo-phone"
+                    value={formData.phoneNumber}
+                    country={phoneCountry}
+                    onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
+                    onCountryChange={setPhoneCountry}
+                    required
+                    placeholder="Phone number"
+                    className="min-w-0 flex-1"
+                    selectClassName="max-w-32 rounded-xl border border-[#e5e0da] bg-white px-2 py-3 text-xs text-[#171717] outline-none focus:border-[#a75a3a]"
+                    inputClassName="min-w-0 flex-1 rounded-xl border border-[#e5e0da] bg-white px-3 py-3 text-sm text-[#171717] outline-none placeholder:text-[#9a938b] focus:border-[#a75a3a]"
+                  />
                   <button
                     type="submit"
                     disabled={status === "loading"}
