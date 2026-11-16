@@ -172,6 +172,11 @@ const BookAppointment = () => {
                 )}
               </>
             )}
+            {!confirmation.emailNotificationsEnabled && (
+              <p className="mt-3 text-sm text-amber-700">
+                Email confirmations and the 24-hour reminder are not configured right now. Please save your appointment details above.
+              </p>
+            )}
             <button type="button" onClick={() => setConfirmation(null)} className="mt-6 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-[#24211e] hover:bg-gray-50">
               Book another appointment
             </button>

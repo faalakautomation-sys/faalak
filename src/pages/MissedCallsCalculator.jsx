@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
+import { API_BASE_URL } from "../api/config";
 import { industryPresets } from "../data/industryPresets";
 
 const currency = new Intl.NumberFormat("en-CA", {
@@ -44,6 +45,9 @@ const MissedCallsCalculator = () => {
   const [missedCalls, setMissedCalls] = useState(industryPresets[0].missedCalls);
   const [conversionRate, setConversionRate] = useState(industryPresets[0].conversionRate);
   const [averageRevenue, setAverageRevenue] = useState(industryPresets[0].averageCustomerValue);
+  const [email, setEmail] = useState("");
+  const [emailSubmitting, setEmailSubmitting] = useState(false);
+  const [emailStatus, setEmailStatus] = useState(null);
 
   const estimate = useMemo(() => {
     const bookingsLost = Math.round(missedCalls * (conversionRate / 100));
@@ -64,24 +68,44 @@ const MissedCallsCalculator = () => {
     setAverageRevenue(selectedIndustry.averageCustomerValue);
   };
 
-  const handleEmailBreakdown = () => {
-    const subject = encodeURIComponent("My missed-call revenue estimate");
-    const body = encodeURIComponent(
-      [
-        "Here is my illustrative missed-call estimate:",
-        `Industry: ${industry.name}`,
-        `Missed calls per month: ${missedCalls}`,
-        `Estimated conversion rate: ${conversionRate}%`,
-        `Average value of a new customer: ${currency.format(averageRevenue)}`,
-        `Estimated bookings missed per month: ${estimate.bookingsLost}`,
-        `Estimated revenue missed per month: ${currency.format(estimate.monthlyRevenueLost)}`,
-        `Estimated revenue missed per year: ${currency.format(estimate.yearlyRevenueLost)}`,
-        "",
-        "This is an estimate, not a guarantee of results.",
-      ].join("\n")
-    );
+  const handleEmailBreakdown = async (event) => {
+    event.preventDefault();
+    setEmailSubmitting(true);
+    setEmailStatus(null);
 
-    window.location.href = `mailto:info@faalak.com?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch(`${API_BASE_URL}/calculator/email-estimate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(API_BASE_URL.includes("ngrok") ? { "ngrok-skip-browser-warning": "true" } : {}),
+        },
+        body: JSON.stringify({
+          email,
+          industry: industry.name,
+          missedCalls,
+          conversionRate,
+          averageRevenue,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Unable to email your estimate right now.");
+      }
+
+      setEmailStatus({
+        type: "success",
+        message: "Thanks for visiting Faalak. Your estimate is on its way, and our team has been notified.",
+      });
+      setEmail("");
+    } catch (error) {
+      setEmailStatus({
+        type: "error",
+        message: error.message || "Unable to email your estimate right now.",
+      });
+    } finally {
+      setEmailSubmitting(false);
+    }
   };
 
   const handleBookDemo = () => {
@@ -220,7 +244,7 @@ const MissedCallsCalculator = () => {
                 </span>
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-7 space-y-4">
                 <button
                   type="button"
                   onClick={handleBookDemo}
@@ -228,13 +252,38 @@ const MissedCallsCalculator = () => {
                 >
                   Book a free consultation
                 </button>
-                <button
-                  type="button"
-                  onClick={handleEmailBreakdown}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#d8d1c9] bg-white px-6 py-3 text-sm font-semibold text-[#24211e] transition hover:-translate-y-0.5 hover:border-[#b9a99a] hover:bg-[#fbfaf8]"
-                >
-                  Email me the breakdown
-                </button>
+                <form onSubmit={handleEmailBreakdown} className="flex flex-col gap-2 sm:flex-row">
+                  <label className="sr-only" htmlFor="calculator-email">Email address</label>
+                  <input
+                    id="calculator-email"
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
+                    maxLength={254}
+                    autoComplete="email"
+                    placeholder="Your email address"
+                    className="min-h-12 min-w-0 flex-1 rounded-xl border border-[#d8d1c9] bg-white px-4 py-3 text-sm text-[#24211e] outline-none placeholder:text-gray-400 focus:border-[#0054a8]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={emailSubmitting}
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#d8d1c9] bg-white px-6 py-3 text-sm font-semibold text-[#24211e] transition hover:-translate-y-0.5 hover:border-[#b9a99a] hover:bg-[#fbfaf8] disabled:cursor-wait disabled:opacity-60"
+                  >
+                    {emailSubmitting ? "Sending…" : "Email me the estimate"}
+                  </button>
+                </form>
+                {emailStatus && (
+                  <p
+                    role={emailStatus.type === "error" ? "alert" : "status"}
+                    className={`text-sm leading-6 ${emailStatus.type === "error" ? "text-amber-800" : "text-emerald-700"}`}
+                  >
+                    {emailStatus.message}
+                  </p>
+                )}
+                <p className="text-xs leading-5 text-[#82786f]">
+                  We&apos;ll email your requested estimate and notify our team; submitting your email does not sign you up for marketing.
+                </p>
               </div>
             </div>
           </div>

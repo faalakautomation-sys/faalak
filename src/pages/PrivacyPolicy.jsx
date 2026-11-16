@@ -18,8 +18,9 @@ const PrivacyPolicy = () => (
       <p className="mt-2">Depending on how you use our services, we may handle:</p>
       <ul className="mt-3 list-disc space-y-2 pl-6">
         <li>Your name, phone number, and email address.</li>
+        <li>Your email address and calculator selections when you request a missed-call estimate by email.</li>
         <li>Call recordings and transcripts, where call recording or transcription is enabled.</li>
-        <li>Appointment details, such as requested dates and times, contact details, and notes you provide.</li>
+        <li>Appointment details, such as requested dates and times, contact details, and notes you provide, along with related booking confirmations and reminders.</li>
         <li>Messages and information you choose to provide through a chatbot or follow-up conversation.</li>
       </ul>
     </section>
@@ -27,7 +28,7 @@ const PrivacyPolicy = () => (
     <section>
       <h2 className="text-xl font-semibold text-[#24211e]">How we use information</h2>
       <p className="mt-2">
-        We use information to answer and route calls, respond to questions, qualify inquiries, book and manage appointments, and send requested service notifications. We send follow-up messages by WhatsApp or SMS only where appropriate consent has been provided. You can opt out of text follow-ups by replying STOP; you can also contact us to request that we stop other follow-up communications.
+        We use information to answer and route calls, respond to questions, qualify inquiries, email requested calculator estimates, book and manage appointments, and send booking confirmations and reminders. We send follow-up messages by WhatsApp or SMS only where appropriate consent has been provided. You can opt out of text follow-ups by replying STOP; you can also contact us to request that we stop other follow-up communications.
       </p>
     </section>
 
