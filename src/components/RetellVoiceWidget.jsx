@@ -439,6 +439,9 @@ const RetellVoiceWidget = () => {
               <p className="relative mt-3 text-sm leading-6 text-slate-500">
                 {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
               </p>
+              <p className="relative mt-2 text-xs leading-5 text-slate-500">
+                Maya can speak English, Arabic, Hindi, Japanese, Catalan, Italian, French, and Chinese.
+              </p>
               <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
                 <button
                   type="button"
