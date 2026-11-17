@@ -253,7 +253,7 @@ export const faqData = [
   {
     question: "Can I try it before committing?",
     answer:
-      "Yes. Select \"Watch Demo\" or \"Talk to Maya\" to experience Faalak's AI Voice Agent. You can also book a free consultation for a solution tailored to your business.",
+      "Yes. Select \"Watch Demo\" or \"Talk to Olivia\" to experience Faalak's AI Voice Agent. You can also book a free consultation for a solution tailored to your business.",
   },
 ];
 

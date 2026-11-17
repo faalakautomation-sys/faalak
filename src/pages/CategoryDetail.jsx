@@ -34,7 +34,7 @@ const CategoryDetail = ({ kind }) => {
     window.open(`https://wa.me/14169104547?text=${message}`, "_blank", "noopener,noreferrer");
   };
 
-  const handleTalkToMaya = () => {
+  const handleTalkToOlivia = () => {
     window.dispatchEvent(new Event("open-retell-widget"));
     toast.success("Your Retell voice agent is ready in the bottom-right corner.");
   };
@@ -156,10 +156,10 @@ const CategoryDetail = ({ kind }) => {
         </button>
         <button
           type="button"
-          onClick={handleTalkToMaya}
+          onClick={handleTalkToOlivia}
           className="rounded-full border border-gray-300 bg-white/80 px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition hover:scale-105 dark:border-gray-600 dark:bg-white/5 dark:text-white"
         >
-          Talk to Maya
+          Talk to Olivia
         </button>
       </motion.div>
 

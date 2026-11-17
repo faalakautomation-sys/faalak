@@ -445,7 +445,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* id read by RetellVoiceWidget.jsx to dock the "Talk to Maya" bubble
+      {/* id read by RetellVoiceWidget.jsx to dock the "Talk to Olivia" bubble
           above this row once it scrolls into view, instead of floating over it. */}
       <div
         id="footer-bottom-row"

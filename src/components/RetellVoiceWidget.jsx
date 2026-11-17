@@ -63,7 +63,7 @@ const RetellVoiceWidget = () => {
   const [isStartingChat, setIsStartingChat] = useState(false);
   const [isEndingChat, setIsEndingChat] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { sender: "bot", message: "Hi, I’m Maya. What can I help you with?" },
+    { sender: "bot", message: "Hi, I’m Olivia. What can I help you with?" },
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isSendingChat, setIsSendingChat] = useState(false);
@@ -271,7 +271,7 @@ const RetellVoiceWidget = () => {
   const resetChatSession = () => {
     setChatSessionId("");
     chatSessionPromiseRef.current = null;
-    setChatMessages([{ sender: "bot", message: "Hi, I’m Maya. What can I help you with?" }]);
+    setChatMessages([{ sender: "bot", message: "Hi, I’m Olivia. What can I help you with?" }]);
     setChatInput("");
   };
 
@@ -350,7 +350,7 @@ const RetellVoiceWidget = () => {
         throw new Error(result.error || "Unable to send your message");
       }
       const replies = (result.replies || []).filter((reply) => typeof reply === "string" && reply.trim());
-      if (!replies.length) throw new Error("Maya did not return a text reply");
+      if (!replies.length) throw new Error("Olivia did not return a text reply");
       setChatMessages((previous) => [...previous, ...replies.map((reply) => ({ sender: "bot", message: reply }))]);
     } catch (error) {
       setChatMessages((previous) => [...previous, {
@@ -402,7 +402,7 @@ const RetellVoiceWidget = () => {
             setIsOpen(true);
           }
         }}
-        aria-label="Open Maya chat and voice assistant"
+        aria-label="Open Olivia chat and voice assistant"
         style={{ bottom: dockOffset }}
         className="fixed right-6 z-9997 flex h-14 items-center gap-3 rounded-full border border-slate-200 bg-white px-5 text-slate-800 shadow-[0_12px_28px_rgba(15,23,42,0.14)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50"
         whileTap={{ scale: 0.95 }}
@@ -410,7 +410,7 @@ const RetellVoiceWidget = () => {
         <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-blue-50">
           <FiMic className="h-4 w-4 text-[#0054a8]" />
         </span>
-        <span className="text-sm font-semibold tracking-tight">Talk to Maya</span>
+        <span className="text-sm font-semibold tracking-tight">Talk to Olivia</span>
         {isOpen && <FiX className="ml-1 h-4 w-4" />}
       </motion.button>
 
@@ -421,7 +421,7 @@ const RetellVoiceWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            aria-label="Maya chat and voice assistant"
+            aria-label="Olivia chat and voice assistant"
             style={{ bottom: dockOffset + PANEL_OFFSET_ABOVE_BUTTON }}
             className="fixed right-6 z-9996 flex max-h-[calc(100dvh-120px)] w-[min(380px,calc(100vw-32px))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-[0_20px_55px_rgba(15,23,42,0.18)]"
           >
@@ -430,17 +430,17 @@ const RetellVoiceWidget = () => {
               <div className="relative flex items-start justify-between">
                 <div>
                   <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0054a8]">Faalak AI</p>
-                  <h2 className="max-w-62.5 text-2xl font-semibold leading-tight text-slate-900">Talk with Maya.</h2>
+                  <h2 className="max-w-62.5 text-2xl font-semibold leading-tight text-slate-900">Talk with Olivia.</h2>
                 </div>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-[#0054a8]">
                   <FiMic className="h-5 w-5" />
                 </div>
               </div>
               <p className="relative mt-3 text-sm leading-6 text-slate-500">
-                {mode === "chat" ? "Send Maya a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
+                {mode === "chat" ? "Send Olivia a message, or switch to voice for a live conversation." : "Share your details first, then speak directly with our AI voice assistant."}
               </p>
               <p className="relative mt-2 text-xs leading-5 text-slate-500">
-                Maya can speak English, Arabic, Hindi, Japanese, Catalan, Italian, French, and Chinese.
+                Olivia can speak English, Arabic, Hindi, Japanese, Catalan, Italian, French, and Chinese.
               </p>
               <div className="relative mt-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="tablist" aria-label="Choose chat or voice">
                 <button
@@ -485,7 +485,7 @@ const RetellVoiceWidget = () => {
                   </label>
                   <div className="col-span-2 min-w-0">
                     <PhoneNumberInput
-                      id="maya-chat-phone"
+                      id="olivia-chat-phone"
                       value={formData.phoneNumber}
                       country={phoneCountry}
                       onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
@@ -513,13 +513,13 @@ const RetellVoiceWidget = () => {
                       </p>
                     </div>
                   ))}
-                  {(isStartingChat || isSendingChat) && <p className="text-xs text-slate-400">{isStartingChat ? "Connecting to Maya..." : "Maya is replying..."}</p>}
+                  {(isStartingChat || isSendingChat) && <p className="text-xs text-slate-400">{isStartingChat ? "Connecting to Olivia..." : "Olivia is replying..."}</p>}
                   <div ref={chatEndRef} />
                 </div>
                 <form onSubmit={handleChatSubmit} className="flex shrink-0 items-end gap-2 border-t border-slate-200 bg-white p-4">
-                  <label className="sr-only" htmlFor="maya-chat-message">Message Maya</label>
+                  <label className="sr-only" htmlFor="olivia-chat-message">Message Olivia</label>
                   <textarea
-                    id="maya-chat-message"
+                    id="olivia-chat-message"
                     value={chatInput}
                     onChange={(event) => setChatInput(event.target.value)}
                     onKeyDown={(event) => {
@@ -545,7 +545,7 @@ const RetellVoiceWidget = () => {
                   <FiMic className="h-8 w-8 animate-pulse text-[#0054a8]" />
                 </div>
                 <h3 className="text-lg font-semibold text-slate-900">You are connected</h3>
-                <p className="mt-2 text-sm text-slate-500">Maya is listening. You can start speaking.</p>
+                <p className="mt-2 text-sm text-slate-500">Olivia is listening. You can start speaking.</p>
                 <button type="button" onClick={stopVoiceAgent} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-rose-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-400">
                   <FiPhoneOff className="h-4 w-4" /> End call
                 </button>
@@ -563,7 +563,7 @@ const RetellVoiceWidget = () => {
                   <div>
                     <span className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-slate-500">Phone number</span>
                     <PhoneNumberInput
-                        id="maya-voice-phone"
+                        id="olivia-voice-phone"
                         value={formData.phoneNumber}
                         country={phoneCountry}
                         onChange={(value) => setFormData((previous) => ({ ...previous, phoneNumber: value }))}
@@ -584,7 +584,7 @@ const RetellVoiceWidget = () => {
               </form>
             )}
 
-            {!isCalling && <button type="button" onClick={closeWidget} disabled={isSendingChat || isEndingChat} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900 disabled:cursor-wait disabled:opacity-50" aria-label="End chat and close Maya assistant"><FiX className="h-5 w-5" /></button>}
+            {!isCalling && <button type="button" onClick={closeWidget} disabled={isSendingChat || isEndingChat} className="absolute right-4 top-4 text-slate-400 transition hover:text-slate-900 disabled:cursor-wait disabled:opacity-50" aria-label="End chat and close Olivia assistant"><FiX className="h-5 w-5" /></button>}
           </motion.section>
         )}
       </AnimatePresence>

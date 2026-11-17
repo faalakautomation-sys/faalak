@@ -77,7 +77,7 @@ const LiveDemo = () => {
       setStatus("success");
       toast.success("Connecting you to our AI voice agent now...");
 
-      // Immediately open the floating "Talk to Maya" widget, pre-filled with
+      // Immediately open the floating "Talk to Olivia" widget, pre-filled with
       // what they just typed, and have it start dialing right away - so
       // "Call me now" actually starts a live call instead of only booking a
       // callback for later.
