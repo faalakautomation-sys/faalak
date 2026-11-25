@@ -1,22 +1,16 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "motion/react";
 import { FiArrowRight } from "react-icons/fi";
 import { caseStudies } from "../assets/assets";
+import PageMeta from "../components/PageMeta";
+import { workSeo } from "../seo/meta";
 
 const WorkIndex = () => (
   <div
     style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
-    <Helmet>
-      <title>Case Studies | Faalak AI Automation</title>
-      <meta
-        name="description"
-        content="See how Faalak's AI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster."
-      />
-      <link rel="canonical" href="https://www.faalak.com/work" />
-    </Helmet>
+    <PageMeta {...workSeo} />
 
     <motion.div
       initial={{ opacity: 0, y: 20 }}

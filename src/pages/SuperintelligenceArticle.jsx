@@ -1,9 +1,8 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiCpu } from "react-icons/fi";
-
-const canonicalUrl = "https://www.faalak.com/blog/superintelligence";
+import PageMeta from "../components/PageMeta";
+import { superintelligenceSeo } from "../seo/meta";
 
 const sections = [
   {
@@ -48,35 +47,7 @@ const SuperintelligenceArticle = () => (
     style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
     className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
   >
-    <Helmet>
-      <title>What Is Superintelligence? Understanding the Next AI Frontier | Faalak</title>
-      <meta
-        name="description"
-        content="A clear guide to superintelligence: what SI means, how it differs from today's AI, and how businesses can adopt automation responsibly."
-      />
-      <link rel="canonical" href={canonicalUrl} />
-      <meta property="og:title" content="What Is Superintelligence? Understanding the Next AI Frontier" />
-      <meta
-        property="og:description"
-        content="Learn what superintelligence means, how it differs from today's AI, and how businesses can prepare responsibly."
-      />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="article" />
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: "What Is Superintelligence? Understanding the Next AI Frontier",
-          description:
-            "A clear guide to superintelligence, how it differs from today's AI, and responsible business adoption.",
-          datePublished: "2026-10-08",
-          dateModified: "2026-10-08",
-          author: { "@type": "Organization", name: "Faalak" },
-          publisher: { "@type": "Organization", name: "Faalak AI Automation" },
-          mainEntityOfPage: canonicalUrl,
-        })}
-      </script>
-    </Helmet>
+    <PageMeta {...superintelligenceSeo} />
 
     <Link
       to="/"
