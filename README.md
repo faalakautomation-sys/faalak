@@ -152,6 +152,8 @@ If using ngrok, use the currently active ngrok HTTPS endpoint for the website ba
 
 After setting the variable, trigger a fresh Cloudflare Pages deployment so Vite embeds it in the generated static files. Production builds now fail clearly if `VITE_API_URL` is missing, not HTTPS, or points to localhost.
 
+Cloudflare Workers Builds deploys `main` with `npx wrangler deploy` and other branches with `npx wrangler preview`. `wrangler.jsonc` keeps an empty `previews` block so that preview command can run. Preview builds do not receive the production `VITE_API_URL`; when Cloudflare CI variables are present and the branch is not `main`, the build embeds the public backend URL already in the live site bundle. An explicit `VITE_API_URL` still wins, and a `main` build with the variable unset still fails.
+
 For other static hosts, set `VITE_API_URL` in the build environment before running `npm run build`, then deploy the generated `dist/` folder.
 
 ## Support

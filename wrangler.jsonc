@@ -16,5 +16,10 @@
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page",
     "run_worker_first": ["/*"]
-  }
+  },
+  // Workers Builds runs `npx wrangler preview` for branches other than main.
+  // That command exits unless this block exists. It can be empty: assets,
+  // compatibility_date, and the worker entry stay at the top level.
+  // Do not put the production routes in here.
+  "previews": {}
 }
