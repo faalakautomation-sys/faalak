@@ -1,21 +1,14 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import PageMeta from "./PageMeta";
+import { legalSeo } from "../seo/meta";
 
 const LegalPageLayout = ({ title, description, canonicalUrl, children }) => (
   <main
     style={{ paddingTop: "calc(var(--navbar-h) + 2rem)" }}
     className="min-h-[65vh] px-4 pb-20 sm:px-8 lg:px-16"
   >
-    <Helmet>
-      <title>{`${title} | Faalak`}</title>
-      <meta name="description" content={description} />
-      <link rel="canonical" href={canonicalUrl} />
-      <meta property="og:title" content={`${title} | Faalak`} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="website" />
-    </Helmet>
+    <PageMeta {...legalSeo({ title, description, path: new URL(canonicalUrl).pathname })} />
 
     <article className="mx-auto max-w-4xl">
       <Link

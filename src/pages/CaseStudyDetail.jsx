@@ -1,21 +1,21 @@
-import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { caseStudies } from "../assets/assets";
+import PageMeta from "../components/PageMeta";
+import { caseStudySeo } from "../seo/meta";
+import NotFound from "./NotFound";
 
 const CaseStudyDetail = () => {
   const { slug } = useParams();
   const study = caseStudies.find((entry) => entry.slug === slug);
 
   if (!study) {
-    return <Navigate to="/work" replace />;
+    return <NotFound />;
   }
 
-  const canonicalUrl = `https://www.faalak.com/work/${study.slug}`;
-  const pageTitle = `${study.title} Case Study | Faalak AI Automation`;
-  const metaDescription = `${study.summary} See how Faalak's AI voice agent and automation helped this ${study.industry.toLowerCase()} business.`;
+  const seo = caseStudySeo(study);
 
   const handleConsultationClick = () => {
     const message = encodeURIComponent(
@@ -34,15 +34,7 @@ const CaseStudyDetail = () => {
       style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
       className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
     >
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <PageMeta {...seo} />
 
       <Link
         to="/work"

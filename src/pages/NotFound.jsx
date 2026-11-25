@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import PageMeta from "../components/PageMeta";
+import { notFoundSeo } from "../seo/meta";
 
 const NotFound = () => (
   <div
     style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
     className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center"
   >
-    <Helmet>
-      <title>Page Not Found | Faalak AI Automation</title>
-      <meta name="robots" content="noindex" />
-    </Helmet>
+    <PageMeta {...notFoundSeo} />
     <p className="text-sm font-bold uppercase tracking-[0.25em] text-primary">404</p>
     <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">Page not found</h1>
     <p className="mt-3 max-w-md text-gray-600 dark:text-gray-400">

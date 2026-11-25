@@ -9,7 +9,12 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
+    // Prerender writes dist/<route>/index.html. drop-trailing-slash serves the
+    // slashless URL with 200 and redirects the slash variant to it.
+    // 404-page serves dist/404.html with HTTP 404. Do not switch this back to
+    // single-page-application: unknown URLs would soft-200 as the homepage.
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
     "run_worker_first": ["/*"]
   }
 }

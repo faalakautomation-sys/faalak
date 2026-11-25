@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import PageMeta from "../components/PageMeta";
+import { bookingSeo } from "../seo/meta";
 import toast from "react-hot-toast";
 import { FiCalendar, FiCheckCircle, FiClock } from "react-icons/fi";
 import { API_BASE_URL } from "../api/config";
@@ -142,11 +143,7 @@ const BookAppointment = () => {
       style={{ paddingTop: "calc(var(--navbar-h) + 2rem)" }}
       className="min-h-[65vh] px-4 pb-20 sm:px-8 lg:px-16"
     >
-      <Helmet>
-        <title>Book an Appointment | Faalak</title>
-        <meta name="description" content="Choose a time to book a 15-minute consultation with Faalak. Available Monday through Saturday in Toronto time." />
-        <link rel="canonical" href="https://www.faalak.com/book-appointment" />
-      </Helmet>
+      <PageMeta {...bookingSeo} />
 
       <div className="mx-auto max-w-5xl">
         <div className="mb-7">

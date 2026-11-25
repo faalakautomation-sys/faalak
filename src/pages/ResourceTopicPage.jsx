@@ -1,33 +1,25 @@
-import { Helmet } from "react-helmet-async";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
+import PageMeta from "../components/PageMeta";
 import { resourceTopics } from "../data/resourceTopics";
+import NotFound from "./NotFound";
+import { resourceSeo } from "../seo/meta";
 
 const ResourceTopicPage = () => {
   const { slug } = useParams();
   const topic = resourceTopics[slug];
 
-  if (!topic) return <Navigate to="/not-found" replace />;
+  if (!topic) return <NotFound />;
 
-  const canonicalUrl = `https://www.faalak.com/resources/${slug}`;
-  const pageTitle = `${topic.title} | Faalak Resources`;
-  const description = topic.description;
+  const seo = resourceSeo(slug, topic);
 
   return (
     <main
       style={{ paddingTop: "calc(var(--navbar-h) + 1.5rem)" }}
       className="px-4 pb-24 sm:px-12 lg:px-24 xl:px-40"
     >
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <PageMeta {...seo} />
 
       <div className="mx-auto max-w-6xl">
         <Link
