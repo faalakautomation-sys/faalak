@@ -20,6 +20,8 @@ const featuredIndustries = industryPresets
 
 const footerServices = [
   { name: "AI Receptionist", to: "/services/ai-receptionist" },
+  { name: "After-Hours Answering", to: "/services/after-hours-answering" },
+  { name: "AI voice agents in Canada", to: "/services/voice-agents" },
   { name: "Owner-Operated Voice Agents", to: "/services/owner-operated-voice-agents" },
   { name: "Website Chatbots", to: "/services/chatbot-automation" },
   { name: "Appointment Booking & CRM", to: "/#services" },
@@ -384,7 +386,12 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link className="hover:text-primary" to="/blog/superintelligence">
+              <Link className="hover:text-primary" to="/ai-voice-agents-canada">
+                AI Voice Agents in Canada
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-primary" to="/resources/blog">
                 Blog
               </Link>
             </li>

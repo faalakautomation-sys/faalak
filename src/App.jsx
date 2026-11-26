@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import MobileCallPopup from "./components/MobileCallPopup";
 import ScrollToHash from "./components/ScrollToHash";
 import Home from "./pages/Home";
+import AiVoiceAgentsCanada from "./pages/AiVoiceAgentsCanada";
 import CategoryDetail from "./pages/CategoryDetail";
 import WorkIndex from "./pages/WorkIndex";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
@@ -35,6 +36,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/ai-voice-agents-canada" element={<AiVoiceAgentsCanada />} />
         <Route path="/services/:slug" element={<CategoryDetail kind="service" />} />
         <Route path="/industries/:slug" element={<CategoryDetail kind="industry" />} />
         <Route path="/work" element={<WorkIndex />} />

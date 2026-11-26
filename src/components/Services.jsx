@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { servicesData } from "../assets/assets";
 
@@ -26,6 +27,15 @@ const Services = () => (
           Voice, chat, and workflow automations capture leads, book appointments, and keep your customer support moving 24/7.
         </p>
       </div>
+      <p className="mt-4 text-sm leading-6 text-[#68635d]">
+        <Link to="/services/voice-agents" className="font-semibold text-[#0054a8] underline-offset-2 hover:underline">
+          AI voice agents in Canada
+        </Link>
+        <span className="px-2 text-[#b7b0a8]">/</span>
+        <Link to="/ai-voice-agents-canada" className="font-semibold text-[#0054a8] underline-offset-2 hover:underline">
+          AI voice agents for Canadian businesses
+        </Link>
+      </p>
 
       <div className="mt-7 grid border-l border-t border-[#e2ddd6] sm:grid-cols-2 lg:grid-cols-3">
         {servicesData.map((service, index) => {

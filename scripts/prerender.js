@@ -146,9 +146,9 @@ function assertPage(html, routePath, indexable) {
       throw new Error(`${routePath} is missing the Open Graph image`);
     }
   } else if (canonical) {
-    throw new Error("404 page must not advertise a canonical");
+    throw new Error(`${routePath} is noindex and must not advertise a canonical`);
   } else if (!/noindex/i.test(metaContent(html, "name", "robots"))) {
-    throw new Error("404 page must be noindex");
+    throw new Error(`${routePath} must be noindex`);
   }
 
   return { title, description };
@@ -156,7 +156,7 @@ function assertPage(html, routePath, indexable) {
 
 try {
   const { default: App } = await server.ssrLoadModule("/src/App.jsx");
-  const { indexablePaths, renderSitemap } = await server.ssrLoadModule("/src/seo/routes.js");
+  const { NOINDEX_PATHS, indexablePaths, renderSitemap } = await server.ssrLoadModule("/src/seo/routes.js");
   const template = await readFile(templatePath, "utf8");
   const manifestPath = resolve(distDir, ".vite/manifest.json");
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
@@ -179,10 +179,27 @@ try {
     if (meta.description.length > 160) {
       console.warn(`${routePath} description is ${meta.description.length} characters`);
     }
+    if (meta.title.length > 60) {
+      console.warn(`${routePath} title is ${meta.title.length} characters`);
+    }
+    if (meta.title.includes("Faalak AI Automation")) {
+      throw new Error(`${routePath} still uses the Faalak AI Automation title template`);
+    }
     seenTitles.set(meta.title, routePath);
     seenDescriptions.set(meta.description, routePath);
     pages.push({ routePath, ...meta, canonical: routePath === "/" ? "https://www.faalak.com/" : `https://www.faalak.com${routePath}` });
 
+    const destination = outputPath(routePath);
+    await mkdir(dirname(destination), { recursive: true });
+    await writeFile(destination, rendered);
+  }
+
+  for (const routePath of NOINDEX_PATHS) {
+    const rendered = applyPage(template, renderLocation(App, routePath), manifest);
+    assertPage(rendered, routePath, false);
+    if (routePath === "/blog/superintelligence" && !rendered.includes("What Is Superintelligence?")) {
+      throw new Error("Superintelligence page was not prerendered");
+    }
     const destination = outputPath(routePath);
     await mkdir(dirname(destination), { recursive: true });
     await writeFile(destination, rendered);
@@ -204,8 +221,14 @@ try {
   if (home.includes("SearchAction") || home.includes("Worldwide")) {
     throw new Error("Homepage JSON-LD still contains SearchAction or Worldwide");
   }
-  if (!home.includes("Based in Mississauga, serving the GTA")) {
-    throw new Error("Homepage description is missing the Mississauga / GTA line");
+  if (!home.includes("Mississauga AI receptionist provider")) {
+    throw new Error("Homepage description is missing the Mississauga provider line");
+  }
+  if (!home.includes('href="/services/voice-agents"') || home.includes('href="/blog/superintelligence"')) {
+    throw new Error("Homepage is missing the voice-agents link or still links to the superintelligence article");
+  }
+  if (!home.includes('href="/ai-voice-agents-canada"')) {
+    throw new Error("Homepage is missing the Canada pillar link");
   }
 
   const sitemap = renderSitemap(paths);
