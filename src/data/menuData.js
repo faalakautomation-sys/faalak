@@ -10,6 +10,7 @@ import {
   FiServer,
   FiShoppingCart,
   FiTarget,
+  FiClock,
   FiTool,
   FiTrendingUp,
   FiUserCheck,
@@ -69,13 +70,49 @@ export const servicesMenu = [
     description:
       "Your AI receptionist greets every caller in real time, answers common questions, and routes anything urgent to the right person - all without a hold queue or a missed call. It works around your existing phone number, so nothing about your setup has to change.",
     highlights: [
-      "Answers instantly, 24/7 - including nights, weekends, and holidays",
+      {
+        before: "Answers instantly, 24/7 - including ",
+        href: "/services/after-hours-answering",
+        linkText: "nights, weekends, and holidays",
+      },
       "Greets callers by name and pulls context from your CRM",
       "Books, confirms, and reschedules appointments on your calendar",
       "Routes urgent or high-value calls straight to your team",
       "Trained on your own scripts, tone, and FAQs",
     ],
     whoFor: "Front desks, clinics, salons, and any business where a ringing phone is a lead walking away.",
+  },
+  {
+    slug: "after-hours-answering",
+    name: "After-Hours Answering",
+    icon: FiClock,
+    image: aiReceptionistImage,
+    tagline: "Nights, weekends and holidays: every call answered, on the number you already have.",
+    metaDescription:
+      "After-hours answering in Canada. Faalak's AI voice agent answers night and weekend calls 24/7, qualifies callers and sends details by WhatsApp + SMS.",
+    description:
+      "Calls don't stop at 5 pm. Faalak's AI receptionist answers your business line after hours, on weekends and on holidays, in a natural, human-like voice, using your own FAQs in your words. It asks your screening questions, books appointments during your booking hours, and sends you each caller's name, number and reason by WhatsApp + SMS, so a late-night call becomes a lead instead of a voicemail. Faalak is a Mississauga-based AI voice agent agency serving Toronto, the GTA and businesses across Canada.",
+    highlights: [
+      "Answers every call 24/7, including nights, weekends and holidays",
+      "Keeps your existing business number",
+      "Asks your screening questions to qualify each caller",
+      "Books appointments during your booking hours",
+      "Sends the caller's name, number and reason by WhatsApp + SMS",
+    ],
+    whoFor:
+      "Massage & spa studios, furniture stores, HVAC companies, real estate teams and landscaping businesses across the GTA and Canada that get calls after the office closes.",
+    faqs: [
+      {
+        question: "Can it book appointments after hours?",
+        answer:
+          "It books appointments during your booking hours, and sends you the caller's name, number and reason by WhatsApp + SMS.",
+      },
+      {
+        question: "Can it take urgent after-hours calls, like an HVAC breakdown?",
+        answer:
+          "It asks your screening questions, records the urgency and address, and sends you the caller's name, number and reason by WhatsApp + SMS right away. It does not replace a licensed technician.",
+      },
+    ],
   },
   {
     slug: "voice-agents",
@@ -95,6 +132,7 @@ export const servicesMenu = [
       "Full call transcripts and sentiment logged automatically",
     ],
     whoFor: "Sales teams, support desks, and any business running high call volume that needs consistent quality.",
+    relatedLinks: [{ to: "/ai-voice-agents-canada", label: "AI voice agents in Canada" }],
   },
   {
     slug: "chatbot-automation",
@@ -389,6 +427,7 @@ export const industriesMenu = [
   {
     slug: "landscaping",
     name: "Landscaping",
+    headline: "AI Answering Service for Landscaping Companies in Toronto & the GTA",
     icon: FaLeaf,
     tagline: "Capture quote requests and keep crews booked through the season.",
     metaDescription:
@@ -423,6 +462,7 @@ export const industriesMenu = [
   {
     slug: "furniture-store",
     name: "Furniture Store",
+    headline: "AI Receptionist for Furniture Stores in Toronto & Canada",
     icon: FaCouch,
     tagline: "Answer stock, delivery, and custom-order questions without pulling staff off the showroom floor.",
     metaDescription:
@@ -448,7 +488,7 @@ export function findMenuItem(list, slug) {
 // into the flat arrays above instead of duplicating data, so a menu item's
 // content only ever lives in one place.
 export const servicesGroups = [
-  { title: "Voice AI", slugs: ["ai-receptionist", "voice-agents", "owner-operated-voice-agents"] },
+  { title: "Voice AI", slugs: ["ai-receptionist", "after-hours-answering", "voice-agents", "owner-operated-voice-agents"] },
   { title: "Automation", slugs: ["chatbot-automation", "ai-automation", "lead-generation"] },
   { title: "Growth & Scale", slugs: ["ai-digital-ads", "ai-enterprise-infrastructure"] },
 ];

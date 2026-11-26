@@ -11,6 +11,18 @@ import { categorySeo } from "../seo/meta";
 // content shape (tagline, description, highlights) is identical between the
 // two, so a single page keeps behavior/SEO structure consistent instead of
 // two near-duplicate components drifting apart over time.
+function HighlightLabel({ highlight }) {
+  if (typeof highlight === "string") return highlight;
+  return (
+    <>
+      {highlight.before}
+      <Link to={highlight.href} className="font-semibold text-primary underline-offset-2 hover:underline">
+        {highlight.linkText}
+      </Link>
+    </>
+  );
+}
+
 const CategoryDetail = ({ kind }) => {
   const { slug } = useParams();
   const list = kind === "service" ? servicesMenu : industriesMenu;
@@ -68,11 +80,23 @@ const CategoryDetail = ({ kind }) => {
               <item.icon className="h-7 w-7" />
             </div>
             <h1 className="font-display text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl dark:text-white">
-              {item.name}
+              {item.headline || item.name}
             </h1>
           </div>
           <p className="mt-5 text-lg font-medium text-gray-700 sm:text-xl dark:text-gray-300">{item.tagline}</p>
           <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-400">{item.description}</p>
+          {item.relatedLinks?.length ? (
+            <p className="mt-4 text-sm leading-6 text-gray-700 dark:text-gray-300">
+              {item.relatedLinks.map((link, index) => (
+                <span key={link.to}>
+                  {index > 0 ? " · " : null}
+                  <Link to={link.to} className="font-semibold text-primary underline-offset-2 hover:underline">
+                    {link.label}
+                  </Link>
+                </span>
+              ))}
+            </p>
+          ) : null}
         </motion.div>
 
         {item.image && (
@@ -100,16 +124,35 @@ const CategoryDetail = ({ kind }) => {
       >
         {item.highlights.map((highlight) => (
           <div
-            key={highlight}
+            key={typeof highlight === "string" ? highlight : highlight.linkText}
             className="flex items-start gap-3 rounded-2xl border border-gray-200 bg-white/90 p-4 shadow-[0_14px_30px_-24px_rgba(30,64,175,0.25)] dark:border-gray-700 dark:bg-gray-900/90"
           >
             <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <FiCheck className="h-3.5 w-3.5" />
             </span>
-            <span className="text-sm text-gray-700 dark:text-gray-300">{highlight}</span>
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              <HighlightLabel highlight={highlight} />
+            </span>
           </div>
         ))}
       </motion.div>
+
+      {item.faqs?.length ? (
+        <div className="mt-12 max-w-3xl">
+          <h2 className="font-display text-2xl font-semibold text-gray-900 dark:text-white">Questions</h2>
+          <div className="mt-4 space-y-3">
+            {item.faqs.map((faq) => (
+              <div
+                key={faq.question}
+                className="rounded-2xl border border-gray-200 bg-white/90 p-4 dark:border-gray-700 dark:bg-gray-900/90"
+              >
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{faq.question}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {item.whoFor && (
         <motion.p

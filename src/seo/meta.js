@@ -1,5 +1,5 @@
 export const SITE_ORIGIN = "https://www.faalak.com";
-export const SITEMAP_LASTMOD = "2026-11-25";
+export const SITEMAP_LASTMOD = "2026-11-26";
 export const OG_IMAGE_URL = `${SITE_ORIGIN}/og-banner.jpg`;
 
 export const INDEX_ROBOTS =
@@ -47,9 +47,9 @@ function webPageGraph({ title, description, path, crumbs }) {
 }
 
 export const homeSeo = {
-  title: "AI Receptionist for GTA Businesses | Faalak",
+  title: "AI Receptionist & AI Voice Agents in Canada | Faalak",
   description:
-    "Faalak's AI receptionist answers every call 24/7, books appointments and sends you the details on WhatsApp. Based in Mississauga, serving the GTA.",
+    "Faalak is a Mississauga AI receptionist provider. Our AI voice agents answer your calls 24/7 on your number, book appointments and send details by WhatsApp + SMS.",
   path: "/",
 };
 
@@ -128,14 +128,17 @@ export function homeJsonLd(faqItems) {
 
 const CATEGORY_OVERRIDES = {
   "service:ai-receptionist": {
-    title: "AI Receptionist for the GTA | After-Hours Answering",
+    title: "AI Receptionist Provider in Toronto & Canada | Faalak",
     description:
-      "AI receptionist for the GTA and Canada. Answer calls, take messages and book after hours. Based in Mississauga, serving the GTA.",
+      "An AI receptionist that answers every call 24/7 on your existing number, answers from your FAQs, books in your hours and sends details by WhatsApp + SMS.",
+  },
+  "service:after-hours-answering": {
+    title: "After-Hours Answering Service Canada | Faalak",
   },
   "service:voice-agents": {
-    title: "AI Voice Agents for the GTA | Faalak",
+    title: "AI Voice Agents in Canada for Small Business | Faalak",
     description:
-      "Custom AI voice agents for the GTA and Canada. Qualify leads, handle inbound calls and automate phone workflows. Based in Mississauga, serving the GTA.",
+      "Custom AI voice agents for Canadian businesses: answer inbound calls 24/7, qualify leads with your questions and get each caller's details by WhatsApp + SMS.",
   },
   "service:owner-operated-voice-agents": {
     title: "Owner-Operated AI Voice Agents | Faalak",
@@ -152,12 +155,63 @@ const CATEGORY_OVERRIDES = {
     description:
       "Chatbot automation for GTA and Canadian companies. Qualify visitors and hand off to voice or sales. Based in Mississauga, serving the GTA.",
   },
+  "service:ai-automation": {
+    title: "AI Automation for the GTA | Faalak",
+  },
+  "service:ai-digital-ads": {
+    title: "AI Digital Ads | Faalak",
+  },
+  "service:ai-enterprise-infrastructure": {
+    title: "AI Enterprise Infrastructure | Faalak",
+  },
+  "industry:medium-to-big-business": {
+    title: "AI Automation for Larger Teams | Faalak",
+  },
+  "industry:retail-stores": {
+    title: "AI Receptionist for Retail Stores | Faalak",
+  },
+  "industry:hospitality": {
+    title: "Hospitality Call Answering | Faalak",
+  },
+  "industry:showrooms": {
+    title: "Showroom Call Answering | Faalak",
+  },
+  "industry:physiotherapy": {
+    title: "Physiotherapy Call Answering | Faalak",
+  },
+  "industry:dental": {
+    title: "Dental Practice Call Answering | Faalak",
+  },
+  "industry:massage-and-spa": {
+    title: "AI Receptionist for Massage & Spa in Toronto | Faalak",
+    description:
+      "Faalak's AI receptionist answers spa and massage clinic calls 24/7, answers from your FAQs, books in your hours and sends details by WhatsApp + SMS.",
+  },
   "industry:hvac": {
     title: "HVAC Answering Service in Toronto & GTA | AI | Faalak",
     description:
       "Faalak's AI voice agent answers HVAC calls 24/7 on your number, flags urgent no-heat calls, books in your hours and sends details by WhatsApp + SMS.",
     serviceName: "AI answering service for HVAC companies",
     audienceType: "HVAC companies",
+  },
+  "industry:roofing": {
+    title: "Roofing Call Answering | Faalak",
+  },
+  "industry:plumbing": {
+    title: "Plumbing Call Answering | Faalak",
+  },
+  "industry:landscaping": {
+    title: "Landscaping Answering Service in Toronto & GTA | Faalak",
+    description:
+      "Never miss a quote request. Faalak's AI voice agent answers landscaping calls 24/7, asks your questions, books site visits in your hours and texts you.",
+  },
+  "industry:auto-dealership": {
+    title: "Auto Dealership Call Answering | Faalak",
+  },
+  "industry:furniture-store": {
+    title: "AI Receptionist for Furniture Stores in Canada | Faalak",
+    description:
+      "Faalak's AI receptionist answers furniture store calls 24/7 from your own FAQs, books showroom visits in your hours and sends details by WhatsApp + SMS.",
   },
   "industry:real-estate": {
     title: "AI Receptionist for Real Estate Agents in Canada | Faalak",
@@ -172,7 +226,7 @@ export function categorySeo(kind, item) {
   const base = kind === "service" ? "/services" : "/industries";
   const path = `${base}/${item.slug}`;
   const override = CATEGORY_OVERRIDES[`${kind}:${item.slug}`] ?? {};
-  const title = override.title ?? `${item.name} | Faalak AI Automation`;
+  const title = override.title ?? `${item.name} | Faalak`;
   const description = override.description ?? item.metaDescription;
   const serviceName = override.serviceName ?? item.name;
 
@@ -191,30 +245,43 @@ export function categorySeo(kind, item) {
     service.audience = { "@type": "BusinessAudience", audienceType: override.audienceType };
   }
 
+  const graph = [
+    service,
+    breadcrumbList([
+      { name: "Home", url: `${SITE_ORIGIN}/` },
+      { name: item.name, url: canonicalUrl(path) },
+    ]),
+  ];
+
+  if (Array.isArray(item.faqs) && item.faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: item.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    });
+  }
+
   return {
     title,
     description,
     path,
     jsonLd: {
       "@context": "https://schema.org",
-      "@graph": [
-        service,
-        breadcrumbList([
-          { name: "Home", url: `${SITE_ORIGIN}/` },
-          { name: item.name, url: canonicalUrl(path) },
-        ]),
-      ],
+      "@graph": graph,
     },
   };
 }
 
 export const workSeo = {
-  title: "Case Studies | Faalak AI Automation",
+  title: "Case Studies | Faalak",
   description:
     "See how Faalak's AI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster.",
   path: "/work",
   jsonLd: webPageGraph({
-    title: "Case Studies | Faalak AI Automation",
+    title: "Case Studies | Faalak",
     description:
       "See how Faalak's AI voice agents and automation helped real businesses across retail, real estate, wellness, and more capture more leads and answer faster.",
     path: "/work",
@@ -227,7 +294,7 @@ export const workSeo = {
 
 export function caseStudySeo(study) {
   const path = `/work/${study.slug}`;
-  const title = `${study.title} Case Study | Faalak AI Automation`;
+  const title = `${study.title} Case Study | Faalak`;
   const description = `${study.summary} See how Faalak's AI voice agent and automation helped this ${study.industry.toLowerCase()} business.`;
   return {
     title,
@@ -257,12 +324,12 @@ export function caseStudySeo(study) {
 }
 
 export const dataSecuritySeo = {
-  title: "Data Handling & Security Overview | Faalak AI Automation",
+  title: "Data Handling & Security | Faalak",
   description:
     "How Faalak's AI voice agent systems handle client and caller data - who builds and owns the system, where data is hosted, who has access, and compliance details.",
   path: "/data-security",
   jsonLd: webPageGraph({
-    title: "Data Handling & Security Overview | Faalak AI Automation",
+    title: "Data Handling & Security | Faalak",
     description:
       "How Faalak's AI voice agent systems handle client and caller data - who builds and owns the system, where data is hosted, who has access, and compliance details.",
     path: "/data-security",
@@ -273,9 +340,19 @@ export const dataSecuritySeo = {
   }),
 };
 
+const RESOURCE_TITLES = {
+  "case-studies": "Automation Case Study Guides | Faalak",
+  "how-it-works": "How an AI Receptionist Works: Calls, Booking, Alerts | Faalak",
+  security: "Call Data Security Guide | Faalak",
+  "guides-insights": "Guides & Insights | Faalak",
+  blog: "AI Receptionist & Voice Agent Blog | Faalak",
+  "live-demos": "Voice Agent Demo Checklist | Faalak",
+  faqs: "AI Receptionist FAQs for Canadian Businesses | Faalak",
+};
+
 export function resourceSeo(slug, topic) {
   const path = `/resources/${slug}`;
-  const title = `${topic.title} | Faalak Resources`;
+  const title = RESOURCE_TITLES[slug] ?? `${topic.title} | Faalak`;
   return {
     title,
     description: topic.description,
@@ -329,10 +406,11 @@ export function legalSeo({ title, description, path }) {
 }
 
 export const superintelligenceSeo = {
-  title: "What Is Superintelligence? Understanding the Next AI Frontier | Faalak",
+  title: "What Is Superintelligence? | Faalak",
   description:
     "A clear guide to superintelligence: what SI means, how it differs from today's AI, and how businesses can adopt automation responsibly.",
   path: "/blog/superintelligence",
+  indexable: false,
   type: "article",
   jsonLd: {
     "@context": "https://schema.org",
@@ -354,6 +432,66 @@ export const superintelligenceSeo = {
           name: "What Is Superintelligence? Understanding the Next AI Frontier",
           url: canonicalUrl("/blog/superintelligence"),
         },
+      ]),
+    ],
+  },
+};
+
+export const voiceAgentsCanadaFaqs = [
+  {
+    question: "What is an AI voice agent?",
+    answer:
+      "An AI voice agent is software that answers phone calls in natural conversation. It handles common questions, books appointments and captures leads.",
+  },
+  {
+    question: "Do you serve businesses outside Toronto?",
+    answer: "Yes. Faalak is based in Mississauga and serves businesses in Toronto, the GTA and across Canada.",
+  },
+  {
+    question: "Can it book appointments?",
+    answer: "Yes. It books appointments during the booking hours you set.",
+  },
+  {
+    question: "What happens with urgent calls?",
+    answer: "The agent flags them, and the caller's details reach you right away by WhatsApp + SMS.",
+  },
+  {
+    question: "Do I need a new phone number?",
+    answer: "No. It answers on your existing number.",
+  },
+  {
+    question: "How do I get started?",
+    answer: "Call +1 416-910-4547 to hear a live demo, then book a consultation and we'll map out your setup.",
+  },
+];
+
+export const voiceAgentsCanadaSeo = {
+  title: "AI Voice Agents in Canada | 24/7 Call Answering | Faalak",
+  description:
+    "Faalak builds AI voice agents for Canadian businesses. Answer every call 24/7, qualify leads, book appointments and get call summaries by WhatsApp + SMS.",
+  path: "/ai-voice-agents-canada",
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        serviceType: "AI voice agent",
+        name: "AI Voice Agents in Canada",
+        provider: { "@id": `${SITE_ORIGIN}/#organization` },
+        areaServed: { "@type": "Country", name: "Canada" },
+        url: canonicalUrl("/ai-voice-agents-canada"),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: voiceAgentsCanadaFaqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+      breadcrumbList([
+        { name: "Home", url: `${SITE_ORIGIN}/` },
+        { name: "AI Voice Agents in Canada", url: canonicalUrl("/ai-voice-agents-canada") },
       ]),
     ],
   },

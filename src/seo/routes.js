@@ -3,9 +3,12 @@ import { industriesMenu, servicesMenu } from "../data/menuData";
 import { resourceTopics } from "../data/resourceTopics";
 import { SITEMAP_LASTMOD, canonicalUrl } from "./meta.js";
 
+export const NOINDEX_PATHS = ["/blog/superintelligence"];
+
 export function indexablePaths() {
   const paths = [
     "/",
+    "/ai-voice-agents-canada",
     ...servicesMenu.map((item) => `/services/${item.slug}`),
     ...industriesMenu.map((item) => `/industries/${item.slug}`),
     "/work",
@@ -15,7 +18,6 @@ export function indexablePaths() {
     "/book-appointment",
     "/privacy",
     "/terms",
-    "/blog/superintelligence",
   ];
 
   const seen = new Set();
